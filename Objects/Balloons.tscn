@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var count
+
+func set_count(n):
+	if n < 0 or n > 5:
+		return
+	count = n
+	$Label.text = str(n)
+"
+
+[node name="Balloons" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 33.2498
+margin_top = 7.59995
+margin_right = 73.2498
+margin_bottom = 21.5999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )

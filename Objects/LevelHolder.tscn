@@ -1,0 +1,126 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var _go = false
+export var speed = 5
+export var _start_automatically = false
+export var _cat_hp = 5
+export var _cat_speed = 3
+signal died()
+
+func _ready():
+	call_deferred(\"setup\")
+	
+func setup():
+	$camera.current = true
+	if _start_automatically: start()
+	$cat.set_max_hp(_cat_hp)
+	$cat.speed = _cat_speed
+	$cat.connect(\"died\", self, \"_cat_died\")
+	
+
+func start():
+	_go = true
+
+func _physics_process(delta):
+	if _go:
+		position.x += speed
+
+func _cat_died():
+	emit_signal(\"died\")
+
+func get_spawn_pos():
+	return get_node(\"Spawner\").global_position
+
+func spawn(ypos, node: Node2D):
+	var spawn_pos = get_spawn_pos() + Vector2(0, ypos)
+	node.position = spawn_pos
+	get_parent().add_child(node)
+	
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Area2D
+
+func _ready():
+	connect(\"body_shape_entered\", self, \"enter\")
+
+func enter(body_id, body, body_shape, area_shape):
+	if body.has_method(\"destruct\"):
+		body.destruct()
+	else:
+		body.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 69.89, 67.4558 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 113.549, 30.6906 )
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Area2D
+
+func _ready():
+	call_deferred(\"setup\")
+	
+func setup():
+	connect(\"area_shape_entered\", self, \"_read\")
+
+func _read(body_id, body : Node2D, shape_id, shape):
+	if body.has_node(\"scenario\") and body.has_method(\"scenario\"):
+		body.call(\"scenario\", get_parent()) # Call scenario(leve_holder)
+		body.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id=6]
+
+[node name="LevelHolder" type="Node2D"]
+script = SubResource( 1 )
+speed = 3
+_start_automatically = true
+
+[node name="camera" type="Camera2D" parent="."]
+
+[node name="cat" parent="." instance=ExtResource( 1 )]
+position = Vector2( -125.003, -1.39667 )
+
+[node name="Min_W" type="Node2D" parent="."]
+position = Vector2( -175.283, -7.68173 )
+
+[node name="Min_H" type="Node2D" parent="."]
+position = Vector2( -179.473, -121.511 )
+
+[node name="Max_W" type="Node2D" parent="."]
+position = Vector2( -74.0239, -7.68173 )
+
+[node name="Max_H" type="Node2D" parent="."]
+position = Vector2( -171.791, 67.7385 )
+
+[node name="Destructor" type="Area2D" parent="."]
+position = Vector2( -275.333, 4.58447 )
+scale = Vector2( 2.58016, 4.83407 )
+script = SubResource( 2 )
+
+[node name="shape" type="CollisionShape2D" parent="Destructor"]
+position = Vector2( -89.2414, -31.2726 )
+shape = SubResource( 3 )
+
+[node name="shape2" type="CollisionShape2D" parent="Destructor"]
+position = Vector2( 84.8256, 67.6292 )
+shape = SubResource( 4 )
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2( 342.54, -115.408 )
+
+[node name="LevelReader" type="Area2D" parent="."]
+position = Vector2( 257.681, 82.1414 )
+script = SubResource( 5 )
+
+[node name="shape" type="CollisionShape2D" parent="LevelReader"]
+scale = Vector2( 5.4139, 6.85515 )
+shape = SubResource( 6 )

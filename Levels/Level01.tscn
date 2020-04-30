@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/SimpleEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+
+func scenario(holder):
+	holder.spawn(100, load(\"res://Objects/Balloons.tscn\").instance())
+	print(\"YES! This is work! Scenario NUMBER ONE!\")
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Area2D
+
+func scenario(holder):
+	print(\"NUMBER TWO SCENARIO!\")
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Area2D
+
+func scenario(holder):
+	print(\"YUP! Number THREE!\")
+"
+
+[node name="Level" type="Node2D"]
+
+[node name="LevelHolder" parent="." instance=ExtResource( 1 )]
+position = Vector2( 202.105, 149.474 )
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="SimpleEnemy" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 430.805, 102.586 )
+
+[node name="SimpleEnemy2" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 614.472, 112.608 )
+
+[node name="SimpleEnemy3" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 927.226, 114.459 )
+
+[node name="SimpleEnemy5" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1149.3, 127.413 )
+
+[node name="SimpleEnemy6" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1356.57, 110.757 )
+
+[node name="SimpleEnemy7" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1534.23, 110.757 )
+
+[node name="SimpleEnemy8" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 1872.89, 110.757 )
+
+[node name="SimpleEnemy9" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 2126.43, 112.608 )
+
+[node name="SimpleEnemy4" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( 755.119, 108.907 )
+
+[node name="Scenarios" type="Node2D" parent="."]
+
+[node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
+position = Vector2( 748.251, 259.83 )
+script = SubResource( 1 )
+
+[node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 3 )]
+position = Vector2( 1130.92, 245.48 )
+script = SubResource( 2 )
+
+[node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
+position = Vector2( 1551.85, 250.263 )
+script = SubResource( 3 )
