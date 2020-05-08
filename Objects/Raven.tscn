@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="Raven" type="Node2D"]
+
+[node name="Raven_kinema" type="KinematicBody2D" parent="."]
+
+[node name="Raven_Sprite" type="Sprite" parent="Raven_kinema"]
+
+[node name="Raven_Colis" type="CollisionShape2D" parent="Raven_kinema"]
