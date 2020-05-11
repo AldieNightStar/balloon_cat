@@ -30,7 +30,7 @@ func scenario(holder):
 [node name="Level" type="Node2D"]
 
 [node name="LevelHolder" parent="." instance=ExtResource( 1 )]
-position = Vector2( 308.078, 198.583 )
+position = Vector2( 198.227, 148.181 )
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -76,16 +76,18 @@ position = Vector2( 1539.89, -376.348 )
 script = SubResource( 3 )
 
 [node name="Raven" parent="." instance=ExtResource( 4 )]
-position = Vector2( 439.985, 188.362 )
+position = Vector2( 430.938, 108.236 )
 
 [node name="Raven2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 629.076, 184.28 )
+position = Vector2( 620.029, 104.154 )
+y_velocity = -1
 
 [node name="Raven3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 748.788, 195.164 )
+position = Vector2( 739.742, 115.038 )
 
 [node name="Raven4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 844.014, 197.885 )
+position = Vector2( 834.967, 117.759 )
+y_velocity = -1
 
 [node name="Raven5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 914.753, 197.885 )
+position = Vector2( 905.706, 117.759 )
