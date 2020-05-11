@@ -1,42 +1,67 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Objects/Raven.gd" type="Script" id=1]
-[ext_resource path="res://assets/raven1.png" type="Texture" id=2]
-[ext_resource path="res://assets/raven2.png" type="Texture" id=3]
+[ext_resource path="res://assets/raven1.png" type="Texture" id=1]
+[ext_resource path="res://assets/raven2.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+export var max_pos = 400
+var side = 0.5
+var hp = 1
+var speed = 0.5
+var dead = false
+
+func _ready():
+	fly()
+
+func _process(delta):
+	var c = move_and_collide(Vector2(-speed, 0))
+	if c:
+		_atack(c.collider)
+	
+	
+	
+	if dead == true:
+		position.y += 1
+		rotation += 1
+
+func fly():
+	$AnimatedSprite.play(\"fly\")
+
+func _atack(body):
+	print(body.name)
+	if body.has_method(\"damage\"):
+		body.damage(1)
+		self.add_collision_exception_with(body)
+		
+func damage(n):
+	hp -= n
+	if hp <= 0:
+		dead = true
+
+"
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.2594, 15.4324 )
+extents = Vector2( 17.0363, 14.1431 )
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "fly",
-"speed": 5.0
+"speed": 2.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8.92282, 14.769 )
+[node name="Raven_kinema" type="KinematicBody2D"]
+script = SubResource( 1 )
 
-[node name="Raven" type="Node2D"]
-position = Vector2( 364.201, 59.0757 )
-script = ExtResource( 1 )
-
-[node name="Raven_kinema" type="KinematicBody2D" parent="."]
-
-[node name="Raven_Colis" type="CollisionShape2D" parent="Raven_kinema"]
-position = Vector2( -10.094, 0.356071 )
+[node name="Raven_Colis" type="CollisionShape2D" parent="."]
+position = Vector2( 1.4851, 2.05888 )
 shape = SubResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Raven_kinema"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.970825, 1.58549 )
-frames = SubResource( 1 )
+frames = SubResource( 3 )
 animation = "fly"
-
-[node name="Area2D" type="Area2D" parent="Raven_kinema"]
-position = Vector2( 8.60599, 0 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Raven_kinema/Area2D"]
-position = Vector2( 0.922119, -7.62939e-006 )
-shape = SubResource( 3 )
-[connection signal="body_shape_entered" from="Raven_kinema/Area2D" to="." method="_on_Area2D_body_shape_entered"]
+speed_scale = 0.5

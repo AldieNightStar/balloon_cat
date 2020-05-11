@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/SimpleEnemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
@@ -49,46 +49,6 @@ position = Vector2( 1137.34, -499.198 )
 [node name="SimpleEnemy6" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( 1344.61, -515.854 )
 
-[node name="Raven" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -471.82, 694.676 )
-max_pos = 599
-
-[node name="Raven2" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -27.2516, 782.556 )
-max_pos = 599
-
-[node name="Raven3" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -617.855, 613.258 )
-max_pos = 599
-
-[node name="Raven4" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -408.495, 615.843 )
-max_pos = 599
-
-[node name="Raven5" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -677.303, 538.302 )
-max_pos = 599
-
-[node name="Raven6" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( 165.309, 844.589 )
-max_pos = 599
-
-[node name="Raven7" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( 67.0902, 761.879 )
-max_pos = 599
-
-[node name="Raven8" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -267.629, 637.813 )
-max_pos = 599
-
-[node name="Raven9" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -527.391, 571.903 )
-max_pos = 599
-
-[node name="Raven10" parent="Items/SimpleEnemy6" instance=ExtResource( 3 )]
-position = Vector2( -143.563, 720.523 )
-max_pos = 599
-
 [node name="SimpleEnemy7" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( 1522.27, -515.854 )
 
@@ -103,14 +63,29 @@ position = Vector2( 743.161, -517.704 )
 
 [node name="Scenarios" type="Node2D" parent="."]
 
-[node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 4 )]
+[node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
 position = Vector2( 736.293, -366.781 )
 script = SubResource( 1 )
 
-[node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 4 )]
+[node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 3 )]
 position = Vector2( 1118.96, -381.131 )
 script = SubResource( 2 )
 
-[node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 4 )]
+[node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
 position = Vector2( 1539.89, -376.348 )
 script = SubResource( 3 )
+
+[node name="Raven" parent="." instance=ExtResource( 4 )]
+position = Vector2( 439.985, 188.362 )
+
+[node name="Raven2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 629.076, 184.28 )
+
+[node name="Raven3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 748.788, 195.164 )
+
+[node name="Raven4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 844.014, 197.885 )
+
+[node name="Raven5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 914.753, 197.885 )
