@@ -81,6 +81,7 @@ func _read(body_id, body : Node2D, shape_id, shape):
 [sub_resource type="RectangleShape2D" id=6]
 
 [node name="LevelHolder" type="Node2D"]
+position = Vector2( 401.582, 198.015 )
 script = SubResource( 1 )
 speed = 3
 _start_automatically = true

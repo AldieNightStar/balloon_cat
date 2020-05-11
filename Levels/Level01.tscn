@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/SimpleEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
@@ -29,47 +30,62 @@ func scenario(holder):
 [node name="Level" type="Node2D"]
 
 [node name="LevelHolder" parent="." instance=ExtResource( 1 )]
-position = Vector2( 202.105, 149.474 )
+position = Vector2( 308.078, 198.583 )
 
 [node name="Items" type="Node2D" parent="."]
 
 [node name="SimpleEnemy" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 430.805, 102.586 )
+position = Vector2( 418.847, -524.025 )
 
 [node name="SimpleEnemy2" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 614.472, 112.608 )
+position = Vector2( 602.514, -514.003 )
 
 [node name="SimpleEnemy3" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 927.226, 114.459 )
+position = Vector2( 915.268, -512.152 )
 
 [node name="SimpleEnemy5" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1149.3, 127.413 )
+position = Vector2( 1137.34, -499.198 )
 
 [node name="SimpleEnemy6" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1356.57, 110.757 )
+position = Vector2( 1344.61, -515.854 )
 
 [node name="SimpleEnemy7" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1534.23, 110.757 )
+position = Vector2( 1522.27, -515.854 )
 
 [node name="SimpleEnemy8" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1872.89, 110.757 )
+position = Vector2( 1860.93, -515.854 )
 
 [node name="SimpleEnemy9" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 2126.43, 112.608 )
+position = Vector2( 2114.47, -514.003 )
 
 [node name="SimpleEnemy4" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 755.119, 108.907 )
+position = Vector2( 743.161, -517.704 )
 
 [node name="Scenarios" type="Node2D" parent="."]
 
 [node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 748.251, 259.83 )
+position = Vector2( 736.293, -366.781 )
 script = SubResource( 1 )
 
 [node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 1130.92, 245.48 )
+position = Vector2( 1118.96, -381.131 )
 script = SubResource( 2 )
 
 [node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 1551.85, 250.263 )
+position = Vector2( 1539.89, -376.348 )
 script = SubResource( 3 )
+
+[node name="Raven" parent="." instance=ExtResource( 4 )]
+position = Vector2( 439.985, 188.362 )
+
+[node name="Raven2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 629.076, 184.28 )
+
+[node name="Raven3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 748.788, 195.164 )
+
+[node name="Raven4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 844.014, 197.885 )
+
+[node name="Raven5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 914.753, 197.885 )
