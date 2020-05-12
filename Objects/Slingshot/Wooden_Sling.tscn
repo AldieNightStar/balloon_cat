@@ -10,7 +10,7 @@ func fire(player: Node2D, level: Node2D):
 	rock.speed = 20
 	rock.damage_val = 1
 	# Adding rock to the Screen
-	rock.global_position = player.global_position + Vector2(25, 0)
+	rock.global_position = get_parent().global_position + Vector2(5, 0)
 	level.add_child(rock)
 "
 
