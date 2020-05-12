@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/raven2.png-18e0988797fb509ad17238ecf9df6150.stex"
+path="res://.import/rock.png-8fa6f79882034008d3298f8bf2aacd36.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/raven2.png"
-dest_files=[ "res://.import/raven2.png-18e0988797fb509ad17238ecf9df6150.stex" ]
+source_file="res://assets/SlingShot/rock.png"
+dest_files=[ "res://.import/rock.png-8fa6f79882034008d3298f8bf2aacd36.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

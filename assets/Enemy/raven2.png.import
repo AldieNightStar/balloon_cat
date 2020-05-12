@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/raven1.png-8910a1641556ac7301b0e9fa82cc495c.stex"
+path="res://.import/raven2.png-8ec4a51dd94a511b591aeb8d434c7fc8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/raven1.png"
-dest_files=[ "res://.import/raven1.png-8910a1641556ac7301b0e9fa82cc495c.stex" ]
+source_file="res://assets/Enemy/raven2.png"
+dest_files=[ "res://.import/raven2.png-8ec4a51dd94a511b591aeb8d434c7fc8.stex" ]
 
 [params]
 
