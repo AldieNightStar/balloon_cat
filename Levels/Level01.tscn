@@ -91,3 +91,20 @@ y_velocity = -1
 
 [node name="Raven5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 905.706, 117.759 )
+
+[node name="Raven10" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1400.16, 115.773 )
+
+[node name="Raven9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1589.25, 111.691 )
+y_velocity = -1
+
+[node name="Raven8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1708.96, 122.575 )
+
+[node name="Raven7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1804.19, 125.296 )
+y_velocity = -1
+
+[node name="Raven6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1874.93, 125.296 )

@@ -81,6 +81,7 @@ func damage(n):
 	if hp < 1:
 		destruct()
 	_set_balloons(hp)
+	make_invincible()
 
 func destruct():
 	emit_signal(\"died\")
@@ -110,9 +111,11 @@ func _set_balloons(n):
 	$g/Balloons.set_count(n)
 
 func sling_fire():
-	$g/hand/slingPos/sling.fire(self)
+	$g/hand/slingPos/sling.fire(self, self.get_parent().get_parent())
 
 func fire():
+	if catAnimation.current_animation != \"Fire\":
+		sling_fire()
 	catAnimation.play(\"Fire\")
 
 func cat_ani_finish(name):
@@ -281,20 +284,6 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0, 0.0, -30.0, 0.0 ]
-}
-tracks/12/type = "method"
-tracks/12/path = NodePath("..")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "sling_fire"
-} ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -500,30 +489,31 @@ position = Vector2( 2.39333, -49.3807 )
 scale = Vector2( 1.17858, 1.05904 )
 
 [node name="hvist" type="Sprite" parent="g"]
-position = Vector2( -13.1503, -22.9923 )
-rotation = 1.309
+position = Vector2( -12.93, -25.5265 )
+rotation = 1.5708
 scale = Vector2( 1.50701, 1.29343 )
 texture = ExtResource( 5 )
 
 [node name="body" type="Sprite" parent="g"]
-position = Vector2( 3.62842, -22.419 )
-rotation = 0.785396
+position = Vector2( 2.74696, -22.9699 )
+rotation = 0.654498
 scale = Vector2( 0.954894, 1 )
 texture = ExtResource( 6 )
 
 [node name="Head" type="Sprite" parent="g"]
 position = Vector2( 11.7254, -38.8341 )
+rotation = 0.0174533
 scale = Vector2( 0.885365, 1.05172 )
 texture = ExtResource( 1 )
 
 [node name="leg" type="Sprite" parent="g"]
-position = Vector2( -6.39077, -11.0118 )
-rotation = 0.523599
+position = Vector2( -4.87577, -11.3424 )
+rotation = 0.327249
 scale = Vector2( 1.17404, 1.03883 )
 texture = ExtResource( 3 )
 
 [node name="hand" type="Sprite" parent="g"]
-position = Vector2( 13.5357, -24.0887 )
+position = Vector2( 12.7327, -25.364 )
 scale = Vector2( 1.33606, 1.36727 )
 texture = ExtResource( 4 )
 
@@ -534,7 +524,7 @@ position = Vector2( 9.26, -1.581 )
 z_index = -1
 
 [node name="hand2" type="Sprite" parent="g"]
-position = Vector2( 14.7939, -28.7349 )
+position = Vector2( 14.6361, -28.5771 )
 scale = Vector2( 1.33606, 1.36727 )
 z_index = -2
 texture = ExtResource( 4 )

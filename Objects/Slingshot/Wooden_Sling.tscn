@@ -5,14 +5,13 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
-func fire(player: Node2D):
+func fire(player: Node2D, level: Node2D):
 	var rock = load(\"res://Objects/Rock.tscn\").instance()
 	rock.speed = 20
 	rock.damage_val = 1
-	var level_parent = player.get_parent().get_parent()
 	# Adding rock to the Screen
 	rock.global_position = player.global_position + Vector2(25, 0)
-	level_parent.add_child(rock)
+	level.add_child(rock)
 "
 
 [node name="Wood_Sling" type="Node2D"]
