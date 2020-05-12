@@ -8,7 +8,7 @@ script/source = "extends Node2D
 var _go = false
 export var speed = 5
 export var _start_automatically = false
-export var _cat_hp = 5
+export var _cat_hp = 3
 export var _cat_speed = 3
 signal died()
 
@@ -21,7 +21,6 @@ func setup():
 	$cat.set_max_hp(_cat_hp)
 	$cat.speed = _cat_speed
 	$cat.connect(\"died\", self, \"_cat_died\")
-	
 
 func start():
 	_go = true
@@ -40,7 +39,9 @@ func spawn(ypos, node: Node2D):
 	var spawn_pos = get_spawn_pos() + Vector2(0, ypos)
 	node.position = spawn_pos
 	get_parent().add_child(node)
-	
+
+func change_sling(sling: Node2D):
+	$cat.change_sling(sling)
 "
 
 [sub_resource type="GDScript" id=2]
@@ -80,6 +81,7 @@ func _read(body_id, body : Node2D, shape_id, shape):
 [sub_resource type="RectangleShape2D" id=6]
 
 [node name="LevelHolder" type="Node2D"]
+position = Vector2( 401.582, 198.015 )
 script = SubResource( 1 )
 speed = 3
 _start_automatically = true
