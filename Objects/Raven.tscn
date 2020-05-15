@@ -15,8 +15,10 @@ var min_pos_y
 var max_pos_y
 export var diapazone : int = 50
 export var y_velocity : int = 1
+var collis
 
 func _ready():
+	collis = get_node(\"Raven_Colis\")
 	min_pos_y = global_position.y - diapazone
 	max_pos_y = global_position.y + diapazone
 	fly()
@@ -28,6 +30,7 @@ func _process(delta):
 	if dead:
 		position.y += 5
 		rotation += 1
+		collis.disabled = true
 	_do_velocity()
 
 func _do_velocity():
