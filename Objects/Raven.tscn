@@ -13,9 +13,9 @@ var speed = 0.5
 var dead = false
 var min_pos_y
 var max_pos_y
+var collis
 export var diapazone : int = 50
 export var y_velocity : int = 1
-var collis
 
 func _ready():
 	collis = get_node(\"Raven_Colis\")
@@ -26,11 +26,10 @@ func _ready():
 func _process(delta):
 	var c = move_and_collide(Vector2(-speed, 0))
 	if c && !dead:
-		_atack(c.collider)
+		_attack(c.collider)
 	if dead:
-		position.y += 5
+		position.y += speed * 10
 		rotation += 1
-		collis.disabled = true
 	_do_velocity()
 
 func _do_velocity():
@@ -41,7 +40,7 @@ func _do_velocity():
 func fly():
 	$AnimatedSprite.play(\"fly\")
 
-func _atack(body):
+func _attack(body):
 	print(body.name)
 	if body.has_method(\"damage\"):
 		body.damage(1)
@@ -53,7 +52,9 @@ func destruct():
 func damage(n):
 	hp -= n
 	if hp <= 0:
+		$Raven_Colis.disabled = true
 		dead = true
+		collis.disabled = true
 
 "
 
