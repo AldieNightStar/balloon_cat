@@ -93,11 +93,12 @@ func dead():
 	dead = true
 	catAnimation.play(\"Dead\")
 
-func add_helth(n):
-	if hp <= 5:
-		hp += n
-		_set_balloons(hp)
-		make_invincible()
+func add_health(n):
+	hp += n
+	print(n, \" \", hp)
+	if hp > max_hp:
+		hp = max_hp
+	_set_balloons(hp)
 
 func destruct():
 	emit_signal(\"died\")
