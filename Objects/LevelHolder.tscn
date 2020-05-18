@@ -89,7 +89,7 @@ _start_automatically = true
 [node name="camera" type="Camera2D" parent="."]
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -125.003, -1.39667 )
+position = Vector2( -125.003, -1.13315 )
 
 [node name="Min_W" type="Node2D" parent="."]
 position = Vector2( -175.283, -7.68173 )
@@ -113,7 +113,7 @@ position = Vector2( -89.2414, -31.2726 )
 shape = SubResource( 3 )
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( 84.8256, 67.6292 )
+position = Vector2( 82.673, 73.5082 )
 shape = SubResource( 4 )
 
 [node name="Spawner" type="Node2D" parent="."]
