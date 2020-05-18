@@ -94,6 +94,7 @@ position = Vector2( 401.582, 198.015 )
 script = SubResource( 1 )
 speed = 3
 _start_automatically = true
+_cat_hp = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
