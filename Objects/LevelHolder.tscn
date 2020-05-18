@@ -98,6 +98,7 @@ _start_automatically = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="score" type="Label" parent="CanvasLayer"]
+modulate = Color( 1, 0, 0, 1 )
 margin_right = 35.0
 margin_bottom = 14.0
 rect_scale = Vector2( 2, 2 )
