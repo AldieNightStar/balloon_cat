@@ -10,7 +10,6 @@ func _ready():
 
 func _on_Bonus_balloon_body_shape_entered(body_id, body, body_shape, area_shape):
 	if body.has_method(\"add_health\") and body.has_method(\"make_invincible\"):
-		print(body.hp)
 		body.add_health(1)
 		body.make_invincible()
 		queue_free()

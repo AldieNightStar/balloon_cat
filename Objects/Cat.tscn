@@ -95,7 +95,6 @@ func dead():
 
 func add_health(n):
 	hp += n
-	print(n, \" \", hp)
 	if hp > max_hp:
 		hp = max_hp
 	_set_balloons(hp)
