@@ -19,15 +19,11 @@ config/name="BalloonCat"
 run/main_scene="res://Levels/Level01.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-G="*res://Objects/Global.gd"
-
 [display]
 
-window/size/width=800
-window/size/height=400
-window/size/test_width=1200
+window/size/width=400
+window/size/height=300
+window/size/test_width=800
 window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"

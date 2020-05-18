@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Bonus_balloon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 
@@ -41,10 +42,10 @@ position = Vector2( 620.029, 104.154 )
 y_velocity = -1
 
 [node name="Raven3" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 739.742, 115.038 )
+position = Vector2( 1128.26, 121.854 )
 
 [node name="Raven4" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 834.967, 117.759 )
+position = Vector2( 2420.75, 139.215 )
 y_velocity = -1
 
 [node name="Raven5" parent="Items" instance=ExtResource( 4 )]
@@ -58,14 +59,14 @@ position = Vector2( 1589.25, 111.691 )
 y_velocity = -1
 
 [node name="Raven8" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1708.96, 122.575 )
+position = Vector2( 1827.4, 129.977 )
 
 [node name="Raven7" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1804.19, 125.296 )
+position = Vector2( 1974.59, 148.017 )
 y_velocity = -1
 
 [node name="Raven6" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1874.93, 125.296 )
+position = Vector2( 2304.42, 131.947 )
 
 [node name="Scenarios" type="Node2D" parent="."]
 
@@ -80,3 +81,12 @@ script = SubResource( 2 )
 [node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
 position = Vector2( 1364.43, 240.479 )
 script = SubResource( 3 )
+
+[node name="Bonus_balloon" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1279.61, 168.663 )
+
+[node name="Bonus_balloon2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 751.317, 172.189 )
+
+[node name="Bonus_balloon3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2165.27, 189.569 )

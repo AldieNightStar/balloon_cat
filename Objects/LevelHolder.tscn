@@ -29,7 +29,7 @@ func start():
 func _physics_process(delta):
 	if _go:
 		position.x += speed
-	$CanvasLayer/score.text = 'SCORE: '+str(G.score)
+	
 func _cat_died():
 	emit_signal(\"died\")
 
