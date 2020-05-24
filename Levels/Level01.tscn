@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Objects/Bonus_balloon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 
@@ -13,20 +12,6 @@ func scenario(holder):
 	print(\"YES! This is work! Scenario NUMBER ONE!\")
 "
 
-[sub_resource type="GDScript" id=2]
-script/source = "extends Area2D
-
-func scenario(holder):
-	print(\"NUMBER TWO SCENARIO!\")
-"
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends Area2D
-
-func scenario(holder):
-	print(\"YUP! Number THREE!\")
-"
-
 [node name="Level" type="Node2D"]
 
 [node name="LevelHolder" parent="." instance=ExtResource( 1 )]
@@ -34,59 +19,23 @@ position = Vector2( 198.227, 148.181 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Raven" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 430.938, 108.236 )
+[node name="Raven1" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 727.518, 100.761 )
+diapazone = 75
+y_velocity = -4
 
 [node name="Raven2" parent="Items" instance=ExtResource( 4 )]
 position = Vector2( 620.029, 104.154 )
-y_velocity = -1
+diapazone = 75
+y_velocity = -5
 
 [node name="Raven3" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1128.26, 121.854 )
-
-[node name="Raven4" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 2420.75, 139.215 )
-y_velocity = -1
-
-[node name="Raven5" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 905.706, 117.759 )
-
-[node name="Raven10" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1400.16, 115.773 )
-
-[node name="Raven9" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1589.25, 111.691 )
-y_velocity = -1
-
-[node name="Raven8" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1827.4, 129.977 )
-
-[node name="Raven7" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 1974.59, 148.017 )
-y_velocity = -1
-
-[node name="Raven6" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 2304.42, 131.947 )
+position = Vector2( 522.623, 110.942 )
+diapazone = 75
+y_velocity = -4
 
 [node name="Scenarios" type="Node2D" parent="."]
 
 [node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 560.829, 250.046 )
+position = Vector2( 560.829, 252.204 )
 script = SubResource( 1 )
-
-[node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 943.496, 235.696 )
-script = SubResource( 2 )
-
-[node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 1364.43, 240.479 )
-script = SubResource( 3 )
-
-[node name="Bonus_balloon" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1279.61, 168.663 )
-
-[node name="Bonus_balloon2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 751.317, 172.189 )
-
-[node name="Bonus_balloon3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2165.27, 189.569 )
