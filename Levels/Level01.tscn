@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Objects/SimpleEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 
@@ -9,22 +8,8 @@
 script/source = "extends Area2D
 
 func scenario(holder):
-	holder.spawn(100, load(\"res://Objects/Balloons.tscn\").instance())
+	# holder.spawn(100, load(\"res://Objects/Balloons.tscn\").instance())
 	print(\"YES! This is work! Scenario NUMBER ONE!\")
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Area2D
-
-func scenario(holder):
-	print(\"NUMBER TWO SCENARIO!\")
-"
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends Area2D
-
-func scenario(holder):
-	print(\"YUP! Number THREE!\")
 "
 
 [node name="Level" type="Node2D"]
@@ -34,77 +19,23 @@ position = Vector2( 198.227, 148.181 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="SimpleEnemy" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 418.847, -524.025 )
+[node name="Raven1" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 727.518, 100.761 )
+diapazone = 75
+y_velocity = -4
 
-[node name="SimpleEnemy2" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 602.514, -514.003 )
+[node name="Raven2" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 620.029, 104.154 )
+diapazone = 75
+y_velocity = -5
 
-[node name="SimpleEnemy3" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 915.268, -512.152 )
-
-[node name="SimpleEnemy5" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1137.34, -499.198 )
-
-[node name="SimpleEnemy6" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1344.61, -515.854 )
-
-[node name="SimpleEnemy7" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1522.27, -515.854 )
-
-[node name="SimpleEnemy8" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1860.93, -515.854 )
-
-[node name="SimpleEnemy9" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 2114.47, -514.003 )
-
-[node name="SimpleEnemy4" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 743.161, -517.704 )
+[node name="Raven3" parent="Items" instance=ExtResource( 4 )]
+position = Vector2( 522.623, 110.942 )
+diapazone = 75
+y_velocity = -4
 
 [node name="Scenarios" type="Node2D" parent="."]
 
 [node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 736.293, -366.781 )
+position = Vector2( 560.829, 252.204 )
 script = SubResource( 1 )
-
-[node name="ScenarioNode2" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 1118.96, -381.131 )
-script = SubResource( 2 )
-
-[node name="ScenarioNode3" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 1539.89, -376.348 )
-script = SubResource( 3 )
-
-[node name="Raven" parent="." instance=ExtResource( 4 )]
-position = Vector2( 430.938, 108.236 )
-
-[node name="Raven2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 620.029, 104.154 )
-y_velocity = -1
-
-[node name="Raven3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 739.742, 115.038 )
-
-[node name="Raven4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 834.967, 117.759 )
-y_velocity = -1
-
-[node name="Raven5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 905.706, 117.759 )
-
-[node name="Raven10" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1400.16, 115.773 )
-
-[node name="Raven9" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1589.25, 111.691 )
-y_velocity = -1
-
-[node name="Raven8" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1708.96, 122.575 )
-
-[node name="Raven7" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1804.19, 125.296 )
-y_velocity = -1
-
-[node name="Raven6" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1874.93, 125.296 )

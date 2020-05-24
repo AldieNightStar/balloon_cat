@@ -1,22 +1,27 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Enemy/raven1.png" type="Texture" id=1]
 [ext_resource path="res://assets/Enemy/raven2.png" type="Texture" id=2]
+[ext_resource path="res://assets/Enemy/raven4.png" type="Texture" id=3]
+[ext_resource path="res://assets/Enemy/raven3.png" type="Texture" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
 export var max_pos = 400
-var side = 0.5
-var hp = 1
-var speed = 0.5
-var dead = false
-var min_pos_y
-var max_pos_y
+export var speed = 0.5
 export var diapazone : int = 50
 export var y_velocity : int = 1
 
+var side = 0.5
+var hp = 1
+var dead = false
+var min_pos_y
+var max_pos_y
+var collis
+
 func _ready():
+	collis = get_node(\"Raven_Colis\")
 	min_pos_y = global_position.y - diapazone
 	max_pos_y = global_position.y + diapazone
 	fly()
@@ -24,11 +29,12 @@ func _ready():
 func _process(delta):
 	var c = move_and_collide(Vector2(-speed, 0))
 	if c && !dead:
-		_atack(c.collider)
+		_attack(c.collider)
 	if dead:
 		position.y += 5
 		rotation += 1
-	_do_velocity()
+	else:
+		_do_velocity()
 
 func _do_velocity():
 	move_and_collide(Vector2(0, y_velocity))
@@ -38,9 +44,8 @@ func _do_velocity():
 func fly():
 	$AnimatedSprite.play(\"fly\")
 
-func _atack(body):
-	print(body.name)
-	if body.has_method(\"damage\"):
+func _attack(body):
+	if body.has_method(\"damage\") and body.get(\"is_player\"):
 		body.damage(1)
 		self.add_collision_exception_with(body)
 
@@ -50,7 +55,9 @@ func destruct():
 func damage(n):
 	hp -= n
 	if hp <= 0:
+		$Raven_Colis.disabled = true
 		dead = true
+		collis.disabled = true
 
 "
 
@@ -59,7 +66,7 @@ extents = Vector2( 17.0363, 14.1431 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "fly",
 "speed": 2.0
@@ -77,4 +84,3 @@ shape = SubResource( 2 )
 position = Vector2( 0.970825, 1.58549 )
 frames = SubResource( 3 )
 animation = "fly"
-speed_scale = 0.5

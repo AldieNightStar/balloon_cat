@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends KinematicBody2D
+
+export var y_velocity = -15
+
+func _physics_process(delta):
+	if y_velocity > 10:
+		y_velocity = 10
+	else:
+		if y_velocity < 0:
+			y_velocity += .5
+		else:
+			y_velocity += 1
+	rotation -= .25
+	var c = move_and_collide(Vector2(0, y_velocity))
+	if c:
+		var obj = c.collider
+		if obj.has_method(\"damage\") and obj.get(\"is_player\"):
+			c.collider.damage(1)
+			queue_free()
+
+func destruct():
+	queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Egg" type="KinematicBody2D"]
+script = SubResource( 2 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.708234, 1.22597 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.228468, 0.399693 )
+texture = ExtResource( 1 )

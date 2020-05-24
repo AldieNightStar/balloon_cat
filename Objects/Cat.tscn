@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/Player/head.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Balloons.tscn" type="PackedScene" id=2]
@@ -21,8 +21,10 @@ var max_h
 
 var hp : int
 var _setup = false
-var invicible_time = 0
+var invincible_time = 0
 var catAnimation : AnimationPlayer
+var dead = false
+var is_player = true
 
 signal died()
 signal change_invincible(isInvincible)
@@ -45,10 +47,15 @@ func setup():
 
 func _physics_process(delta):
 	if _setup:
-		kb_process(delta)
+		if !dead:
+			kb_process(delta)
 		ivincible_time_sub()
+	if dead:
+		rotation += 0.05
+		move_and_collide(Vector2(0, speed))
 
 func kb_process(delta):
+	var down_key = Input.is_action_pressed(\"ui_down\")
 	if Input.is_action_pressed(\"ui_left\"):
 		move_and_collide(Vector2(-speed, 0))
 		protect_positions()
@@ -62,7 +69,11 @@ func kb_process(delta):
 		move_and_collide(Vector2(0, speed))
 		protect_positions()
 	if Input.is_action_just_pressed(\"ui_accept\"):
-		fire()
+		if !down_key:
+			fire()
+		else:
+			fire_down()
+		
 	
 func protect_positions():
 	if position.x > max_w:
@@ -75,17 +86,28 @@ func protect_positions():
 		position.y = min_h
 	
 func damage(n):
-	if invicible_time > 0:
+	if invincible_time > 0:
 		return
 	hp -= n
 	if hp < 1:
-		destruct()
+		dead()
+	else:
+		make_invincible()
 	_set_balloons(hp)
-	make_invincible()
+
+func dead():
+	dead = true
+	catAnimation.play(\"Dead\")
+
+func add_health(n):
+	if !dead:
+		hp += n
+		if hp > max_hp:
+			hp = max_hp
+		_set_balloons(hp)
 
 func destruct():
 	emit_signal(\"died\")
-	# Play some animation
 	queue_free()
 
 func set_max_hp(hp):
@@ -94,18 +116,20 @@ func set_max_hp(hp):
 	_set_balloons(hp)
 
 func ivincible_time_sub():
-	if (invicible_time > 0):
-		invicible_time -= 1
-		if (invicible_time < 1):
+	if (invincible_time > 0):
+		invincible_time -= 1
+		if (invincible_time < 1):
 			emit_signal(\"change_invincible\", false)
+			set_noclip(false)
 
 func make_invincible():
-	if (invicible_time < 1):
+	if (invincible_time < 1):
 		emit_signal(\"change_invincible\", true)
-		invicible_time = 100
+		invincible_time = 100
+		set_noclip(true)
 
 func is_invincible():
-	return invicible_time > 0
+	return invincible_time > 0
 
 func _set_balloons(n):
 	$g/Balloons.set_count(n)
@@ -116,6 +140,13 @@ func sling_fire():
 func fire():
 	if catAnimation.current_animation != \"Fire\":
 		sling_fire()
+	catAnimation.play(\"Fire\")
+
+func fire_down():
+	if catAnimation.current_animation != \"Fire\":
+		var rock = load(\"res://Objects/Falling_Rock.tscn\").instance()
+		rock.global_position = global_position + Vector2(40, 0)
+		get_parent().get_parent().add_child(rock)
 	catAnimation.play(\"Fire\")
 
 func cat_ani_finish(name):
@@ -133,12 +164,186 @@ func change_sling(sling: Node2D):
 		old_sling.queue_free()
 	sling.name = \"sling\"
 	hand.add_child(sling)
+
+func set_noclip(b):
+	$shape.disabled = b
 "
 
 [sub_resource type="RectangleShape2D" id=2]
 
 [sub_resource type="Animation" id=3]
-resource_name = "Fire"
+resource_name = "Dead"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 13.5357, -24.0887 ), Vector2( 10.5379, -39.0776 ), Vector2( 10.5379, -39.0776 ), Vector2( 14.1352, -21.5406 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("hand:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -59.9999, -59.9999, 44.9999 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hand2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14.6361, -28.5771 ), Vector2( 17.3341, -34.5726 ), Vector2( 20.182, -23.331 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("hand2:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -44.9999, 15.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Head:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 11.7254, -38.8341 ), Vector2( 13.674, -38.8341 ), Vector2( 13.674, -38.8341 ), Vector2( 19.5196, -31.4896 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Head:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 30.0, 30.0, 59.9999 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("body:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.62842, -22.419 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("body:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 44.9999 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("leg:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -6.39077, -11.0118 ), Vector2( -10.2879, -20.7546 ), Vector2( -10.2879, -20.7546 ), Vector2( -3.60284, -11.0718 ), Vector2( 5.60033, -14.6091 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("leg:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 30.0, 105.0, 105.0, 15.0, -44.9999 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("hvist:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -13.1503, -22.9923 ), Vector2( -7.90419, -33.7843 ), Vector2( -8.50375, -13.8491 ), Vector2( -2.05853, -11.6008 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("hvist:rotation_degrees")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 74.9999, 135.0, 15.0, -30.0 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("leg2:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.23368, -10.3807 ), Vector2( 2.62325, -9.01335 ), Vector2( 6.28582, -11.8457 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("leg2:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 30.0, 15.0, -44.9999 ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -285,8 +490,32 @@ tracks/11/keys = {
 "update": 0,
 "values": [ 0.0, 0.0, 0.0, -30.0, 0.0 ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("leg2:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.54924, -9.27625 ), Vector2( 5.12702, -11.0118 ), Vector2( 7.33591, -13.2207 ), Vector2( 6.38924, -13.5363 ), Vector2( 3.23368, -10.3807 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("leg2:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 30.0, 0.0, -30.0, -15.0, 30.0 ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("body:position")
@@ -432,8 +661,32 @@ tracks/11/keys = {
 "update": 0,
 "values": [ Vector2( 14.9771, -28.5771 ), Vector2( 14.7214, -27.8098 ) ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("leg2:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.23368, -10.3807 ), Vector2( 3.23368, -10.3807 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("leg2:rotation_degrees")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 30.0, 15.0 ]
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -449,7 +702,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=7]
 script/source = "extends AnimationPlayer
 
 var cat
@@ -489,31 +742,36 @@ position = Vector2( 2.39333, -49.3807 )
 scale = Vector2( 1.17858, 1.05904 )
 
 [node name="hvist" type="Sprite" parent="g"]
-position = Vector2( -12.93, -25.5265 )
-rotation = 1.5708
+position = Vector2( -13.1503, -22.9923 )
+rotation = 1.309
 scale = Vector2( 1.50701, 1.29343 )
 texture = ExtResource( 5 )
 
+[node name="leg2" type="Sprite" parent="g"]
+position = Vector2( 3.23368, -10.3807 )
+rotation = 0.523599
+scale = Vector2( 1.17404, 1.03883 )
+texture = ExtResource( 3 )
+
 [node name="body" type="Sprite" parent="g"]
-position = Vector2( 2.74696, -22.9699 )
-rotation = 0.654498
+position = Vector2( 3.62842, -22.419 )
+rotation = 0.785396
 scale = Vector2( 0.954894, 1 )
 texture = ExtResource( 6 )
 
 [node name="Head" type="Sprite" parent="g"]
 position = Vector2( 11.7254, -38.8341 )
-rotation = 0.0174533
 scale = Vector2( 0.885365, 1.05172 )
 texture = ExtResource( 1 )
 
 [node name="leg" type="Sprite" parent="g"]
-position = Vector2( -4.87577, -11.3424 )
-rotation = 0.327249
+position = Vector2( -6.39077, -11.0118 )
+rotation = 0.523599
 scale = Vector2( 1.17404, 1.03883 )
 texture = ExtResource( 3 )
 
 [node name="hand" type="Sprite" parent="g"]
-position = Vector2( 12.7327, -25.364 )
+position = Vector2( 13.5357, -24.0887 )
 scale = Vector2( 1.33606, 1.36727 )
 texture = ExtResource( 4 )
 
@@ -530,9 +788,10 @@ z_index = -2
 texture = ExtResource( 4 )
 
 [node name="ani" type="AnimationPlayer" parent="g"]
-anims/Fire = SubResource( 3 )
-anims/Idle = SubResource( 4 )
+anims/Dead = SubResource( 3 )
+anims/Fire = SubResource( 4 )
+anims/Idle = SubResource( 5 )
 
 [node name="ani" type="AnimationPlayer" parent="."]
-anims/Invincible = SubResource( 5 )
-script = SubResource( 6 )
+anims/Invincible = SubResource( 6 )
+script = SubResource( 7 )
