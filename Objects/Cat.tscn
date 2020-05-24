@@ -115,11 +115,13 @@ func ivincible_time_sub():
 		invincible_time -= 1
 		if (invincible_time < 1):
 			emit_signal(\"change_invincible\", false)
+			set_noclip(false)
 
 func make_invincible():
 	if (invincible_time < 1):
 		emit_signal(\"change_invincible\", true)
 		invincible_time = 100
+		set_noclip(true)
 
 func is_invincible():
 	return invincible_time > 0
@@ -150,6 +152,10 @@ func change_sling(sling: Node2D):
 		old_sling.queue_free()
 	sling.name = \"sling\"
 	hand.add_child(sling)
+
+
+func set_noclip(b):
+	$shape.disabled = b
 "
 
 [sub_resource type="RectangleShape2D" id=2]
