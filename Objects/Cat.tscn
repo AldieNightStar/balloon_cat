@@ -24,6 +24,7 @@ var _setup = false
 var invincible_time = 0
 var catAnimation : AnimationPlayer
 var dead = false
+var is_player = true
 
 signal died()
 signal change_invincible(isInvincible)
