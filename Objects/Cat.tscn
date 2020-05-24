@@ -55,6 +55,7 @@ func _physics_process(delta):
 		move_and_collide(Vector2(0, speed))
 
 func kb_process(delta):
+	var down_key = Input.is_action_pressed(\"ui_down\")
 	if Input.is_action_pressed(\"ui_left\"):
 		move_and_collide(Vector2(-speed, 0))
 		protect_positions()
@@ -68,7 +69,11 @@ func kb_process(delta):
 		move_and_collide(Vector2(0, speed))
 		protect_positions()
 	if Input.is_action_just_pressed(\"ui_accept\"):
-		fire()
+		if !down_key:
+			fire()
+		else:
+			fire_down()
+		
 	
 func protect_positions():
 	if position.x > max_w:
@@ -137,6 +142,13 @@ func fire():
 		sling_fire()
 	catAnimation.play(\"Fire\")
 
+func fire_down():
+	if catAnimation.current_animation != \"Fire\":
+		var rock = load(\"res://Objects/Falling_Rock.tscn\").instance()
+		rock.global_position = global_position + Vector2(40, 0)
+		get_parent().get_parent().add_child(rock)
+	catAnimation.play(\"Fire\")
+
 func cat_ani_finish(name):
 	if name == \"Fire\":
 		catAnimation.play(\"Idle\")
@@ -152,7 +164,6 @@ func change_sling(sling: Node2D):
 		old_sling.queue_free()
 	sling.name = \"sling\"
 	hand.add_child(sling)
-
 
 func set_noclip(b):
 	$shape.disabled = b
