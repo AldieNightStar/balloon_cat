@@ -45,13 +45,11 @@ func fly():
 	$AnimatedSprite.play(\"fly\")
 
 func _attack(body):
-	print(body.name)
-	if body.has_method(\"damage\"):
+	if body.has_method(\"damage\") and body.get(\"is_player\"):
 		body.damage(1)
 		self.add_collision_exception_with(body)
 
 func destruct():
-
 	queue_free()
 
 func damage(n):
