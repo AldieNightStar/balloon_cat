@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fon back.png-b9266303724e73ac860108c6fc067244.stex"
+path="res://.import/bg_detail03.png-10d39812b24eae35b7983e85e2a4ff41.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background/fon back.png"
-dest_files=[ "res://.import/fon back.png-b9266303724e73ac860108c6fc067244.stex" ]
+source_file="res://assets/Background/Level01/bg_detail03.png"
+dest_files=[ "res://.import/bg_detail03.png-10d39812b24eae35b7983e85e2a4ff41.stex" ]
 
 [params]
 
