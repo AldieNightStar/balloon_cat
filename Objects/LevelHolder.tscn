@@ -1,6 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Background/fon back.png" type="Texture" id=2]
+[ext_resource path="res://assets/Background/fon 1 det.png" type="Texture" id=3]
+[ext_resource path="res://assets/Background/fon 2 det.png" type="Texture" id=4]
+[ext_resource path="res://assets/Background/fon 3 det.png" type="Texture" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -185,3 +189,43 @@ script = SubResource( 7 )
 [node name="shape" type="CollisionShape2D" parent="LevelReader"]
 scale = Vector2( 5.4139, 6.85515 )
 shape = SubResource( 8 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="LevelReader"]
+scroll_base_scale = Vector2( 0, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="LevelReader/ParallaxBackground"]
+
+[node name="Sprite" type="Sprite" parent="LevelReader/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 199.767, 156.041 )
+texture = ExtResource( 2 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="LevelReader"]
+scroll_base_scale = Vector2( 0.35, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="LevelReader/ParallaxBackground2"]
+motion_mirroring = Vector2( 400, 0 )
+
+[node name="Sprite" type="Sprite" parent="LevelReader/ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 200.624, 210.055 )
+texture = ExtResource( 3 )
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="LevelReader"]
+scroll_base_scale = Vector2( 0.5, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="LevelReader/ParallaxBackground3"]
+motion_mirroring = Vector2( 400, 0 )
+
+[node name="Sprite" type="Sprite" parent="LevelReader/ParallaxBackground3/ParallaxLayer"]
+position = Vector2( 198.052, 281.217 )
+rotation = 0.000961291
+texture = ExtResource( 5 )
+
+[node name="ParallaxBackground5" type="ParallaxBackground" parent="LevelReader"]
+scroll_base_scale = Vector2( 0.75, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="LevelReader/ParallaxBackground5"]
+motion_mirroring = Vector2( 400, 0 )
+
+[node name="Sprite" type="Sprite" parent="LevelReader/ParallaxBackground5/ParallaxLayer"]
+position = Vector2( 199.767, 156.041 )
+texture = ExtResource( 4 )
