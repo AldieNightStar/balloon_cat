@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Paralax/Paralax_Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/BonusCoin.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
@@ -26,38 +25,19 @@ position = Vector2( 198.227, 148.181 )
 [node name="Raven1" parent="Items" instance=ExtResource( 4 )]
 position = Vector2( 727.518, 100.761 )
 diapazone = 75
-y_velocity = -4
+y_velocity = -1
 
 [node name="Raven2" parent="Items" instance=ExtResource( 4 )]
 position = Vector2( 620.029, 104.154 )
 diapazone = 75
-y_velocity = -5
 
 [node name="Raven3" parent="Items" instance=ExtResource( 4 )]
 position = Vector2( 522.623, 110.942 )
 diapazone = 75
-y_velocity = -4
+y_velocity = -1
 
 [node name="Scenarios" type="Node2D" parent="."]
 
 [node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
 position = Vector2( 560.829, 252.204 )
 script = SubResource( 1 )
-
-[node name="Bonus_Coin" parent="." instance=ExtResource( 5 )]
-position = Vector2( 267.411, 105.795 )
-
-[node name="Bonus_Coin2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 375.711, 108.503 )
-
-[node name="Bonus_Coin3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 466.864, 118.43 )
-
-[node name="Bonus_Coin4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 595.922, 132.87 )
-
-[node name="Bonus_Coin5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 745.737, 134.675 )
-
-[node name="Bonus_Coin6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 909.09, 159.945 )
