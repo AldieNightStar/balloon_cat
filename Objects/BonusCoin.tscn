@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/BonusCoin/coins2.png" type="Texture" id=1]
+[ext_resource path="res://assets/BonusCoin/coins5.png" type="Texture" id=2]
+[ext_resource path="res://assets/BonusCoin/coins4.png" type="Texture" id=3]
+[ext_resource path="res://assets/BonusCoin/coins6.png" type="Texture" id=4]
+[ext_resource path="res://assets/BonusCoin/coins1.png" type="Texture" id=5]
+[ext_resource path="res://assets/BonusCoin/coins3.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+
+func _ready():
+	$Coin_Anim.play(\"Rotation\")
+	$mover.play(\"Moving\")
+		
+func destruct():
+	queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15.3769, 15.924 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Rotation",
+"speed": 10.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "Moving"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Coin_Anim:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, -2 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -5 ) ]
+}
+
+[node name="Bonus_Coin" type="Area2D"]
+script = SubResource( 1 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Coin_Anim" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -3.023 )
+scale = Vector2( 0.821543, 0.852599 )
+frames = SubResource( 3 )
+animation = "Rotation"
+
+[node name="mover" type="AnimationPlayer" parent="."]
+anims/Moving = SubResource( 4 )
