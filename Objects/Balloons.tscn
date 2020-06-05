@@ -11,7 +11,7 @@ func _ready():
 	call_deferred(\"update_texture\")
 	
 func update_texture():
-	if count > 0 and count <= 5:
+	if count > 0 and count <= 9:
 		$Sprite.texture = load(\"res://assets/Player/balloon\" + str(count) + \".png\")
 	if count == 0:
 		$Sprite.texture = null
@@ -19,8 +19,8 @@ func update_texture():
 func set_count(n):
 	if n < 0:
 		n = 0
-	elif n > 5:
-		n = 5
+	elif n > 9:
+		n = 9
 	count = n
 	update_texture()
 "

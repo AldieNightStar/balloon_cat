@@ -88,7 +88,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "Shaking"
 tracks/0/type = "value"
 tracks/0/path = NodePath("../camera:zoom")
@@ -115,7 +115,7 @@ tracks/1/keys = {
 "values": [ true, true, false ]
 }
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Area2D
 
 func _ready():
@@ -128,13 +128,13 @@ func enter(body_id, body, body_shape, area_shape):
 		body.queue_free()
 "
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 69.89, 67.4558 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 113.549, 30.6906 )
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=8]
 script/source = "extends Area2D
 
 func _ready():
@@ -149,7 +149,7 @@ func _read(body_id, body : Node2D, shape_id, shape):
 		body.queue_free()
 "
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 
 [node name="LevelHolder" type="Node2D"]
 position = Vector2( 401.582, 198.015 )
@@ -186,7 +186,7 @@ __meta__ = {
 
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
 anims/Score_Update = SubResource( 3 )
-anims/Shaking = SubResource( 9 )
+anims/Shaking = SubResource( 4 )
 
 [node name="camera" type="Camera2D" parent="."]
 
@@ -208,23 +208,23 @@ position = Vector2( -171.791, 67.7385 )
 [node name="Destructor" type="Area2D" parent="."]
 position = Vector2( -275.333, 4.58447 )
 scale = Vector2( 2.58016, 4.83407 )
-script = SubResource( 4 )
+script = SubResource( 5 )
 
 [node name="shape" type="CollisionShape2D" parent="Destructor"]
 position = Vector2( -89.2414, -31.2726 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
 position = Vector2( 82.673, 73.5082 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2( 342.54, -115.408 )
 
 [node name="LevelReader" type="Area2D" parent="."]
 position = Vector2( 257.681, 82.1414 )
-script = SubResource( 7 )
+script = SubResource( 8 )
 
 [node name="shape" type="CollisionShape2D" parent="LevelReader"]
 scale = Vector2( 5.4139, 6.85515 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )

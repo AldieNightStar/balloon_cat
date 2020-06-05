@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16.5388, 22.3036 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "Fire"
 length = 0.6
 step = 0.01
@@ -354,7 +354,6 @@ script = ExtResource( 2 )
 
 [node name="head" type="Sprite" parent="Rabbit_SP"]
 position = Vector2( -0.00521466, -14.8232 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 5 )
 
 [node name="hend2" type="Sprite" parent="Rabbit_SP"]
@@ -392,6 +391,6 @@ position = Vector2( 0.0536615, 0.152961 )
 scale = Vector2( 1.66444, 2.3514 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/Fire = SubResource( 4 )
+anims/Fire = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
