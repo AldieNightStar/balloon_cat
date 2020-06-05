@@ -189,6 +189,7 @@ anims/Score_Update = SubResource( 3 )
 anims/Shaking = SubResource( 4 )
 
 [node name="camera" type="Camera2D" parent="."]
+scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
 position = Vector2( -125.003, -1.13315 )

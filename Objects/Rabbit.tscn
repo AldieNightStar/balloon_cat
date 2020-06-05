@@ -1,17 +1,38 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Rabbit/r2.png" type="Texture" id=1]
-[ext_resource path="res://Objects/Rabbit.gd" type="Script" id=2]
 [ext_resource path="res://assets/Rabbit/r1.png" type="Texture" id=4]
 [ext_resource path="res://assets/Rabbit/r4.png" type="Texture" id=5]
 [ext_resource path="res://assets/Rabbit/r3.png" type="Texture" id=6]
 [ext_resource path="res://assets/Rabbit/r7.png" type="Texture" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+func _ready():
+	$anim.play(\"Idle\")
+	$anim.connect(\"animation_finished\", self, \"ani_finished\")
+
+func fire():
+	var egg = load(\"res://Objects/Egg.tscn\").instance()
+	egg.global_position = global_position - Vector2(0, 50)
+	get_parent().add_child(egg)
+
+func _on_VisibilityNotifier2D_screen_entered():
+	$anim.play(\"Fire\")
+
+func ani_finished(name):
+	if name == \"Fire\":
+		$anim.play(\"Idle\")
+
+func _on_timer():
+	$anim.play(\"Fire\")
+"
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16.5388, 22.3036 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "Fire"
+[sub_resource type="Animation" id=3]
 length = 0.6
 step = 0.01
 tracks/0/type = "value"
@@ -185,8 +206,7 @@ tracks/13/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -348,7 +368,7 @@ tracks/12/keys = {
 
 [node name="Rabbit" type="KinematicBody2D"]
 scale = Vector2( 1.48206, 1.4144 )
-script = ExtResource( 2 )
+script = SubResource( 1 )
 
 [node name="Rabbit_SP" type="Node2D" parent="."]
 
@@ -383,7 +403,7 @@ flip_h = true
 
 [node name="Rabbit_Collis" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
@@ -391,6 +411,11 @@ position = Vector2( 0.0536615, 0.152961 )
 scale = Vector2( 1.66444, 2.3514 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/Fire = SubResource( 2 )
-anims/Idle = SubResource( 3 )
+anims/Fire = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer"]

@@ -5,13 +5,6 @@
 [ext_resource path="res://assets/Background/Level01/bg_detail02.png" type="Texture" id=3]
 [ext_resource path="res://assets/Background/Level01/bg_detail03.png" type="Texture" id=4]
 
-
-
-
-
-
-
-
 [node name="Paralax_Level1" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -45,7 +38,7 @@ rotation = 0.000961291
 texture = ExtResource( 4 )
 
 [node name="ParallaxBackground5" type="ParallaxBackground" parent="."]
-scroll_base_scale = Vector2( 0.75, 0 )
+scroll_base_scale = Vector2( 1, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground5"]
 motion_mirroring = Vector2( 400, 0 )
