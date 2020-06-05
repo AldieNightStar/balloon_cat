@@ -22,18 +22,20 @@ position = Vector2( 198.227, 148.181 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Raven1" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 727.518, 100.761 )
+[node name="Raven" type="Node2D" parent="Items"]
+
+[node name="Raven3" parent="Items/Raven" instance=ExtResource( 4 )]
+position = Vector2( 522.623, 110.942 )
 diapazone = 75
 y_velocity = -4
 
-[node name="Raven2" parent="Items" instance=ExtResource( 4 )]
+[node name="Raven2" parent="Items/Raven" instance=ExtResource( 4 )]
 position = Vector2( 620.029, 104.154 )
 diapazone = 75
 y_velocity = -5
 
-[node name="Raven3" parent="Items" instance=ExtResource( 4 )]
-position = Vector2( 522.623, 110.942 )
+[node name="Raven1" parent="Items/Raven" instance=ExtResource( 4 )]
+position = Vector2( 727.518, 100.761 )
 diapazone = 75
 y_velocity = -4
 
