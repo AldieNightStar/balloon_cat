@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/balloon4.png-a15e84e77358f5fd071d27570c6c96e0.stex"
+path="res://.import/balloon6.png-4177e59718f7ffea07147f05cd4c1ed7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Player/balloon4.png"
-dest_files=[ "res://.import/balloon4.png-a15e84e77358f5fd071d27570c6c96e0.stex" ]
+source_file="res://assets/Player/balloon6.png"
+dest_files=[ "res://.import/balloon6.png-4177e59718f7ffea07147f05cd4c1ed7.stex" ]
 
 [params]
 
