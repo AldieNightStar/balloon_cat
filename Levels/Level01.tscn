@@ -32,115 +32,22 @@ script = SubResource( 1 )
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Raven_kinema" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 512.272, 93.6133 )
-speed = -0.5
-
-[node name="Raven_kinema2" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 585.272, 99.6133 )
-speed = 0.5
-
-[node name="Raven_kinema4" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 649.272, 97.6133 )
-speed = -0.5
+position = Vector2( 562.197, 135.512 )
 
 [node name="Raven_kinema3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 722.272, 103.613 )
-speed = 0.5
+position = Vector2( 785.115, 145.801 )
 
-[node name="Raven_kinema6" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 783.272, 105.613 )
-speed = -0.5
+[node name="Raven_kinema2" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 967.419, 137.317 )
+
+[node name="Raven_kinema4" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 1152.48, 139.265 )
 
 [node name="Raven_kinema5" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 856.272, 111.613 )
-speed = 0.5
+position = Vector2( 1384.3, 160.693 )
 
-[node name="Raven_kinema12" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 980.272, 96.6133 )
-speed = -0.5
+[node name="Rabbit" parent="." instance=ExtResource( 5 )]
+position = Vector2( 307.137, 226.133 )
 
-[node name="Raven_kinema11" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1053.27, 102.613 )
-speed = 0.5
-
-[node name="Raven_kinema10" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1117.27, 100.613 )
-speed = -0.5
-
-[node name="Raven_kinema9" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1190.27, 106.613 )
-speed = 0.5
-
-[node name="Raven_kinema8" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1251.27, 108.613 )
-speed = -0.5
-
-[node name="Raven_kinema7" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1324.27, 114.613 )
-speed = 0.5
-
-[node name="Raven_kinema24" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1461.68, 105.917 )
-speed = -0.5
-
-[node name="Raven_kinema23" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1534.68, 111.917 )
-speed = 0.5
-
-[node name="Raven_kinema22" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1598.68, 109.917 )
-speed = -0.5
-
-[node name="Raven_kinema21" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1671.68, 115.917 )
-speed = 0.5
-
-[node name="Raven_kinema20" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1732.68, 117.917 )
-speed = -0.5
-
-[node name="Raven_kinema19" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1805.68, 123.917 )
-speed = 0.5
-
-[node name="Raven_kinema18" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1929.68, 108.917 )
-speed = -0.5
-
-[node name="Raven_kinema17" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 2002.68, 114.917 )
-speed = 0.5
-
-[node name="Raven_kinema16" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 2066.68, 112.917 )
-speed = -0.5
-
-[node name="Raven_kinema15" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 2139.68, 118.917 )
-speed = 0.5
-
-[node name="Raven_kinema14" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 2200.68, 120.917 )
-speed = -0.5
-
-[node name="Raven_kinema13" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 2273.68, 126.917 )
-speed = 0.5
-
-[node name="Rabbit" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 329.054, 227.237 )
-
-[node name="Rabbit2" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 710.456, 227.237 )
-
-[node name="Rabbit3" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 1091.86, 229.288 )
-
-[node name="Rabbit4" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 1540.93, 237.49 )
-
-[node name="Rabbit5" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 2006.4, 239.54 )
-
-[node name="Rabbit6" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 2318.09, 243.641 )
+[node name="Rabbit2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 671.416, 231.977 )
