@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Paralax/Paralax_Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Rabbit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/BalloonBlow.tscn" type="PackedScene" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
@@ -24,7 +25,7 @@ position = Vector2( 198.227, 148.181 )
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Rabbit" parent="Items" instance=ExtResource( 5 )]
-position = Vector2( 302.347, 232.785 )
+position = Vector2( 303.204, 232.785 )
 
 [node name="Rabbit2" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 549.348, 230.885 )
@@ -232,6 +233,9 @@ diapazone = 75
 y_velocity = -1
 
 [node name="Raven" type="Node2D" parent="Items"]
+
+[node name="Node2D" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 228, 114.087 )
 
 [node name="Scenarios" type="Node2D" parent="."]
 

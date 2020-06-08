@@ -6,17 +6,27 @@
 script/source = "extends Node2D
 
 var count = 3
+var prev_count = count
+const MAX_BALLOONS = 9
 
 func _ready():
 	call_deferred(\"update_texture\")
 	
 func update_texture():
-	if count > 0 and count <= 9:
-		$Sprite.texture = load(\"res://assets/Player/balloon\" + str(count) + \".png\")
-	if count == 0:
+	if count > 0:
+		var c = count
+		if c > MAX_BALLOONS:
+			c = MAX_BALLOONS
+		$Sprite.texture = load(\"res://assets/Player/balloon\" + str(c) + \".png\")
+	if count <= 0:
 		$Sprite.texture = null
 
 func set_count(n):
+	if n < prev_count and n >= 0:
+		var blow = load(\"res://Objects/BalloonBlow.tscn\").instance()
+		blow.position = position + Vector2(0, 40)
+		add_child(blow)
+	prev_count = n
 	if n < 0:
 		n = 0
 	elif n > 9:
