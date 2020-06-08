@@ -76,7 +76,6 @@ func kb_process(delta):
 		else:
 			fire_down()
 	var c = move_and_collide(Vector2(xMove, yMove))
-		
 	
 func protect_positions():
 	if position.x > max_w:

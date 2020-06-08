@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Paralax/Paralax_Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Rabbit.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
@@ -20,7 +19,7 @@ func scenario(holder):
 position = Vector2( 198.227, 148.181 )
 speed = 2
 
-[node name="Paralax_Level1" parent="." instance=ExtResource( 2 )]
+[node name="parallax" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1, 0 )
 
 [node name="Scenarios" type="Node2D" parent="."]
@@ -31,23 +30,5 @@ script = SubResource( 1 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Raven_kinema" parent="Enemies" instance=ExtResource( 4 )]
+[node name="Raven" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 562.197, 135.512 )
-
-[node name="Raven_kinema3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 785.115, 145.801 )
-
-[node name="Raven_kinema2" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 967.419, 137.317 )
-
-[node name="Raven_kinema4" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1152.48, 139.265 )
-
-[node name="Raven_kinema5" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1384.3, 160.693 )
-
-[node name="Rabbit" parent="." instance=ExtResource( 5 )]
-position = Vector2( 307.137, 226.133 )
-
-[node name="Rabbit2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 671.416, 231.977 )

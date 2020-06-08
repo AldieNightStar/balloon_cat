@@ -34,8 +34,7 @@ func stop():
 func _physics_process(delta):
 	if _go:
 		position.x += speed
-	if Input.is_action_just_pressed(\"ui_end\"):
-		$clayer/Anim.play(\"Shaking\")
+
 func _cat_died():
 	emit_signal(\"died\")
 	stop()
@@ -51,13 +50,8 @@ func spawn(ypos, node: Node2D):
 func change_sling(sling: Node2D):
 	$cat.change_sling(sling)
 
-
-
-
-
-
-
-
+func shake_camera():
+	$clayer/Anim.play(\"Camera_shake\")
 "
 
 [sub_resource type="GDScript" id=2]
@@ -72,7 +66,23 @@ func on_score(n):
 "
 
 [sub_resource type="Animation" id=3]
-resource_name = "Score_Update"
+resource_name = "Camera_shake"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("../camera:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.34, 0.4, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( -1, 0 ), Vector2( 0, 1 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 1, 1 ), Vector2( 0, 1 ), Vector2( 1, -1 ), Vector2( 2, 0 ), Vector2( -3, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
@@ -86,33 +96,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "Shaking"
-tracks/0/type = "value"
-tracks/0/path = NodePath("../camera:zoom")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5, 0.7, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Shaking:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, false ]
 }
 
 [sub_resource type="GDScript" id=5]
@@ -170,23 +153,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shaking" type="Label" parent="clayer"]
-visible = false
-modulate = Color( 0.301961, 1, 0, 1 )
-margin_left = 0.857361
-margin_top = 24.8637
-margin_right = 47.8574
-margin_bottom = 38.8637
-rect_scale = Vector2( 1.5, 1 )
-text = "Lvl -> 1"
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
-anims/Score_Update = SubResource( 3 )
-anims/Shaking = SubResource( 4 )
+anims/Camera_shake = SubResource( 3 )
+anims/Score_Update = SubResource( 4 )
 
 [node name="camera" type="Camera2D" parent="."]
 scale = Vector2( 4.3337, 3.38059 )
