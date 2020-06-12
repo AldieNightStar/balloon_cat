@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/Player/balloon5.png" type="Texture" id=1]
 
@@ -6,27 +6,71 @@
 script/source = "extends Node2D
 
 var count = 3
+var prev_count = count
+const MAX_BALLOONS = 9
 
 func _ready():
 	call_deferred(\"update_texture\")
+	$ani.play(\"Idle\")
 	
 func update_texture():
-	if count > 0 and count <= 5:
-		$Sprite.texture = load(\"res://assets/Player/balloon\" + str(count) + \".png\")
-	if count == 0:
+	if count > 0:
+		var c = count
+		if c > MAX_BALLOONS:
+			c = MAX_BALLOONS
+		$Sprite.texture = load(\"res://assets/Player/balloon\" + str(c) + \".png\")
+	if count <= 0:
 		$Sprite.texture = null
 
 func set_count(n):
+	if n < prev_count and n >= 0:
+		var blow = load(\"res://Objects/BalloonBlow.tscn\").instance()
+		blow.position = position + Vector2(0, 40)
+		add_child(blow)
+	prev_count = n
 	if n < 0:
 		n = 0
-	elif n > 5:
-		n = 5
+	elif n > 9:
+		n = 9
 	count = n
 	update_texture()
 "
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -5.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -2.5, 0 ) ]
+}
 
 [node name="Balloons" type="Node2D"]
 script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -2.09422, 0 )
+rotation = -0.0731019
 texture = ExtResource( 1 )
+
+[node name="ani" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 2 )

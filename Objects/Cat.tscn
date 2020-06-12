@@ -52,28 +52,30 @@ func _physics_process(delta):
 		ivincible_time_sub()
 	if dead:
 		rotation += 0.05
-		move_and_collide(Vector2(0, speed))
+		position += Vector2(0, speed)
 
 func kb_process(delta):
 	var down_key = Input.is_action_pressed(\"ui_down\")
+	var xMove = 0
+	var yMove = 0
 	if Input.is_action_pressed(\"ui_left\"):
-		move_and_collide(Vector2(-speed, 0))
+		xMove = -speed
 		protect_positions()
 	elif Input.is_action_pressed(\"ui_right\"):
-		move_and_collide(Vector2(speed, 0))
+		xMove = speed
 		protect_positions()
 	if Input.is_action_pressed(\"ui_up\"):
-		move_and_collide(Vector2(0, -speed))
+		yMove = -speed
 		protect_positions()
 	elif Input.is_action_pressed(\"ui_down\"):
-		move_and_collide(Vector2(0, speed))
+		yMove = speed
 		protect_positions()
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		if !down_key:
 			fire()
 		else:
 			fire_down()
-		
+	var c = move_and_collide(Vector2(xMove, yMove))
 	
 func protect_positions():
 	if position.x > max_w:

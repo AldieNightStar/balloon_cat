@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/Enemy/raven1.png" type="Texture" id=1]
-[ext_resource path="res://assets/Enemy/raven2.png" type="Texture" id=2]
-[ext_resource path="res://assets/Enemy/raven4.png" type="Texture" id=3]
-[ext_resource path="res://assets/Enemy/raven3.png" type="Texture" id=4]
+[ext_resource path="res://assets/Enemy/raven1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Enemy/raven2.png" type="Texture" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
@@ -21,18 +19,21 @@ var max_pos_y
 var collis
 
 func _ready():
-	collis = get_node(\"Raven_Colis\")
+	collis = get_node(\"shape\")
 	min_pos_y = global_position.y - diapazone
 	max_pos_y = global_position.y + diapazone
 	fly()
 
 func _process(delta):
 	var c = move_and_collide(Vector2(-speed, 0))
-	if c && !dead:
-		_attack(c.collider)
+	if c and c.collider:
+		if dead:
+			add_collision_exception_with(c.collider)
+		else:
+			_attack(c.collider)
 	if dead:
-		position.y += 5
-		rotation += 1
+		position.y += 2.5
+		rotation += .25
 	else:
 		_do_velocity()
 
@@ -55,9 +56,8 @@ func destruct():
 func damage(n):
 	hp -= n
 	if hp <= 0:
-		$Raven_Colis.disabled = true
-		dead = true
 		collis.disabled = true
+		dead = true
 
 "
 
@@ -66,16 +66,16 @@ extents = Vector2( 17.0363, 14.1431 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "fly",
 "speed": 2.0
 } ]
 
-[node name="Raven_kinema" type="KinematicBody2D"]
+[node name="Raven" type="KinematicBody2D"]
 script = SubResource( 1 )
 
-[node name="Raven_Colis" type="CollisionShape2D" parent="."]
+[node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2( 1.4851, 2.05888 )
 scale = Vector2( 0.924356, 0.871277 )
 shape = SubResource( 2 )
