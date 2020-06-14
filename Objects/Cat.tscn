@@ -49,7 +49,6 @@ func _physics_process(delta):
 	if _setup:
 		if !dead:
 			kb_process(delta)
-		ivincible_time_sub()
 	if dead:
 		rotation += 0.05
 		position += Vector2(0, speed)
@@ -124,10 +123,12 @@ func ivincible_time_sub():
 			emit_signal(\"change_invincible\", false)
 			set_noclip(false)
 
-func make_invincible():
+func make_invincible(n = 3):
 	if (invincible_time < 1):
 		emit_signal(\"change_invincible\", true)
-		invincible_time = 100
+		if n < 1:
+			n = 1
+		invincible_time = n
 		set_noclip(true)
 
 func is_invincible():
@@ -169,6 +170,9 @@ func change_sling(sling: Node2D):
 
 func set_noclip(b):
 	$shape.disabled = b
+
+func _ticker_timeout():
+	ivincible_time_sub()
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -797,3 +801,7 @@ anims/Idle = SubResource( 5 )
 [node name="ani" type="AnimationPlayer" parent="."]
 anims/Invincible = SubResource( 6 )
 script = SubResource( 7 )
+
+[node name="ticker" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="ticker" to="." method="_ticker_timeout"]
