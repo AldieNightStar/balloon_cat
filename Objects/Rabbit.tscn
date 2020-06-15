@@ -213,7 +213,7 @@ tracks/13/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "Hide"
 length = 0.3
 tracks/0/type = "value"
@@ -325,7 +325,7 @@ tracks/8/keys = {
 "values": [ Vector2( -3.11691, 11.4863 ), Vector2( -4.31922, 12.4598 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -532,8 +532,8 @@ scale = Vector2( 1.66444, 2.3514 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/Fire = SubResource( 3 )
-anims/Hide = SubResource( 5 )
-anims/Idle = SubResource( 4 )
+anims/Hide = SubResource( 4 )
+anims/Idle = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
