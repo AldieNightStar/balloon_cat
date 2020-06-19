@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Objects/Spawner_coin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Enemy/raven1.png" type="Texture" id=2]
 [ext_resource path="res://assets/Enemy/raven2.png" type="Texture" id=4]
 
@@ -37,21 +36,17 @@ func _process(delta):
 		rotation += .25
 	else:
 		_do_velocity()
-		
-		
 
-func spawner():
-	$Spawner_coin.spawner(self, self.get_parent().get_parent())
-
-
-
+func coin_spawn():
+	var coin = load(\"res://Objects/BonusCoin.tscn\").instance()
+	coin.global_position = self.global_position
+	get_parent().add_child(coin)
 
 func _do_velocity():
 	move_and_collide(Vector2(0, y_velocity))
 	if global_position.y > max_pos_y or global_position.y < min_pos_y:
 		y_velocity *= -1
-		
-	
+
 func fly():
 	$AnimatedSprite.play(\"fly\")
 
@@ -68,7 +63,7 @@ func damage(n):
 	if hp <= 0:
 		collis.disabled = true
 		dead = true
-		spawner()
+		coin_spawn()
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -94,5 +89,3 @@ shape = SubResource( 2 )
 position = Vector2( 0.970825, 1.58549 )
 frames = SubResource( 3 )
 animation = "fly"
-
-[node name="Spawner_coin" parent="." instance=ExtResource( 1 )]
