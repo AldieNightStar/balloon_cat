@@ -185,7 +185,7 @@ position = Vector2( -89.2414, -31.2726 )
 shape = SubResource( 6 )
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( 82.673, 73.5082 )
+position = Vector2( 81.8979, 68.1297 )
 shape = SubResource( 7 )
 
 [node name="Spawner" type="Node2D" parent="."]
