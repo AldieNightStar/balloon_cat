@@ -28,217 +28,325 @@ speed = 2
 [node name="raven" type="Node2D" parent="Items"]
 
 [node name="Raven22" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3356.44, 125.659 )
+position = Vector2( 4048.12, 127.714 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven23" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3248.95, 129.052 )
+position = Vector2( 4380, 60 )
 diapazone = 75
 
 [node name="Raven24" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3151.54, 135.84 )
+position = Vector2( 3843.22, 137.894 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven26" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3248.95, 129.052 )
+position = Vector2( 3900, 70 )
 diapazone = 75
 
 [node name="Raven27" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3151.54, 135.84 )
+position = Vector2( 4300, 150 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven28" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3055.81, 125.659 )
+position = Vector2( 3760, 70 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven29" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2948.32, 129.052 )
+position = Vector2( 3640, 131.107 )
 diapazone = 75
 
 [node name="Raven30" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2850.91, 135.84 )
+position = Vector2( 2900, 190 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven31" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3055.81, 125.659 )
+position = Vector2( 4190, 60 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven32" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2948.32, 129.052 )
+position = Vector2( 3000, 110 )
 diapazone = 75
 
 [node name="Raven33" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2850.91, 135.84 )
+position = Vector2( 2910, 30 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven34" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2688.36, 123.901 )
+position = Vector2( 6880, 160 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven45" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 6960, 120 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven35" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2580.87, 127.294 )
+position = Vector2( 6880, 80 )
 diapazone = 75
 
 [node name="Raven36" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2483.47, 134.082 )
+position = Vector2( 6800, 120 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven55" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7360, 160 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven54" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7440, 120 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven53" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7360, 80 )
+diapazone = 75
+
+[node name="Raven52" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7280, 120 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven37" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2688.36, 123.901 )
+position = Vector2( 2840, 80 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven39" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2483.47, 134.082 )
+position = Vector2( 6720, 40 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven38" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2580.87, 127.294 )
+position = Vector2( 6720, 200 )
+diapazone = 75
+
+[node name="Raven51" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7200, 40 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven50" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7200, 200 )
 diapazone = 75
 
 [node name="Raven40" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2224.15, 104.015 )
+position = Vector2( 2733.17, 119.423 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven41" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2116.67, 107.408 )
+position = Vector2( 2625.69, 122.816 )
 diapazone = 75
 
 [node name="Raven42" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 2019.26, 114.196 )
+position = Vector2( 2512.37, 147.781 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven16" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1859.8, 122.405 )
+position = Vector2( 5930, 160 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven17" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1752.31, 125.798 )
+position = Vector2( 5650, 160 )
 diapazone = 75
 
 [node name="Raven18" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1654.91, 132.586 )
+position = Vector2( 5930, 60 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven19" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1859.8, 122.405 )
+position = Vector2( 5770, 80 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven25" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 3356.44, 125.659 )
+position = Vector2( 4040, 60 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven20" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1752.31, 125.798 )
+position = Vector2( 5650, 40 )
 diapazone = 75
 
 [node name="Raven21" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1654.91, 132.586 )
+position = Vector2( 5560, 80 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven10" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1559.17, 122.405 )
+position = Vector2( 5440, 160 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven11" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1451.68, 125.798 )
+position = Vector2( 5200, 160 )
 diapazone = 75
 
 [node name="Raven13" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1559.17, 122.405 )
+position = Vector2( 5360, 30 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven12" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1354.27, 132.586 )
+position = Vector2( 1640.03, 130.101 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven14" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1451.68, 125.798 )
+position = Vector2( 5280, 80 )
 diapazone = 75
 
 [node name="Raven15" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1354.27, 132.586 )
+position = Vector2( 2340, 120 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven7" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1191.73, 120.647 )
+position = Vector2( 1477.49, 118.162 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven8" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1084.24, 124.04 )
+position = Vector2( 1370, 121.555 )
 diapazone = 75
 
 [node name="Raven9" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 986.832, 130.828 )
+position = Vector2( 7040, 40 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven44" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7040, 200 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven49" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7520, 40 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven48" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7520, 200 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven4" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1191.73, 120.647 )
+position = Vector2( 1440, 60 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven5" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 1084.24, 124.04 )
+position = Vector2( 1760, 90 )
 diapazone = 75
 
 [node name="Raven6" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 986.832, 130.828 )
+position = Vector2( 7120, 80 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven43" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7120, 160 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven47" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7600, 80 )
+diapazone = 75
+y_velocity = -1
+
+[node name="Raven46" parent="Items/raven" instance=ExtResource( 4 )]
+position = Vector2( 7600, 160 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven2" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 620.029, 104.154 )
+position = Vector2( 680, 40 )
 diapazone = 75
 
 [node name="Raven1" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 727.518, 100.761 )
+position = Vector2( 2490, 40 )
 diapazone = 75
 y_velocity = -1
 
 [node name="Raven3" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 522.623, 110.942 )
+position = Vector2( 520, 120 )
 diapazone = 75
 y_velocity = -1
 
 [node name="rabbit" type="Node2D" parent="Items"]
 
 [node name="Rabbit4" parent="Items/rabbit" instance=ExtResource( 5 )]
-position = Vector2( 1191.42, 248.98 )
+position = Vector2( 5120, 240 )
+
+[node name="Rabbit5" parent="Items/rabbit" instance=ExtResource( 5 )]
+position = Vector2( 6610, 240 )
 
 [node name="Rabbit3" parent="Items/rabbit" instance=ExtResource( 5 )]
-position = Vector2( 871.939, 237.968 )
+position = Vector2( 2320, 240 )
 
 [node name="Rabbit2" parent="Items/rabbit" instance=ExtResource( 5 )]
-position = Vector2( 549.348, 230.885 )
+position = Vector2( 3610, 240 )
 
 [node name="Rabbit" parent="Items/rabbit" instance=ExtResource( 5 )]
-position = Vector2( 647.407, 232.785 )
+position = Vector2( 1320, 240 )
 
 [node name="Goose" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 452.326, 147.329 )
+position = Vector2( 1150, 40 )
+
+[node name="Goose6" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 1150, 200 )
+
+[node name="Goose3" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2030, 120 )
+
+[node name="Goose4" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2120, 40 )
+
+[node name="Goose5" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 2120, 200 )
+
+[node name="Goose9" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 3230, 120 )
+
+[node name="Goose8" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 3320, 40 )
+
+[node name="Goose7" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 3320, 200 )
+
+[node name="Goose12" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 4680, 110 )
+
+[node name="Goose11" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 4770, 30 )
+
+[node name="Goose10" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 4770, 190 )
+
+[node name="Goose15" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 6200, 120 )
+
+[node name="Goose14" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 6290, 40 )
+
+[node name="Goose13" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 6290, 200 )
+
+[node name="Goose2" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 1070, 120 )
 
 [node name="Scenarios" type="Node2D" parent="."]
 
@@ -249,4 +357,4 @@ script = SubResource( 1 )
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Raven" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 562.197, 135.512 )
+position = Vector2( 830, 120 )

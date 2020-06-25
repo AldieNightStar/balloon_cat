@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg_detail01.png-e9b596b33f596898717dbc3fc0a56b8c.stex"
+path="res://.import/cloods.png-0000c597797170ca675ccfa34289f298.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background/Level01/bg_detail01.png"
-dest_files=[ "res://.import/bg_detail01.png-e9b596b33f596898717dbc3fc0a56b8c.stex" ]
+source_file="res://assets/Background/Level01/cloods.png"
+dest_files=[ "res://.import/cloods.png-0000c597797170ca675ccfa34289f298.stex" ]
 
 [params]
 

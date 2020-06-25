@@ -32,6 +32,10 @@ window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
