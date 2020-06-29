@@ -28,7 +28,7 @@ func _physics_process(delta):
 	if dead:
 		position.y += 3
 		rotation += 0.25
-		$Collision_goose.disabled = 1
+
 	var c = move_and_collide(Vector2(-1, 0))
 	if c and !dead: 
 		_attack(c.collider)
