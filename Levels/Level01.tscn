@@ -23,7 +23,7 @@ position = Vector2( 198.227, 148.181 )
 speed = 2
 
 [node name="Paralax_Level1" parent="." instance=ExtResource( 2 )]
-position = Vector2( -10, 10 )
+position = Vector2( -8.8624, 10.5688 )
 
 [node name="Items" type="Node2D" parent="."]
 
