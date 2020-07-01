@@ -37,7 +37,10 @@ func damage(n):
 	hp -= n
 	if hp <= 0:
 		dead = true
-
+	
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
 "
 
 [sub_resource type="RectangleShape2D" id=2]

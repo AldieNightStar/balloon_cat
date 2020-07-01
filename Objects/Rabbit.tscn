@@ -30,6 +30,10 @@ func ani_finished(name):
 func _on_timer():
 	if stateFiring:
 		$anim.play(\"Fire\")
+
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
 	
 func damage(n):
 	stateFiring = false
