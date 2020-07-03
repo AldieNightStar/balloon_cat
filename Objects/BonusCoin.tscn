@@ -16,6 +16,12 @@ func _ready():
 		
 func destruct():
 	queue_free()
+
+
+func _on_Bonus_Coin_body_entered(body):
+	if body.get('is_player'):
+		G.score_add(1)
+		destruct()
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -60,3 +66,4 @@ animation = "Rotation"
 
 [node name="mover" type="AnimationPlayer" parent="."]
 anims/Moving = SubResource( 4 )
+[connection signal="body_entered" from="." to="." method="_on_Bonus_Coin_body_entered"]
