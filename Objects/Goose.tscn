@@ -15,9 +15,7 @@ func _ready():
 	$Animated_goose.play(\"fly_goose\")
 
 func _attack(body):
-	if dead:
-		return
-	if body.has_method(\"damage\") and body.get(\"is_player\"):
+	if body.get(\"is_player\") and body.has_method(\"damage\"):
 		body.damage(1)
 		self.add_collision_exception_with(body)
 
@@ -25,19 +23,25 @@ func destruct():
 	queue_free()
 
 func _physics_process(delta):
+	var yMove = 0
 	if dead:
-		position.y += 3
+		yMove = 5
 		rotation += 0.25
-
-	var c = move_and_collide(Vector2(-1, 0))
-	if c and !dead: 
-		_attack(c.collider)
+	var c = move_and_collide(Vector2(-1, yMove))
+	if c:
+		if dead:
+			add_collision_exception_with(c.collider)
+		else:
+			_attack(c.collider)
 
 func damage(n):
 	hp -= n
 	if hp <= 0:
 		dead = true
-
+	
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
 "
 
 [sub_resource type="RectangleShape2D" id=2]

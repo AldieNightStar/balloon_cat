@@ -53,15 +53,6 @@ position = Vector2( 3090, 150 )
 
 [node name="raven" type="Node2D" parent="Items"]
 
-[node name="Raven2" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 800, 90 )
-diapazone = 75
-
-[node name="Raven3" parent="Items/raven" instance=ExtResource( 4 )]
-position = Vector2( 640, 150 )
-diapazone = 75
-y_velocity = -1
-
 [node name="Raven5" parent="Items/raven" instance=ExtResource( 4 )]
 position = Vector2( 8110, 90 )
 diapazone = 75
@@ -161,13 +152,22 @@ position = Vector2( 27190, 240 )
 position = Vector2( 29010, 240 )
 
 [node name="Goose2" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 3630, 110 )
+position = Vector2( 3502.13, 130 )
 
 [node name="Goose4" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 3690, 170 )
+position = Vector2( 3562.13, 190 )
 
 [node name="Goose3" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 3690, 50 )
+position = Vector2( 3562.13, 70 )
+
+[node name="Goose37" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 801.097, 170.063 )
+
+[node name="Goose36" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 861.097, 230.063 )
+
+[node name="Goose35" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 861.097, 110.063 )
 
 [node name="Goose7" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 6900, 110 )
@@ -269,9 +269,6 @@ script = SubResource( 1 )
 
 [node name="Raven2" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 1410, 200 )
-
-[node name="Raven3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 870, 200 )
 
 [node name="Raven4" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 2210, 150 )

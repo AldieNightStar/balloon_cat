@@ -58,6 +58,10 @@ func _attack(body):
 func destruct():
 	queue_free()
 
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
+
 func damage(n):
 	hp -= n
 	if hp <= 0:
