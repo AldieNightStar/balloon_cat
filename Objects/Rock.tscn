@@ -16,9 +16,10 @@ func setup():
 
 func _physics_process(delta):
 	var c = move_and_collide(Vector2(speed, 0))
-	$Sprite.rotation += 0.25
 	if c && c.collider:
-		if c.collider.has_method(\"damage\"):
+		if c.collider.get(\"is_user\"):
+			add_collision_exception_with(c.collider)
+		elif c.collider.has_method(\"damage\"):
 			c.collider.damage(damage_val)
 			queue_free()
 		elif c.collider.has_method(\"touch\"):

@@ -99,9 +99,7 @@ func protect_positions():
 		position.y = min_h
 	
 func damage(n):
-	if invincible_time > 0:
-		return
-	if dead:
+	if invincible_time > 0 or dead:
 		return
 	hp -= n
 	if hp < 1:
@@ -137,7 +135,6 @@ func ivincible_time_sub():
 		invincible_time -= 1
 		if (invincible_time < 1):
 			emit_signal(\"change_invincible\", false)
-			set_noclip(false)
 
 func make_invincible(n = 3):
 	if (invincible_time < 1):
@@ -145,7 +142,6 @@ func make_invincible(n = 3):
 		if n < 1:
 			n = 1
 		invincible_time = n
-		set_noclip(true)
 
 func is_invincible():
 	return invincible_time > 0
@@ -183,9 +179,6 @@ func change_sling(sling: Node2D):
 		old_sling.queue_free()
 	sling.name = \"sling\"
 	hand.add_child(sling)
-
-func set_noclip(b):
-	$shape.disabled = b
 
 func _ticker_timeout():
 	ivincible_time_sub()

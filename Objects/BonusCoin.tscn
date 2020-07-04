@@ -23,7 +23,8 @@ func touch(body):
 	if body.get('is_player'):
 		body.level_holder().score_add(number)
 		G.play(\"coin.ogg\")
-		destruct()"
+		destruct()
+"
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 15.3769, 15.924 )

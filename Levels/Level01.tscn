@@ -41,6 +41,9 @@ position = Vector2( 28180, 110 )
 [node name="Bonus_balloon" parent="Items" instance=ExtResource( 7 )]
 position = Vector2( 3090, 150 )
 
+[node name="Bonus_balloon9" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 282.181, 133.732 )
+
 [node name="raven" type="Node2D" parent="Items"]
 
 [node name="Raven5" parent="Items/raven" instance=ExtResource( 4 )]
@@ -151,7 +154,7 @@ position = Vector2( 3562.13, 190 )
 position = Vector2( 3562.13, 70 )
 
 [node name="Goose37" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 801.097, 170.063 )
+position = Vector2( 197.209, 144.739 )
 
 [node name="Goose36" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 861.097, 230.063 )
