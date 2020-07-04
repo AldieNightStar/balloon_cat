@@ -8,7 +8,9 @@
 [ext_resource path="res://assets/BonusCoin/coins3.png" type="Texture" id=6]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Area2D
+script/source = "extends KinematicBody2D
+
+export var number = 1
 
 func _ready():
 	$Coin_Anim.play(\"Rotation\")
@@ -16,6 +18,12 @@ func _ready():
 		
 func destruct():
 	queue_free()
+
+func touch(body):
+	if body.get('is_player'):
+		body.level_holder().score_add(number)
+		G.play(\"coin.ogg\")
+		destruct()
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -46,14 +54,13 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -5 ) ]
 }
 
-[node name="Bonus_Coin" type="Area2D"]
+[node name="Bonus_Coin" type="KinematicBody2D"]
 script = SubResource( 1 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
 [node name="Coin_Anim" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -3.023 )
 scale = Vector2( 0.821543, 0.852599 )
 frames = SubResource( 3 )
 animation = "Rotation"

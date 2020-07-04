@@ -22,15 +22,17 @@ func _ready():
 	collis = get_node(\"shape\")
 	min_pos_y = global_position.y - diapazone
 	max_pos_y = global_position.y + diapazone
-	fly()
+	$AnimatedSprite.play(\"fly\")
 
 func _process(delta):
-	var c = move_and_collide(Vector2(-speed, 0))
+	var c = move_and_collide(Vector2(-speed, y_velocity))
 	if c and c.collider:
 		if dead:
 			add_collision_exception_with(c.collider)
 		else:
-			_attack(c.collider)
+			if c.collider.has_method(\"damage\") and c.collider.get(\"is_player\"):
+				c.collider.damage(1)
+			self.add_collision_exception_with(c.collider)
 	if dead:
 		position.y += 2.5
 		rotation += .25
@@ -38,27 +40,22 @@ func _process(delta):
 		_do_velocity()
 
 func _do_velocity():
-	move_and_collide(Vector2(0, y_velocity))
 	if global_position.y > max_pos_y or global_position.y < min_pos_y:
 		y_velocity *= -1
-
-func fly():
-	$AnimatedSprite.play(\"fly\")
-
-func _attack(body):
-	if body.has_method(\"damage\") and body.get(\"is_player\"):
-		body.damage(1)
-		self.add_collision_exception_with(body)
 
 func destruct():
 	queue_free()
 
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
+
 func damage(n):
 	hp -= n
 	if hp <= 0:
-		collis.disabled = true
 		dead = true
-
+		G.spawn(\"BonusCoin\", get_parent(), global_position)
+		G.spawn(\"Bang\", get_parent(), global_position)
 "
 
 [sub_resource type="RectangleShape2D" id=2]

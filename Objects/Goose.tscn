@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Goose/goose1.png" type="Texture" id=1]
+[ext_resource path="res://assets/Goose/goose2.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+export var speed : int = 3
+
+var hp = 1
+var dead = false
+
+func _ready():
+	$Animated_goose.play(\"fly_goose\")
+
+func destruct():
+	queue_free()
+
+func _physics_process(delta):
+	var yMove = 0
+	if dead:
+		yMove = 5
+		rotation += 0.25
+	var c = move_and_collide(Vector2(-1, yMove))
+	if c:
+		if dead:
+			add_collision_exception_with(c.collider)
+		else:
+			if c.collider.get(\"is_player\") and c.collider.has_method(\"damage\"):
+				c.collider.damage(1)
+			add_collision_exception_with(c.collider)
+
+func damage(n):
+	hp -= n
+	if hp <= 0:
+		dead = true
+		G.spawn(\"Bang\", get_parent(), global_position)
+	
+func touch(body):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(1)
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.8792, 9.97244 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "fly_goose",
+"speed": 2.0
+} ]
+
+[node name="Goose" type="KinematicBody2D"]
+script = SubResource( 1 )
+
+[node name="Collision_goose" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Animated_goose" type="AnimatedSprite" parent="."]
+position = Vector2( 0.25034, 0.12517 )
+scale = Vector2( 0.966621, 0.954938 )
+frames = SubResource( 3 )
+animation = "fly_goose"

@@ -1,16 +1,18 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
-var _go = false
-export var speed = 5
-export var _start_automatically = false
+export var speed = 3
 export var _cat_hp = 3
-export var _cat_speed = 3
+export var _cat_speed = 4
 export var _score = 0
+
+var _go = false
+
 signal died()
 
 func _ready():
@@ -18,12 +20,9 @@ func _ready():
 	
 func setup():
 	$camera.current = true
-	if _start_automatically:
-		start()
 	$cat.set_max_hp(_cat_hp)
 	$cat.speed = _cat_speed
 	$cat.connect(\"died\", self, \"_cat_died\")
-	G.score_update()
 
 func start():
 	_go = true
@@ -39,48 +38,30 @@ func _cat_died():
 	emit_signal(\"died\")
 	stop()
 
-func get_spawn_pos():
-	return get_node(\"Spawner\").global_position
-
-func spawn(ypos, node: Node2D):
-	var spawn_pos = get_spawn_pos() + Vector2(0, ypos)
-	node.position = spawn_pos
-	get_parent().add_child(node)
-
 func change_sling(sling: Node2D):
 	$cat.change_sling(sling)
 
-func shake_camera():
-	$clayer/Anim.play(\"Camera_shake\")
+func score_add(n):
+	$Score.score_add(n)
+
+func score_get():
+	$Score.score_get()
 "
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 func _ready():
-	G.connect(\"score_updated\", self, \"on_score\")
+	_on_Score_score_updated(0)
 
-func on_score(n):
+func _on_Score_score_updated(n):
 	text = str(n)
 	get_parent().get_node(\"Anim\").play(\"Score_Update\")
 "
-
-[sub_resource type="Animation" id=3]
-resource_name = "Camera_shake"
-length = 0.5
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("../camera:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.34, 0.4, 0.45, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( -1, 0 ), Vector2( 0, 1 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 1, 1 ), Vector2( 0, 1 ), Vector2( 1, -1 ), Vector2( 2, 0 ), Vector2( -3, 0 ) ]
-}
 
 [sub_resource type="Animation" id=4]
 length = 0.1
@@ -118,50 +99,82 @@ extents = Vector2( 69.89, 67.4558 )
 extents = Vector2( 113.549, 30.6906 )
 
 [sub_resource type="GDScript" id=8]
-script/source = "extends Area2D
+script/source = "extends KinematicBody2D
 
-func _ready():
-	call_deferred(\"setup\")
-	
-func setup():
-	connect(\"area_shape_entered\", self, \"_read\")
-
-func _read(body_id, body : Node2D, shape_id, shape):
-	if body.has_node(\"scenario\") and body.has_method(\"scenario\"):
-		body.call(\"scenario\", get_parent()) # Call scenario(leve_holder)
-		body.queue_free()
+func touch(cat):
+	if cat.get(\"is_player\"):
+		get_parent().start()
+		cat.playable = true
+		queue_free()
 "
 
 [sub_resource type="RectangleShape2D" id=9]
 
+[sub_resource type="GDScript" id=10]
+script/source = "extends Node
+
+var score = 0
+
+signal score_updated(n)
+
+func score_set(n):
+	score = n
+	if n < 0: n = 0
+	score_update()
+
+func score_get():
+	return score
+
+func score_add(n):
+	score_set(score_get() + n)
+	score_update()
+
+func score_update():
+	emit_signal(\"score_updated\", score)
+"
+
+[sub_resource type="GDScript" id=11]
+script/source = "extends AudioStreamPlayer
+
+func _ready():
+	G.connect(\"sound_play\", self, \"_sound\")
+
+func _sound(name):
+	if playing:
+		stop()
+	stream = load(\"res://assets/sound/\" + name)
+	play()
+"
+
 [node name="LevelHolder" type="Node2D"]
 position = Vector2( 401.582, 198.015 )
 script = SubResource( 1 )
-speed = 3
-_start_automatically = true
 
 [node name="clayer" type="CanvasLayer" parent="."]
 
 [node name="score" type="Label" parent="clayer"]
-modulate = Color( 1, 0, 0, 1 )
-margin_right = 35.0
-margin_bottom = 14.0
-rect_scale = Vector2( 2, 2 )
+modulate = Color( 0.101961, 0.152941, 0.878431, 1 )
+margin_left = 27.0927
+margin_top = 6.50859
+margin_right = 239.093
+margin_bottom = 83.5086
+rect_scale = Vector2( 0.438387, 0.53318 )
+custom_fonts/font = SubResource( 2 )
 text = "Score"
-script = SubResource( 2 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
-anims/Camera_shake = SubResource( 3 )
 anims/Score_Update = SubResource( 4 )
 
 [node name="camera" type="Camera2D" parent="."]
+position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -125.003, -1.13315 )
+position = Vector2( -226.544, -0.469744 )
 
 [node name="Min_W" type="Node2D" parent="."]
 position = Vector2( -175.283, -7.68173 )
@@ -170,7 +183,7 @@ position = Vector2( -175.283, -7.68173 )
 position = Vector2( -179.473, -121.511 )
 
 [node name="Max_W" type="Node2D" parent="."]
-position = Vector2( -74.0239, -7.68173 )
+position = Vector2( -27.3826, -5.97534 )
 
 [node name="Max_H" type="Node2D" parent="."]
 position = Vector2( -171.791, 67.7385 )
@@ -179,22 +192,36 @@ position = Vector2( -171.791, 67.7385 )
 position = Vector2( -275.333, 4.58447 )
 scale = Vector2( 2.58016, 4.83407 )
 script = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="shape" type="CollisionShape2D" parent="Destructor"]
 position = Vector2( -89.2414, -31.2726 )
 shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( 82.673, 73.5082 )
+position = Vector2( 81.8979, 68.1297 )
 shape = SubResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Spawner" type="Node2D" parent="."]
-position = Vector2( 342.54, -115.408 )
-
-[node name="LevelReader" type="Area2D" parent="."]
-position = Vector2( 257.681, 82.1414 )
+[node name="CatActivator" type="KinematicBody2D" parent="."]
 script = SubResource( 8 )
 
-[node name="shape" type="CollisionShape2D" parent="LevelReader"]
-scale = Vector2( 5.4139, 6.85515 )
+[node name="shape" type="CollisionShape2D" parent="CatActivator"]
+position = Vector2( -103.833, -8.73477 )
+scale = Vector2( 1.07726, 3.23861 )
 shape = SubResource( 9 )
+
+[node name="Score" type="Node" parent="."]
+script = SubResource( 10 )
+
+[node name="player" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+script = SubResource( 11 )
+[connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]

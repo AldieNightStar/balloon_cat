@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg01.png-662efb807d348d5831f23363083cd22f.stex"
+path="res://.import/goose1.png-3f90c85400afcba3a2933e544088d9e9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background/Level01/bg01.png"
-dest_files=[ "res://.import/bg01.png-662efb807d348d5831f23363083cd22f.stex" ]
+source_file="res://assets/Goose/goose1.png"
+dest_files=[ "res://.import/goose1.png-3f90c85400afcba3a2933e544088d9e9.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

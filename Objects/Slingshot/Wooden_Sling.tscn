@@ -10,8 +10,10 @@ func fire(player: Node2D, level: Node2D):
 	rock.speed = 20
 	rock.damage_val = 1
 	# Adding rock to the Screen
-	rock.global_position = get_parent().global_position + Vector2(5, 0)
+	rock.global_position = get_parent().global_position + Vector2(10, 0)
 	level.add_child(rock)
+	# Play sound
+	G.play(\"fire.ogg\")
 "
 
 [node name="Wood_Sling" type="Node2D"]

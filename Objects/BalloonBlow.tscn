@@ -10,10 +10,16 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
+signal animation_end()
+
 func _ready():
-	$spr.connect(\"animation_finished\", self, \"queue_free\")
+	$spr.connect(\"animation_finished\", self, \"_done\")
 	$spr.frame = 0
 	$spr.play()
+	
+func _done():
+	emit_signal(\"animation_end\")
+	queue_free()
 "
 
 [sub_resource type="SpriteFrames" id=2]
