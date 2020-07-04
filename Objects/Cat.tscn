@@ -11,7 +11,7 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
-export var speed = 3
+export var speed = 4
 export var max_hp = 3
 
 var min_w
@@ -25,6 +25,7 @@ var invincible_time = 0
 var catAnimation : AnimationPlayer
 var dead = false
 var is_player = true
+var playable = false
 
 signal died()
 signal change_invincible(isInvincible)
@@ -48,7 +49,15 @@ func setup():
 func _physics_process(delta):
 	if _setup:
 		if !dead:
-			kb_process(delta)
+			if playable:
+				kb_process(delta)
+			else:
+				# Go from left screen side
+				var c = move_and_collide(Vector2(2, 0))
+				if c and c.collider:
+					if c.collider.has_method(\"touch\"):
+						c.collider.touch(self)
+					add_collision_exception_with(c.collider)
 	if dead:
 		rotation += 0.05
 		position += Vector2(0, speed)
@@ -146,14 +155,14 @@ func sling_fire():
 func fire():
 	if catAnimation.current_animation != \"Fire\":
 		sling_fire()
-	catAnimation.play(\"Fire\")
+		catAnimation.play(\"Fire\")
 
 func fire_down():
 	if catAnimation.current_animation != \"Fire\":
 		var rock = load(\"res://Objects/Falling_Rock.tscn\").instance()
 		rock.global_position = global_position + Vector2(40, 0)
 		get_parent().get_parent().add_child(rock)
-	catAnimation.play(\"Fire\")
+		catAnimation.play(\"Fire\")
 
 func cat_ani_finish(name):
 	if name == \"Fire\":
@@ -176,6 +185,9 @@ func set_noclip(b):
 
 func _ticker_timeout():
 	ivincible_time_sub()
+
+func level_holder():
+	return get_parent()
 "
 
 [sub_resource type="RectangleShape2D" id=2]

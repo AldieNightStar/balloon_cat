@@ -14,11 +14,6 @@ var dead = false
 func _ready():
 	$Animated_goose.play(\"fly_goose\")
 
-func _attack(body):
-	if body.get(\"is_player\") and body.has_method(\"damage\"):
-		body.damage(1)
-		self.add_collision_exception_with(body)
-
 func destruct():
 	queue_free()
 
@@ -32,7 +27,9 @@ func _physics_process(delta):
 		if dead:
 			add_collision_exception_with(c.collider)
 		else:
-			_attack(c.collider)
+			if c.collider.get(\"is_player\") and c.collider.has_method(\"damage\"):
+				c.collider.damage(1)
+			add_collision_exception_with(c.collider)
 
 func damage(n):
 	hp -= n

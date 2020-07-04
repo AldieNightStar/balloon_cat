@@ -1,26 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Paralax/Paralax_Level1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/ScenarioNode.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Rabbit.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Goose.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Objects/Bonus_balloon.tscn" type="PackedScene" id=7]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Area2D
-
-func scenario(holder):
-	# holder.spawn(100, load(\"res://Objects/Balloons.tscn\").instance())
-	print(\"YES! This is work! Scenario NUMBER ONE!\")
-"
-
 [node name="Level" type="Node2D"]
 
 [node name="LevelHolder" parent="." instance=ExtResource( 1 )]
 position = Vector2( 198.227, 148.181 )
-speed = 2
 
 [node name="Paralax_Level1" parent="." instance=ExtResource( 2 )]
 position = Vector2( -8.8624, 10.5688 )
@@ -258,12 +248,6 @@ position = Vector2( 28880, 170 )
 
 [node name="Goose14" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 28880, 50 )
-
-[node name="Scenarios" type="Node2D" parent="."]
-
-[node name="ScenarioNode" parent="Scenarios" instance=ExtResource( 3 )]
-position = Vector2( 560.829, 252.204 )
-script = SubResource( 1 )
 
 [node name="Enemies" type="Node2D" parent="."]
 

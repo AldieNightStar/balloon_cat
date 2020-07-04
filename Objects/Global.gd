@@ -14,6 +14,7 @@ func score_get():
 
 func score_add(n):
 	score_set(score_get() + n)
+	score_update()
 
 func score_update():
 	emit_signal("score_updated", score)
