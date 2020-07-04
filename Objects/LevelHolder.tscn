@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -133,6 +133,19 @@ func score_update():
 	emit_signal(\"score_updated\", score)
 "
 
+[sub_resource type="GDScript" id=11]
+script/source = "extends AudioStreamPlayer
+
+func _ready():
+	G.connect(\"sound_play\", self, \"_sound\")
+
+func _sound(name):
+	if playing:
+		stop()
+	stream = load(\"res://assets/sound/\" + name)
+	play()
+"
+
 [node name="LevelHolder" type="Node2D"]
 position = Vector2( 401.582, 198.015 )
 script = SubResource( 1 )
@@ -207,4 +220,8 @@ shape = SubResource( 9 )
 
 [node name="Score" type="Node" parent="."]
 script = SubResource( 10 )
+
+[node name="player" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+script = SubResource( 11 )
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]

@@ -3,6 +3,7 @@ extends Node
 var score = 0
 
 signal score_updated(n)
+signal sound_play(name)
 
 func score_set(n):
 	score = n
@@ -18,3 +19,6 @@ func score_add(n):
 
 func score_update():
 	emit_signal("score_updated", score)
+
+func play(name):
+	emit_signal("sound_play", name)

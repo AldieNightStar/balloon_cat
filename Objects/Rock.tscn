@@ -16,6 +16,7 @@ func setup():
 
 func _physics_process(delta):
 	var c = move_and_collide(Vector2(speed, 0))
+	$Sprite.rotation += 0.25
 	if c && c.collider:
 		if c.collider.has_method(\"damage\"):
 			c.collider.damage(damage_val)
@@ -35,10 +36,11 @@ func _exited():
 script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.40384, 1.50526 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 0.181881, 0.191584 )
+scale = Vector2( 0.737209, 0.719007 )
 shape = SubResource( 2 )
 
 [node name="notifier" type="VisibilityNotifier2D" parent="."]
