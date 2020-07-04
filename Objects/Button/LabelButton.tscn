@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Node2D
+
+export var label : String
+
+signal pressed
+
+func _ready():
+	$Button.connect(\"pressed\", self, \"_pressed\")
+	$Label.text = label
+
+func _pressed():
+	emit_signal(\"pressed\")
+"
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends TouchScreenButton
+
+func _ready():
+	$motion.play(\"Motion\")
+
+func _on_Button_pressed():
+	$ani.play(\"Hover\")
+"
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 2 )
+
+[node name="LabelButton" type="Node2D"]
+script = SubResource( 4 )
+
+[node name="Button" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 2.88259, 2.62726 )
+shape = SubResource( 5 )
+script = SubResource( 6 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 64.8018
+margin_top = 13.2048
+margin_right = 96.8019
+margin_bottom = 42.205
+custom_fonts/font = SubResource( 3 )
+text = "#"
+__meta__ = {
+"_edit_use_anchors_": false
+}
