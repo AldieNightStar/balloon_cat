@@ -22,3 +22,9 @@ func score_update():
 
 func play(name):
 	emit_signal("sound_play", name)
+
+func spawn(name, node, global_pos):
+	var n = load("res://Objects/" + name + ".tscn").instance()
+	n.global_position = global_pos
+	node.add_child(n)
+	return n

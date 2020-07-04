@@ -36,8 +36,10 @@ func touch(body):
 		body.damage(1)
 	
 func damage(n):
-	stateFiring = false
-	$anim.play(\"Hide\")
+	if stateFiring:
+		stateFiring = false
+		G.spawn(\"Bang\", get_parent(), global_position)
+		$anim.play(\"Hide\")
 "
 
 [sub_resource type="RectangleShape2D" id=2]

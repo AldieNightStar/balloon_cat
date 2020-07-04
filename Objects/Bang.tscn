@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var spec_y
+
+func _ready():
+	spec_y = position.y - 20
+
+func _physics_process(delta):
+	if position.y >= spec_y:
+		position.y -= 1
+	else:
+		queue_free()
+"
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[node name="Bang" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "bang!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}

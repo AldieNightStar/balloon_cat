@@ -39,11 +39,6 @@ func _process(delta):
 	else:
 		_do_velocity()
 
-func coin_spawn():
-	var coin = load(\"res://Objects/BonusCoin.tscn\").instance()
-	coin.global_position = self.global_position
-	get_parent().add_child(coin)
-
 func _do_velocity():
 	if global_position.y > max_pos_y or global_position.y < min_pos_y:
 		y_velocity *= -1
@@ -58,9 +53,9 @@ func touch(body):
 func damage(n):
 	hp -= n
 	if hp <= 0:
-		collis.disabled = true
 		dead = true
-		coin_spawn()
+		G.spawn(\"BonusCoin\", get_parent(), global_position)
+		G.spawn(\"Bang\", get_parent(), global_position)
 "
 
 [sub_resource type="RectangleShape2D" id=2]

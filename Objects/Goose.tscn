@@ -35,6 +35,7 @@ func damage(n):
 	hp -= n
 	if hp <= 0:
 		dead = true
+		G.spawn(\"Bang\", get_parent(), global_position)
 	
 func touch(body):
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):
