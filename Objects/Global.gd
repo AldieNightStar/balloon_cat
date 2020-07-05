@@ -1,9 +1,12 @@
 extends Node
 
 var score = 0
+var cat_hp = 4
 
 signal score_updated(n)
 signal sound_play(name)
+
+const spawners_level01 = 10
 
 func score_set(n):
 	score = n
@@ -27,4 +30,5 @@ func spawn(name, node, global_pos):
 	var n = load("res://Objects/" + name + ".tscn").instance()
 	n.global_position = global_pos
 	node.add_child(n)
+	n.global_position = global_pos
 	return n

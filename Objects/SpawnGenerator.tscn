@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export var levelName = \"Level01\"
+export var count = 5
+export var step = 400
+
+func spawn():
+	var r    = (randi() % count) + 1
+	var path = \"res://Levels/Spawners/\" + levelName + \"/Spawner\" + str(r) + \".tscn\"
+	var sc   = load(path).instance()
+	sc.global_position = global_position
+	get_parent().add_child(sc)
+	sc.global_position = global_position
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends KinematicBody2D
+
+func destruct():
+	var p = get_parent()
+	p.spawn()
+	p.position += Vector2(p.step, 0)
+"
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[node name="SpawnerGenerator" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="body" type="KinematicBody2D" parent="."]
+position = Vector2( 12.8299, 312.583 )
+script = SubResource( 2 )
+
+[node name="shape" type="CollisionShape2D" parent="body"]
+position = Vector2( 12.8299, 43.155 )
+scale = Vector2( 2.37092, 2.16513 )
+shape = SubResource( 3 )

@@ -57,6 +57,7 @@ animations = [ {
 script = SubResource( 1 )
 
 [node name="Collision_goose" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.09831, 2.09048 )
 shape = SubResource( 2 )
 
 [node name="Animated_goose" type="AnimatedSprite" parent="."]

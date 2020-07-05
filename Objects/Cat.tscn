@@ -12,7 +12,7 @@
 script/source = "extends KinematicBody2D
 
 export var speed = 4
-export var max_hp = 3
+export var max_hp = 4
 
 var min_w
 var max_w
@@ -31,6 +31,7 @@ signal died()
 signal change_invincible(isInvincible)
 
 func _ready():
+	max_hp = G.cat_hp
 	call_deferred(\"setup\")
 	
 func setup():
@@ -68,16 +69,12 @@ func kb_process(delta):
 	var yMove = 0
 	if Input.is_action_pressed(\"ui_left\"):
 		xMove = -speed
-		protect_positions()
 	elif Input.is_action_pressed(\"ui_right\"):
 		xMove = speed
-		protect_positions()
 	if Input.is_action_pressed(\"ui_up\"):
 		yMove = -speed
-		protect_positions()
 	elif Input.is_action_pressed(\"ui_down\"):
 		yMove = speed
-		protect_positions()
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		if !down_key:
 			fire()
@@ -87,6 +84,7 @@ func kb_process(delta):
 	if c:
 		if c.collider.has_method(\"touch\"):
 			c.collider.touch(self)
+	protect_positions()
 	
 func protect_positions():
 	if position.x > max_w:

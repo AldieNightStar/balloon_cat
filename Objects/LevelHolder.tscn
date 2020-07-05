@@ -7,8 +7,6 @@
 script/source = "extends Node2D
 
 export var speed = 3
-export var _cat_hp = 3
-export var _cat_speed = 4
 export var _score = 0
 
 var _go = false
@@ -20,8 +18,6 @@ func _ready():
 	
 func setup():
 	$camera.current = true
-	$cat.set_max_hp(_cat_hp)
-	$cat.speed = _cat_speed
 	$cat.connect(\"died\", self, \"_cat_died\")
 
 func start():

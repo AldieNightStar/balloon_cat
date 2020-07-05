@@ -7,9 +7,9 @@
 script/source = "extends KinematicBody2D
 
 export var max_pos = 400
-export var speed = 0.5
 export var diapazone : int = 50
 export var y_velocity : int = 1
+export var speed = 1
 
 var side = 0.5
 var hp = 1
