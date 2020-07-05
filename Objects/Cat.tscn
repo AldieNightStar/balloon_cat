@@ -724,9 +724,6 @@ script/source = "extends AnimationPlayer
 var cat
 
 func _ready():
-	call_deferred(\"setup\")
-
-func setup():
 	cat = get_parent()
 	cat.connect(\"change_invincible\", self, \"invinc\")
 	
@@ -743,12 +740,9 @@ script = SubResource( 1 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 1.13664, -11.0714 )
-scale = Vector2( 1.87601, 3.01781 )
+position = Vector2( -1.38159, -0.998517 )
+scale = Vector2( 1.69585, 2.71741 )
 shape = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="g" type="Node2D" parent="."]
 position = Vector2( -4.08781, 26.2788 )

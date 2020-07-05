@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -10,6 +11,8 @@ export var speed = 3
 export var _score = 0
 
 var _go = false
+var _menu = false
+var _cat_died = false
 
 signal died()
 
@@ -19,6 +22,7 @@ func _ready():
 func setup():
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
+	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
 
 func start():
 	_go = true
@@ -32,7 +36,9 @@ func _physics_process(delta):
 
 func _cat_died():
 	emit_signal(\"died\")
+	_cat_died = true
 	stop()
+	spawn_menu()
 
 func change_sling(sling: Node2D):
 	$cat.change_sling(sling)
@@ -42,28 +48,46 @@ func score_add(n):
 
 func score_get():
 	$Score.score_get()
+
+func spawn_menu(closeable = false):
+	if _menu: return
+	_menu = true
+	var cat_respawn_pos = $CatRespawnPos.global_position
+	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(25, 25))
+	menu.cat_respawn_pos = cat_respawn_pos
+	menu.holder = self
+	menu.closeable = closeable
+	menu.connect(\"closed\", self, \"_menu_closed\")
+	menu.connect(\"rebirth\", self, \"_cat_reborn\")
+
+func _menu_closed():
+	_menu = false
+
+func _cat_reborn():
+	_cat_died = false
+	_menu = false
 "
 
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 2 )
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends Label
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
 
 func _ready():
 	_on_Score_score_updated(0)
 
 func _on_Score_score_updated(n):
-	text = str(n)
+	$label.text = str(n)
 	get_parent().get_node(\"Anim\").play(\"Score_Update\")
 "
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("score:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -148,16 +172,22 @@ script = SubResource( 1 )
 
 [node name="clayer" type="CanvasLayer" parent="."]
 
-[node name="score" type="Label" parent="clayer"]
+[node name="MenuButton" parent="clayer" instance=ExtResource( 3 )]
+position = Vector2( 256.615, 3.28416 )
+label = "Menu"
+
+[node name="score" type="Node2D" parent="clayer"]
+script = SubResource( 2 )
+
+[node name="label" type="Label" parent="clayer/score"]
 modulate = Color( 0.101961, 0.152941, 0.878431, 1 )
 margin_left = 27.0927
 margin_top = 6.50859
 margin_right = 239.093
 margin_bottom = 83.5086
 rect_scale = Vector2( 0.438387, 0.53318 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Score"
-script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -171,6 +201,7 @@ scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
 position = Vector2( -226.544, -0.469744 )
+scale = Vector2( 0.982981, 0.98601 )
 
 [node name="Min_W" type="Node2D" parent="."]
 position = Vector2( -175.283, -7.68173 )
@@ -220,4 +251,7 @@ script = SubResource( 10 )
 [node name="player" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
 script = SubResource( 11 )
+
+[node name="CatRespawnPos" type="Node2D" parent="."]
+position = Vector2( -153.076, -9.40279 )
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]

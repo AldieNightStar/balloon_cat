@@ -8,6 +8,7 @@ export var count = 5
 export var step = 400
 
 func spawn():
+	randomize()
 	var r    = (randi() % count) + 1
 	var path = \"res://Levels/Spawners/\" + levelName + \"/Spawner\" + str(r) + \".tscn\"
 	var sc   = load(path).instance()

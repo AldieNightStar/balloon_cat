@@ -11,33 +11,18 @@
 position = Vector2( 1190.18, 316.339 )
 
 [node name="Rabbit" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200.433, 259.488 )
+position = Vector2( 86.6728, 260.686 )
 
 [node name="Goose" parent="." instance=ExtResource( 4 )]
 position = Vector2( 72.7051, 23.3311 )
 
-[node name="Goose2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 71.6864, 115.683 )
-
-[node name="Goose3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 72.8839, 214.621 )
-
 [node name="Raven" parent="." instance=ExtResource( 3 )]
-position = Vector2( 178.678, 59.233 )
-
-[node name="Raven2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 241.853, 107.968 )
-y_velocity = -1
+position = Vector2( 185.264, 78.3926 )
 
 [node name="Raven3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 182.288, 200.023 )
+position = Vector2( 202.046, 205.412 )
 diapazone = 25
 y_velocity = -1
 
 [node name="Raven4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 298.711, 161.216 )
-
-[node name="Raven5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 364.594, 97.1381 )
-diapazone = 25
-y_velocity = -1
+position = Vector2( 295.717, 142.656 )

@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Background/DeathMenuBg.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var coins_to_global = true
+var holder
+var cat_respawn_pos
+var closeable = false
+
+signal closed
+signal rebirth
+
+func _ready():
+	$ani.play(\"Appear\")
+	$Restart.connect(\"pressed\", self, \"_restart\")
+	$Rebirth.connect(\"pressed\", self, \"_rebirth\")
+	$MainMenu.connect(\"pressed\", self, \"_mmenu\")
+	$Close.connect(\"pressed\", self, \"_closeMenu\")
+
+func _closeMenu():
+	if closeable:
+		emit_signal(\"closed\")
+		queue_free()
+
+func _restart():
+	if !holder: return
+	get_tree().change_scene(\"res://Levels/\" + G.levelName + \".tscn\")
+
+func _rebirth():
+	if !holder: return
+	if !holder._cat_died: return
+	var c = G.spawn(\"Cat\", holder, cat_respawn_pos)
+	c.name = \"cat\"
+	c.playable = true
+	c.make_invincible()
+	c.connect(\"died\", holder, \"_cat_died\")
+	holder.start()
+	emit_signal(\"rebirth\")
+	queue_free()
+
+func _mmenu():
+	if !holder: return
+	if coins_to_global:
+		G.temp_score = holder.score_get()
+	get_tree().change_scene(\"res://Levels/MainMenu.tscn\")
+"
+
+[sub_resource type="Animation" id=2]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathMenuBg:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.242634, 0.232222 ), Vector2( 0.300847, 0.325525 ), Vector2( 0.289992, 0.306474 ) ]
+}
+
+[node name="GameMenu" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="DeathMenuBg" type="Sprite" parent="."]
+position = Vector2( 179.967, 125.882 )
+scale = Vector2( 0.289992, 0.306474 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Close" parent="." instance=ExtResource( 3 )]
+position = Vector2( 282.231, 10.65 )
+scale = Vector2( 2.48586, 2.14686 )
+
+[node name="Restart" parent="." instance=ExtResource( 2 )]
+position = Vector2( 65.0016, 24.001 )
+label = "Restart"
+
+[node name="Rebirth" parent="." instance=ExtResource( 2 )]
+position = Vector2( 66.8494, 85.8463 )
+label = "Rebirth (Ads)"
+
+[node name="MainMenu" parent="." instance=ExtResource( 2 )]
+position = Vector2( 67.9559, 146.339 )
+label = "Main Menu"
+
+[node name="ani" type="AnimationPlayer" parent="."]
+anims/Appear = SubResource( 2 )

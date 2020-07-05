@@ -2,6 +2,8 @@ extends Node
 
 var score = 0
 var cat_hp = 4
+var temp_score = 0
+var levelName = "Level01"
 
 signal score_updated(n)
 signal sound_play(name)
