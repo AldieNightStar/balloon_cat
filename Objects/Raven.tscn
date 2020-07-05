@@ -17,6 +17,7 @@ var dead = false
 var min_pos_y
 var max_pos_y
 var collis
+var active = false
 
 func _ready():
 	collis = get_node(\"shape\")
@@ -25,6 +26,7 @@ func _ready():
 	$AnimatedSprite.play(\"fly\")
 
 func _process(delta):
+	if !active: return
 	var c = move_and_collide(Vector2(-speed, y_velocity))
 	if c and c.collider:
 		if dead:
@@ -56,6 +58,10 @@ func damage(n):
 		dead = true
 		G.spawn(\"BonusCoin\", get_parent(), global_position)
 		G.spawn(\"Bang\", get_parent(), global_position)
+
+
+func _on_notifier_screen_entered():
+	active = true
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -81,3 +87,6 @@ shape = SubResource( 2 )
 position = Vector2( 0.970825, 1.58549 )
 frames = SubResource( 3 )
 animation = "fly"
+
+[node name="notifier" type="VisibilityNotifier2D" parent="."]
+[connection signal="screen_entered" from="notifier" to="." method="_on_notifier_screen_entered"]
