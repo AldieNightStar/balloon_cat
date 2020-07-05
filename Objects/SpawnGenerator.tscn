@@ -21,7 +21,7 @@ script/source = "extends KinematicBody2D
 
 func destruct():
 	var p = get_parent()
-	p.spawn()
+	p.call_deferred(\"spawn\")
 	p.position += Vector2(p.step, 0)
 "
 
