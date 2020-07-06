@@ -36,6 +36,7 @@ func touch(body):
 func damage(n):
 	if stateFiring:
 		stateFiring = false
+		G.spawn(\"BonusCoin\", get_parent(), global_position - Vector2(0, 120))
 		G.spawn(\"Bang\", get_parent(), global_position)
 		$anim.play(\"Hide\")
 "
