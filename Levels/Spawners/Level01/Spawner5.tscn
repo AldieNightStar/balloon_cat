@@ -8,7 +8,7 @@
 [node name="Spawner2" type="Node2D"]
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1190.18, 316.339 )
+position = Vector2( 1333.72, 429.12 )
 
 [node name="Rabbit" parent="." instance=ExtResource( 1 )]
 position = Vector2( 114.382, 268.369 )

@@ -7,7 +7,7 @@
 [node name="Spawner2" type="Node2D"]
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1190.18, 316.339 )
+position = Vector2( 1356.04, 436.759 )
 
 [node name="Bonus_Coin" parent="." instance=ExtResource( 1 )]
 position = Vector2( 185.916, 65.4065 )

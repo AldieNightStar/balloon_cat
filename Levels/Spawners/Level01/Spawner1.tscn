@@ -21,4 +21,4 @@ position = Vector2( 168.875, 211.51 )
 position = Vector2( 244.908, 271.993 )
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 809.125, 308.68 )
+position = Vector2( 1270.3, 402.046 )

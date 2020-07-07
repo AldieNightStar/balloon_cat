@@ -53,7 +53,7 @@ func spawn_menu(closeable = false):
 	if _menu: return
 	_menu = true
 	var cat_respawn_pos = $CatRespawnPos.global_position
-	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(25, 25))
+	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(225, 25))
 	menu.cat_respawn_pos = cat_respawn_pos
 	menu.holder = self
 	menu.closeable = closeable
@@ -66,6 +66,12 @@ func _menu_closed():
 func _cat_reborn():
 	_cat_died = false
 	_menu = false
+
+
+func _on_Timer_timeout():
+	if speed < 10:
+		speed += 0.1
+	speed += 0.1
 "
 
 [sub_resource type="GDScript" id=2]
@@ -116,7 +122,7 @@ func enter(body_id, body, body_shape, area_shape):
 extents = Vector2( 69.89, 67.4558 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 113.549, 30.6906 )
+extents = Vector2( 195.641, 30.6906 )
 
 [sub_resource type="GDScript" id=8]
 script/source = "extends KinematicBody2D
@@ -173,7 +179,7 @@ script = SubResource( 1 )
 [node name="clayer" type="CanvasLayer" parent="."]
 
 [node name="MenuButton" parent="clayer" instance=ExtResource( 3 )]
-position = Vector2( 256.615, 3.28416 )
+position = Vector2( 662.098, 4.65881 )
 label = "Menu"
 
 [node name="score" type="Node2D" parent="clayer"]
@@ -200,20 +206,20 @@ position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -226.544, -0.469744 )
+position = Vector2( -472.023, -3.17723 )
 scale = Vector2( 0.982981, 0.98601 )
 
 [node name="Min_W" type="Node2D" parent="."]
-position = Vector2( -175.283, -7.68173 )
+position = Vector2( -402.504, -13.3542 )
 
 [node name="Min_H" type="Node2D" parent="."]
-position = Vector2( -179.473, -121.511 )
+position = Vector2( -397.247, -173.389 )
 
 [node name="Max_W" type="Node2D" parent="."]
-position = Vector2( -27.3826, -5.97534 )
+position = Vector2( -1.07175, 2.45125 )
 
 [node name="Max_H" type="Node2D" parent="."]
-position = Vector2( -171.791, 67.7385 )
+position = Vector2( -282.885, 95.8507 )
 
 [node name="Destructor" type="Area2D" parent="."]
 position = Vector2( -275.333, 4.58447 )
@@ -224,14 +230,14 @@ __meta__ = {
 }
 
 [node name="shape" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( -89.2414, -31.2726 )
+position = Vector2( -167.445, -28.136 )
 shape = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( 81.8979, 68.1297 )
+position = Vector2( 93.9551, 70.4456 )
 shape = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
@@ -241,7 +247,7 @@ __meta__ = {
 script = SubResource( 8 )
 
 [node name="shape" type="CollisionShape2D" parent="CatActivator"]
-position = Vector2( -103.833, -8.73477 )
+position = Vector2( -238.507, -10.725 )
 scale = Vector2( 1.07726, 3.23861 )
 shape = SubResource( 9 )
 
@@ -253,5 +259,12 @@ volume_db = -10.0
 script = SubResource( 11 )
 
 [node name="CatRespawnPos" type="Node2D" parent="."]
-position = Vector2( -153.076, -9.40279 )
+position = Vector2( -207.813, -3.08702 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
