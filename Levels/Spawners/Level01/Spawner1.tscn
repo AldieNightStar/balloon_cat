@@ -5,17 +5,11 @@
 
 [node name="Spawner" type="Node2D"]
 
-[node name="Goose" parent="." instance=ExtResource( 1 )]
-position = Vector2( 163.618, 69.4926 )
-
 [node name="Goose5" parent="." instance=ExtResource( 1 )]
 position = Vector2( 226.235, 21.4701 )
 
-[node name="Goose6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 308.499, 20.8066 )
-
 [node name="Goose3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 168.875, 211.51 )
+position = Vector2( 146.087, 148.292 )
 
 [node name="Goose4" parent="." instance=ExtResource( 1 )]
 position = Vector2( 244.908, 271.993 )
