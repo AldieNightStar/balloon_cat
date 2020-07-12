@@ -8,13 +8,13 @@
 [node name="Spawner2" type="Node2D"]
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1190.18, 316.339 )
+position = Vector2( 1333.72, 429.12 )
 
 [node name="Rabbit" parent="." instance=ExtResource( 1 )]
-position = Vector2( 114.382, 268.369 )
+position = Vector2( 121.21, 299.58 )
 
 [node name="Rabbit2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 330.267, 262.952 )
+position = Vector2( 337.094, 294.163 )
 
 [node name="Bonus_balloon" parent="." instance=ExtResource( 3 )]
 position = Vector2( 197.742, 153.936 )

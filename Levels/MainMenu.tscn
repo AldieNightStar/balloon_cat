@@ -59,8 +59,7 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Scroll"
-length = 10.0
-loop = true
+length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
 tracks/0/interp = 1
@@ -68,10 +67,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 15, 29.9 ),
+"transitions": PoolRealArray( 1, 1.10957, 1 ),
 "update": 0,
-"values": [ Vector2( 250.693, 157.285 ), Vector2( 200, 157.285 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( 0, 0 ) ]
 }
 
 [node name="Node2D" type="Node2D"]
@@ -143,7 +142,7 @@ __meta__ = {
 }
 
 [node name="Pos_Play" type="Node2D" parent="."]
-position = Vector2( 400, 0 )
+position = Vector2( 816.958, 1.80501 )
 
 [node name="Level1" parent="Pos_Play" instance=ExtResource( 3 )]
 position = Vector2( 30.1514, 54.4294 )
@@ -180,7 +179,7 @@ __meta__ = {
 position = Vector2( 0, 380 )
 
 [node name="Pos_Options" type="Node2D" parent="."]
-position = Vector2( 400.738, 300 )
+position = Vector2( 817.445, 387.351 )
 
 [node name="canvas" type="CanvasLayer" parent="."]
 
@@ -203,27 +202,41 @@ __meta__ = {
 
 [node name="bg" type="ParallaxBackground" parent="canvas"]
 
-[node name="bg1" type="Sprite" parent="canvas/bg"]
-position = Vector2( 205.633, 155.645 )
+[node name="bg3" type="Sprite" parent="canvas/bg"]
+position = Vector2( 127.445, 198.939 )
+scale = Vector2( 1.26029, 1.29889 )
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="mountains" type="Sprite" parent="canvas/bg"]
-position = Vector2( 250.693, 157.285 )
-scale = Vector2( 1.33324, 0.963727 )
+[node name="bg1" type="Sprite" parent="canvas/bg"]
+position = Vector2( 556.51, 198.939 )
+scale = Vector2( 1.26029, 1.29889 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="mountains" type="Node2D" parent="canvas/bg"]
+
+[node name="mountains" type="Sprite" parent="canvas/bg/mountains"]
+position = Vector2( 257.968, 193.471 )
+scale = Vector2( 2.4996, 1.34644 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="bg2" type="Sprite" parent="canvas/bg"]
-position = Vector2( 202.023, 158.353 )
+[node name="mountains2" type="Sprite" parent="canvas/bg/mountains"]
+position = Vector2( 1284.4, 193.471 )
+scale = Vector2( 2.4996, 1.34644 )
+texture = ExtResource( 6 )
+
+[node name="ground" type="Sprite" parent="canvas/bg"]
+position = Vector2( 406.719, 198.009 )
+scale = Vector2( 1.98412, 1.24785 )
 texture = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
 anims/Scroll = SubResource( 3 )

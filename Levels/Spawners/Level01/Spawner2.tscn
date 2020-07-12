@@ -14,7 +14,7 @@ y_velocity = -1
 position = Vector2( 101.017, 90.5866 )
 
 [node name="Raven6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 120.768, 245.401 )
+position = Vector2( 119.298, 272.6 )
 diapazone = 25
 
 [node name="Raven3" parent="." instance=ExtResource( 1 )]
@@ -25,4 +25,4 @@ position = Vector2( 330.361, 251.334 )
 y_velocity = -1
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1190.18, 316.339 )
+position = Vector2( 1331.05, 418.583 )

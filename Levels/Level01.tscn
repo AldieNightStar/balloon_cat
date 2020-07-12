@@ -10,7 +10,8 @@
 position = Vector2( 198.227, 148.181 )
 
 [node name="SpawnerGenerator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 446.446, 3.03274 )
+position = Vector2( 674.031, -16.3991 )
+count = 7
 
 [node name="Paralax_Level1" parent="." instance=ExtResource( 2 )]
-position = Vector2( -8.8624, 10.5688 )
+position = Vector2( -8.8624, 9.79501 )
