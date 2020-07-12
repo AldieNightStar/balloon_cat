@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=3]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends TouchScreenButton
+
+export var action_value = \"ui_up\"
+
+func _ready():
+	connect(\"pressed\", self, \"_pressed\")
+	connect(\"released\", self, \"_released\")
+
+func _pressed():
+	Input.action_press(action_value)
+
+func _released():
+	Input.action_release(action_value)
+"
+
+[node name="ActionButton" type="TouchScreenButton"]
+shape = SubResource( 3 )
+shape_centered = false
+script = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.19317, 0.19063 )
+texture = ExtResource( 1 )

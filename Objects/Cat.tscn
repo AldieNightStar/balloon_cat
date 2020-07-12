@@ -134,7 +134,7 @@ func ivincible_time_sub():
 		if (invincible_time < 1):
 			emit_signal(\"change_invincible\", false)
 
-func make_invincible(n = 3):
+func make_invincible(n = 2):
 	if (invincible_time < 1):
 		emit_signal(\"change_invincible\", true)
 		if n < 1:
