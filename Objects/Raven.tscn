@@ -25,7 +25,7 @@ func _ready():
 	max_pos_y = global_position.y + diapazone
 	$AnimatedSprite.play(\"fly\")
 
-func _process(delta):
+func _physics_process(delta):
 	if !active: return
 	var c = move_and_collide(Vector2(-speed, y_velocity))
 	if c and c.collider:
