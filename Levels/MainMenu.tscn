@@ -232,11 +232,17 @@ __meta__ = {
 position = Vector2( 1284.4, 193.471 )
 scale = Vector2( 2.4996, 1.34644 )
 texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ground" type="Sprite" parent="canvas/bg"]
 position = Vector2( 406.719, 198.009 )
 scale = Vector2( 1.98412, 1.24785 )
 texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
 anims/Scroll = SubResource( 3 )

@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/UI/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Button/ActionButton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -69,7 +71,7 @@ func _cat_reborn():
 
 
 func _on_Timer_timeout():
-	if speed < 10:
+	if speed < 7:
 		speed += 0.1
 	speed += 0.1
 "
@@ -201,7 +203,17 @@ __meta__ = {
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
 anims/Score_Update = SubResource( 4 )
 
+[node name="Joystick2" parent="clayer" instance=ExtResource( 4 )]
+position = Vector2( 82.8336, 295.775 )
+scale = Vector2( 2.63903, 2.85294 )
+
+[node name="ActionButton" parent="." instance=ExtResource( 5 )]
+position = Vector2( 360.381, 125.962 )
+scale = Vector2( 3.2085, 3.7602 )
+action_value = "ui_accept"
+
 [node name="camera" type="Camera2D" parent="."]
+visible = false
 position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 

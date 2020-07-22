@@ -30,12 +30,17 @@ func _on_timer():
 		$anim.play(\"Fire\")
 
 func touch(body):
-	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+	if !stateFiring:
+		if body.get(\"is_player\"):
+			add_collision_exception_with(body)
+		return
+	if body.get(\"is_player\") and body.has_method(\"damage\"):
 		body.damage(1)
 	
 func damage(n):
 	if stateFiring:
 		stateFiring = false
+		G.spawn(\"BonusCoin\", get_parent(), global_position - Vector2(0, 120))
 		G.spawn(\"Bang\", get_parent(), global_position)
 		$anim.play(\"Hide\")
 "
