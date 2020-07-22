@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends TouchScreenButton
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed(\"ui_accept\"):
+		pass
+"
+
+[node name="Button-Fire" type="TouchScreenButton"]
+normal = ExtResource( 1 )
+action = "ui_accept"
+script = SubResource( 1 )
