@@ -6,11 +6,12 @@ const SMALL_RADIUS = 45
 var stick_pos
 var evt_index = -1
 
+func _init():
+	stick_pos = position
+
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
-			position = event.position
-			stick_pos = position
 			$small.position = Vector2()
 			$anim.play("show")
 			
