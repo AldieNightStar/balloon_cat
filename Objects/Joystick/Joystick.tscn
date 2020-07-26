@@ -9,6 +9,8 @@ script/source = "extends Node2D
 var stick_speed = 0
 var stick_angle = 0
 var stick_vector = Vector2()
+
+export var automate_ui_buttons = false
 "
 
 [sub_resource type="GDScript" id=2]
@@ -16,41 +18,59 @@ script/source = "extends Sprite
 
 const RADIUS = 120
 const SMALL_RADIUS = 45
+const AUTO_RADIUS = .25
 
 var stick_pos
 var evt_index = -1
+var automate_ui_buttons
 
-func _init():
-	stick_pos = global_position
+signal on_change(vector2)
+
+func _ready():
+	stick_pos = get_parent().global_position
+	automate_ui_buttons = get_parent().automate_ui_buttons
+	if automate_ui_buttons:
+		connect(\"on_change\", self, \"__process_input\")
 
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
-			$small.position = Vector2()
 			$anim.play(\"show\")
 			if stick_pos.distance_to(event.position) < RADIUS:
 				evt_index = event.index
 		elif evt_index != -1:
 			if evt_index == event.index:
+				var parent = get_parent()
 				$anim.play(\"hide\")
 				evt_index = -1
-				$\"../\".stick_speed = 0
-				$\"../\".stick_vector = Vector2()
-				$\"../\".stick_angle = 0
-				
-	if	evt_index != -1 and event is InputEventScreenDrag:
-		
+				parent.stick_speed = 0
+				parent.stick_vector = Vector2.ZERO
+				parent.stick_angle = 0
+				$small.position = Vector2.ZERO
+				emit_signal(\"on_change\", Vector2.ZERO)
+	if evt_index != -1 and event is InputEventScreenDrag:
 		var dist = stick_pos.distance_to(event.position)
 		var vect = (event.position - stick_pos).normalized()
-		
 		if dist+SMALL_RADIUS > RADIUS:
 			dist = RADIUS-SMALL_RADIUS
-			
-		$\"../\".stick_speed = dist
-		$\"../\".stick_vector = vect
-		$\"../\".stick_angle = event.position.angle_to_point(stick_pos)
-		
+		var parent = get_parent()
+		parent.stick_speed = dist
+		parent.stick_vector = vect
+		parent.stick_angle = event.position.angle_to_point(stick_pos)
 		$small.position = vect * dist
+		emit_signal(\"on_change\", vect)
+
+func __process_input(v):
+	# Horizontal
+	if v.x > AUTO_RADIUS: Input.action_press(\"ui_right\")
+	else: Input.action_release(\"ui_right\")
+	if v.x < -AUTO_RADIUS: Input.action_press(\"ui_left\")
+	else: Input.action_release(\"ui_left\")
+	# Vertical
+	if v.y > AUTO_RADIUS: Input.action_press(\"ui_down\")
+	else: Input.action_release(\"ui_down\")
+	if v.y < -AUTO_RADIUS: Input.action_press(\"ui_up\")
+	else: Input.action_release(\"ui_up\")
 "
 
 [sub_resource type="Animation" id=3]
