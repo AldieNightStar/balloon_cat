@@ -48,7 +48,7 @@ func score_add(n):
 	$Score.score_add(n)
 
 func score_get():
-	$Score.score_get()
+	return $Score.score_get()
 
 func spawn_menu(closeable = false):
 	if _menu: return
@@ -58,6 +58,7 @@ func spawn_menu(closeable = false):
 	menu.cat_respawn_pos = cat_respawn_pos
 	menu.holder = self
 	menu.closeable = closeable
+	menu.coins_to_global = _cat_died
 	menu.connect(\"closed\", self, \"_menu_closed\")
 	menu.connect(\"rebirth\", self, \"_cat_reborn\")
 

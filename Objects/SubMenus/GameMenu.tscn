@@ -47,6 +47,7 @@ func _mmenu():
 	if !holder: return
 	if coins_to_global:
 		G.temp_score = holder.score_get()
+		G.score_save()
 	get_tree().change_scene(\"res://Levels/MainMenu.tscn\")
 "
 

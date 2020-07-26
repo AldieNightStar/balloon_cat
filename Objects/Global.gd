@@ -34,3 +34,8 @@ func spawn(name, node, global_pos):
 	node.add_child(n)
 	n.global_position = global_pos
 	return n
+
+func score_save():
+	if temp_score > 0:
+		score += temp_score
+		temp_score = 0
