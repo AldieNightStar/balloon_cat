@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Background/Level01/fon.png" type="Texture" id=4]
 [ext_resource path="res://assets/Background/Level01/field3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Level01/mount2.png" type="Texture" id=6]
+[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -81,6 +82,10 @@ offset = Vector2( 200, 150 )
 current = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="MainSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
 
 [node name="Pos_MMenu" type="Node2D" parent="."]
 
