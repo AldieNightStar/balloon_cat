@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Paralax/Paralax_Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/SpawnGenerator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Music/BalloonCat_FirstLevel.ogg" type="AudioStream" id=4]
 
 [node name="Level" type="Node2D"]
+
+[node name="LevelSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -7.0
+autoplay = true
+max_distance = 1e+06
 
 [node name="LevelHolder" parent="." instance=ExtResource( 1 )]
 position = Vector2( 198.227, 148.181 )
