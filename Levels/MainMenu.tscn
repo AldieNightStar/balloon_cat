@@ -83,7 +83,7 @@ current = true
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="MainSound" type="AudioStreamPlayer2D" parent="."]
+[node name="MainSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
 
