@@ -10,6 +10,8 @@ var stick_speed = 0
 var stick_angle = 0
 var stick_vector = Vector2()
 
+signal on_change(vector2)
+
 export var automate_ui_buttons = false
 "
 
@@ -24,13 +26,11 @@ var stick_pos
 var evt_index = -1
 var automate_ui_buttons
 
-signal on_change(vector2)
-
 func _ready():
 	stick_pos = get_parent().global_position
 	automate_ui_buttons = get_parent().automate_ui_buttons
 	if automate_ui_buttons:
-		connect(\"on_change\", self, \"__process_input\")
+		get_parent().connect(\"on_change\", self, \"__process_input\")
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -47,7 +47,7 @@ func _input(event):
 				parent.stick_vector = Vector2.ZERO
 				parent.stick_angle = 0
 				$small.position = Vector2.ZERO
-				emit_signal(\"on_change\", Vector2.ZERO)
+				get_parent().emit_signal(\"on_change\", Vector2.ZERO)
 	if evt_index != -1 and event is InputEventScreenDrag:
 		var dist = stick_pos.distance_to(event.position)
 		var vect = (event.position - stick_pos).normalized()
@@ -58,7 +58,7 @@ func _input(event):
 		parent.stick_vector = vect
 		parent.stick_angle = event.position.angle_to_point(stick_pos)
 		$small.position = vect * dist
-		emit_signal(\"on_change\", vect)
+		get_parent().emit_signal(\"on_change\", vect)
 
 func __process_input(v):
 	# Horizontal
