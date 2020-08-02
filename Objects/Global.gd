@@ -11,6 +11,7 @@ var game_just_started = true
 
 signal score_updated(n)
 signal sound_play(name)
+signal _on_joystick_change(vector2)
 
 const spawners_level01 = 10
 const SAVE_FILE_NAME = "game"

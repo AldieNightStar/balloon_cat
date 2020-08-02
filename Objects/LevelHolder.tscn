@@ -26,6 +26,9 @@ func setup():
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
+	
+	# Setup joystick movement
+	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
 
 func start():
 	_go = true
@@ -76,6 +79,9 @@ func _on_Timer_timeout():
 	if speed < max_speed:
 		speed += 0.1
 	speed += 0.1
+
+func _global_joystick_change(v):
+	G.emit_signal(\"_on_joystick_change\", v)
 "
 
 [sub_resource type="GDScript" id=2]
@@ -207,7 +213,6 @@ anims/Score_Update = SubResource( 4 )
 
 [node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
 position = Vector2( 79.3893, 296.938 )
-automate_ui_buttons = true
 
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
 position = Vector2( 753.072, 317.318 )
