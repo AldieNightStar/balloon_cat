@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Background/Level01/fon.png" type="Texture" id=4]
 [ext_resource path="res://assets/Background/Level01/field3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Level01/mount2.png" type="Texture" id=6]
+[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -14,9 +15,14 @@ var t : Tween
 
 func _ready():
 	call_deferred(\"setup\")
+	if G.game_just_started:
+		G.game_just_started = false
+		call_deferred(\"load_game\")
+	else:
+		save_game()
 	
 func setup():
-	t = get_node(\"Tween\")
+	t = get_node(\"Tween\")	
 	# Menus buttons
 	$Pos_MMenu/BPlay.connect(\"pressed\", self, \"move_to\", [$Pos_Play])
 	$Pos_MMenu/BUpgrades.connect(\"pressed\", self, \"move_to\", [$Pos_Upgrades])
@@ -51,16 +57,46 @@ func move_to(node):
 
 func level(n):
 	get_tree().change_scene(\"res://Levels/Level0\" + str(n) + \".tscn\")
+
+func load_game():
+	if G.saving.exists_obj(G.SAVE_FILE_NAME):
+		var data = G.saving.load_obj(G.SAVE_FILE_NAME)
+		# --- LOAD GAME DATA LOGIC ---
+		
+		G.call_deferred(\"score_set\", data.score)
+
+		G.score_set(data.score)
+		
+		# ------
+		return data
+	else:
+		save_game()
+
+func save_game():
+	# --- SAVE GAME DATA LOGIC ---
+	var obj = {
+		\"score\": G.score
+	}
+	# ------
+	G.saving.save_obj(obj, G.SAVE_FILE_NAME)
 "
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "Scroll"
-length = 10.0
-loop = true
+[sub_resource type="GDScript" id=3]
+script/source = "extends Label
+
+func _ready():
+	G.connect(\"score_updated\", self, \"_score\")
+
+func _score(n):
+	text = str(n)
+"
+
+[sub_resource type="Animation" id=4]
+length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
 tracks/0/interp = 1
@@ -68,10 +104,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 15, 29.9 ),
+"transitions": PoolRealArray( 1, 1.10957, 1 ),
 "update": 0,
-"values": [ Vector2( 250.693, 157.285 ), Vector2( 200, 157.285 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( 0, 0 ) ]
 }
 
 [node name="Node2D" type="Node2D"]
@@ -82,6 +118,10 @@ offset = Vector2( 200, 150 )
 current = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="MainSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
 
 [node name="Pos_MMenu" type="Node2D" parent="."]
 
@@ -143,7 +183,7 @@ __meta__ = {
 }
 
 [node name="Pos_Play" type="Node2D" parent="."]
-position = Vector2( 400, 0 )
+position = Vector2( 816.958, 1.80501 )
 
 [node name="Level1" parent="Pos_Play" instance=ExtResource( 3 )]
 position = Vector2( 30.1514, 54.4294 )
@@ -180,7 +220,7 @@ __meta__ = {
 position = Vector2( 0, 380 )
 
 [node name="Pos_Options" type="Node2D" parent="."]
-position = Vector2( 400.738, 300 )
+position = Vector2( 817.445, 387.351 )
 
 [node name="canvas" type="CanvasLayer" parent="."]
 
@@ -196,6 +236,7 @@ margin_right = 95.16
 margin_bottom = 32.6758
 custom_fonts/font = SubResource( 2 )
 text = "0"
+script = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
@@ -203,27 +244,47 @@ __meta__ = {
 
 [node name="bg" type="ParallaxBackground" parent="canvas"]
 
-[node name="bg1" type="Sprite" parent="canvas/bg"]
-position = Vector2( 205.633, 155.645 )
+[node name="bg3" type="Sprite" parent="canvas/bg"]
+position = Vector2( 127.445, 198.939 )
+scale = Vector2( 1.26029, 1.29889 )
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="mountains" type="Sprite" parent="canvas/bg"]
-position = Vector2( 250.693, 157.285 )
-scale = Vector2( 1.33324, 0.963727 )
+[node name="bg1" type="Sprite" parent="canvas/bg"]
+position = Vector2( 556.51, 198.939 )
+scale = Vector2( 1.26029, 1.29889 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="mountains" type="Node2D" parent="canvas/bg"]
+
+[node name="mountains" type="Sprite" parent="canvas/bg/mountains"]
+position = Vector2( 257.968, 193.471 )
+scale = Vector2( 2.4996, 1.34644 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="bg2" type="Sprite" parent="canvas/bg"]
-position = Vector2( 202.023, 158.353 )
+[node name="mountains2" type="Sprite" parent="canvas/bg/mountains"]
+position = Vector2( 1284.4, 193.471 )
+scale = Vector2( 2.4996, 1.34644 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ground" type="Sprite" parent="canvas/bg"]
+position = Vector2( 406.719, 198.009 )
+scale = Vector2( 1.98412, 1.24785 )
 texture = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
-anims/Scroll = SubResource( 3 )
+anims/Scroll = SubResource( 4 )

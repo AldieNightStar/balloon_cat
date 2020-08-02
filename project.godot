@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "SavingGame",
+"language": "GDScript",
+"path": "res://Objects/Logic/Saving.gd"
+} ]
 _global_script_class_icons={
-
+"SavingGame": ""
 }
 
 [application]
@@ -25,17 +30,24 @@ G="*res://Objects/Global.gd"
 
 [display]
 
-window/size/width=400
-window/size/height=300
-window/size/test_width=800
-window/size/test_height=600
+window/size/width=812
+window/size/height=376
+window/size/test_width=1200
+window/size/test_height=750
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[input]
+
+click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-pointing/emulate_mouse_from_touch=false
 
 [rendering]
 

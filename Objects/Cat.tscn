@@ -11,8 +11,8 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
-export var speed = 4
-export var max_hp = 3
+export var speed = 5
+export var max_hp = 4
 
 var min_w
 var max_w
@@ -27,10 +27,16 @@ var dead = false
 var is_player = true
 var playable = false
 
+# Joystick variables
+var j_used = false
+var j_move_x = 0
+var j_move_y = 0
+
 signal died()
 signal change_invincible(isInvincible)
 
 func _ready():
+	max_hp = G.cat_hp
 	call_deferred(\"setup\")
 	
 func setup():
@@ -45,19 +51,21 @@ func setup():
 	catAnimation = $g/ani
 	catAnimation.play(\"Idle\")
 	catAnimation.connect(\"animation_finished\", self, \"cat_ani_finish\")
+	G.connect(\"_on_joystick_change\", self, \"_on_joystick_change\")
 
 func _physics_process(delta):
-	if _setup:
-		if !dead:
-			if playable:
-				kb_process(delta)
-			else:
-				# Go from left screen side
-				var c = move_and_collide(Vector2(2, 0))
-				if c and c.collider:
-					if c.collider.has_method(\"touch\"):
-						c.collider.touch(self)
-					add_collision_exception_with(c.collider)
+	if _setup and !dead:
+		if playable:
+			kb_process(delta)
+			if j_used:
+				move(j_move_x, j_move_y)
+		else:
+			# Go from left screen side
+			var c = move_and_collide(Vector2(2, 0))
+			if c and c.collider:
+				if c.collider.has_method(\"touch\"):
+					c.collider.touch(self)
+				add_collision_exception_with(c.collider)
 	if dead:
 		rotation += 0.05
 		position += Vector2(0, speed)
@@ -68,26 +76,26 @@ func kb_process(delta):
 	var yMove = 0
 	if Input.is_action_pressed(\"ui_left\"):
 		xMove = -speed
-		protect_positions()
 	elif Input.is_action_pressed(\"ui_right\"):
 		xMove = speed
-		protect_positions()
 	if Input.is_action_pressed(\"ui_up\"):
 		yMove = -speed
-		protect_positions()
 	elif Input.is_action_pressed(\"ui_down\"):
 		yMove = speed
-		protect_positions()
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		if !down_key:
 			fire()
 		else:
 			fire_down()
+	move(xMove, yMove)
+	
+func move(xMove, yMove):
 	var c = move_and_collide(Vector2(xMove, yMove))
 	if c:
 		if c.collider.has_method(\"touch\"):
 			c.collider.touch(self)
-	
+	protect_positions()
+
 func protect_positions():
 	if position.x > max_w:
 		position.x = max_w
@@ -136,7 +144,7 @@ func ivincible_time_sub():
 		if (invincible_time < 1):
 			emit_signal(\"change_invincible\", false)
 
-func make_invincible(n = 3):
+func make_invincible(n = 2):
 	if (invincible_time < 1):
 		emit_signal(\"change_invincible\", true)
 		if n < 1:
@@ -185,6 +193,13 @@ func _ticker_timeout():
 
 func level_holder():
 	return get_parent()
+
+func _on_joystick_change(v):
+	if !j_used:
+		j_used = true
+	if playable and !dead:
+		j_move_x = (v.x * speed) * 1.15
+		j_move_y = (v.y * speed) * 1.15
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -726,9 +741,6 @@ script/source = "extends AnimationPlayer
 var cat
 
 func _ready():
-	call_deferred(\"setup\")
-
-func setup():
 	cat = get_parent()
 	cat.connect(\"change_invincible\", self, \"invinc\")
 	
@@ -745,12 +757,9 @@ script = SubResource( 1 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 1.13664, -11.0714 )
-scale = Vector2( 1.87601, 3.01781 )
+position = Vector2( -1.38159, -0.998517 )
+scale = Vector2( 1.69585, 2.71741 )
 shape = SubResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="g" type="Node2D" parent="."]
 position = Vector2( -4.08781, 26.2788 )

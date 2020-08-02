@@ -10,6 +10,7 @@ export var speed : int = 3
 
 var hp = 1
 var dead = false
+var active = false
 
 func _ready():
 	$Animated_goose.play(\"fly_goose\")
@@ -18,6 +19,7 @@ func destruct():
 	queue_free()
 
 func _physics_process(delta):
+	if !active: return
 	var yMove = 0
 	if dead:
 		yMove = 5
@@ -35,11 +37,16 @@ func damage(n):
 	hp -= n
 	if hp <= 0:
 		dead = true
+		G.spawn(\"BonusCoin\", get_parent(), global_position)
 		G.spawn(\"Bang\", get_parent(), global_position)
-	
+
 func touch(body):
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):
 		body.damage(1)
+
+
+func _on_notifier_screen_entered():
+	active = true
 "
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -57,6 +64,8 @@ animations = [ {
 script = SubResource( 1 )
 
 [node name="Collision_goose" type="CollisionShape2D" parent="."]
+position = Vector2( 17.3594, -0.65216 )
+scale = Vector2( 0.577624, 1.22674 )
 shape = SubResource( 2 )
 
 [node name="Animated_goose" type="AnimatedSprite" parent="."]
@@ -64,3 +73,9 @@ position = Vector2( 0.25034, 0.12517 )
 scale = Vector2( 0.966621, 0.954938 )
 frames = SubResource( 3 )
 animation = "fly_goose"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="notifier" type="VisibilityNotifier2D" parent="."]
+[connection signal="screen_entered" from="notifier" to="." method="_on_notifier_screen_entered"]

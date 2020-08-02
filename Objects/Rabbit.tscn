@@ -16,9 +16,7 @@ func _ready():
 	$anim.connect(\"animation_finished\", self, \"ani_finished\")
 
 func fire():
-	var egg = load(\"res://Objects/Egg.tscn\").instance()
-	egg.global_position = global_position - Vector2(0, 50)
-	get_parent().add_child(egg)
+	G.spawn(\"Egg\", get_parent(), global_position - Vector2(0, 50))
 
 func _on_VisibilityNotifier2D_screen_entered():
 	$anim.play(\"Fire\")
@@ -32,12 +30,17 @@ func _on_timer():
 		$anim.play(\"Fire\")
 
 func touch(body):
-	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+	if !stateFiring:
+		if body.get(\"is_player\"):
+			add_collision_exception_with(body)
+		return
+	if body.get(\"is_player\") and body.has_method(\"damage\"):
 		body.damage(1)
 	
 func damage(n):
 	if stateFiring:
 		stateFiring = false
+		G.spawn(\"BonusCoin\", get_parent(), global_position - Vector2(0, 120))
 		G.spawn(\"Bang\", get_parent(), global_position)
 		$anim.play(\"Hide\")
 "
@@ -542,7 +545,7 @@ anims/Hide = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 autostart = true
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer"]

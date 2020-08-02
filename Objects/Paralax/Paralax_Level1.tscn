@@ -18,7 +18,8 @@ scroll_base_scale = Vector2( 0, 0 )
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 199.767, 156.041 )
+position = Vector2( 408.998, 189.844 )
+scale = Vector2( 2.01482, 1.21038 )
 texture = ExtResource( 1 )
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
@@ -30,74 +31,88 @@ motion_mirroring = Vector2( 416, 0 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
 position = Vector2( 200.624, 210.055 )
 texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxBackground4" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.15, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground4"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 812, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground4/ParallaxLayer"]
-position = Vector2( 200, 160 )
+position = Vector2( 398.893, 160 )
+scale = Vector2( 1.95622, 1 )
 texture = ExtResource( 5 )
 
 [node name="ParallaxBackground6" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.2, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground6"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 812, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground6/ParallaxLayer"]
-position = Vector2( 200, 160 )
+position = Vector2( 399.708, 160 )
+scale = Vector2( 1.95622, 1 )
 texture = ExtResource( 2 )
 
 [node name="ParallaxBackground7" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.25, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground7"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 812, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground7/ParallaxLayer"]
-position = Vector2( 200, 160 )
+position = Vector2( 398.31, 160 )
+scale = Vector2( 1.95341, 1 )
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxBackground8" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.3, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground8"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 816, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground8/ParallaxLayer"]
-position = Vector2( 200, 160 )
+position = Vector2( 404.609, 174.5 )
+scale = Vector2( 2.01938, 1.19581 )
 texture = ExtResource( 4 )
 
 [node name="ParallaxBackground9" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.35, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground9"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 816, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground9/ParallaxLayer"]
-position = Vector2( 200, 160 )
+position = Vector2( 403.847, 239.582 )
+scale = Vector2( 1.98003, 1.49739 )
 texture = ExtResource( 9 )
 
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 0.5, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground3"]
-motion_mirroring = Vector2( 416, 0 )
+motion_mirroring = Vector2( 812, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground3/ParallaxLayer"]
-position = Vector2( 198.052, 281.217 )
+position = Vector2( 406.62, 332.517 )
 rotation = 0.000961291
+scale = Vector2( 1.96091, 1 )
 texture = ExtResource( 6 )
 
 [node name="ParallaxBackground5" type="ParallaxBackground" parent="."]
 scroll_base_scale = Vector2( 1, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground5"]
-motion_mirroring = Vector2( 416, 0 )
+position = Vector2( 6.80188, 63.938 )
+motion_mirroring = Vector2( 812, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground5/ParallaxLayer"]
-position = Vector2( 199.767, 156.041 )
+position = Vector2( 398.813, 156.041 )
+scale = Vector2( 1.95695, 1 )
 texture = ExtResource( 8 )

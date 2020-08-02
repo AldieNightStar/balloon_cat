@@ -1,9 +1,20 @@
 extends Node
 
+# Additional Classes
+var saving = SavingGame.new()
+
 var score = 0
+var cat_hp = 4
+var temp_score = 0
+var levelName = "Level01"
+var game_just_started = true
 
 signal score_updated(n)
 signal sound_play(name)
+signal _on_joystick_change(vector2)
+
+const spawners_level01 = 10
+const SAVE_FILE_NAME = "game"
 
 func score_set(n):
 	score = n
@@ -27,4 +38,10 @@ func spawn(name, node, global_pos):
 	var n = load("res://Objects/" + name + ".tscn").instance()
 	n.global_position = global_pos
 	node.add_child(n)
+	n.global_position = global_pos
 	return n
+
+func score_save():
+	if temp_score > 0:
+		score += temp_score
+		temp_score = 0

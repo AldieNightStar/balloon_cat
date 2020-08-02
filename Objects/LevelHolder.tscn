@@ -1,17 +1,21 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Joystick/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 export var speed = 3
-export var _cat_hp = 3
-export var _cat_speed = 4
+export var max_speed = 5
 export var _score = 0
 
 var _go = false
+var _menu = false
+var _cat_died = false
 
 signal died()
 
@@ -20,9 +24,11 @@ func _ready():
 	
 func setup():
 	$camera.current = true
-	$cat.set_max_hp(_cat_hp)
-	$cat.speed = _cat_speed
 	$cat.connect(\"died\", self, \"_cat_died\")
+	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
+	
+	# Setup joystick movement
+	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
 
 func start():
 	_go = true
@@ -36,7 +42,9 @@ func _physics_process(delta):
 
 func _cat_died():
 	emit_signal(\"died\")
+	_cat_died = true
 	stop()
+	spawn_menu()
 
 func change_sling(sling: Node2D):
 	$cat.change_sling(sling)
@@ -45,29 +53,57 @@ func score_add(n):
 	$Score.score_add(n)
 
 func score_get():
-	$Score.score_get()
+	return $Score.score_get()
+
+func spawn_menu(closeable = false):
+	if _menu: return
+	_menu = true
+	var cat_respawn_pos = $CatRespawnPos.global_position
+	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(225, 25))
+	menu.cat_respawn_pos = cat_respawn_pos
+	menu.holder = self
+	menu.closeable = closeable
+	menu.coins_to_global = _cat_died
+	menu.connect(\"closed\", self, \"_menu_closed\")
+	menu.connect(\"rebirth\", self, \"_cat_reborn\")
+
+func _menu_closed():
+	_menu = false
+
+func _cat_reborn():
+	_cat_died = false
+	_menu = false
+
+
+func _on_Timer_timeout():
+	if speed < max_speed:
+		speed += 0.1
+	speed += 0.1
+
+func _global_joystick_change(v):
+	G.emit_signal(\"_on_joystick_change\", v)
 "
 
-[sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 2 )
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends Label
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
 
 func _ready():
 	_on_Score_score_updated(0)
 
 func _on_Score_score_updated(n):
-	text = str(n)
+	$label.text = str(n)
 	get_parent().get_node(\"Anim\").play(\"Score_Update\")
 "
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("score:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -96,7 +132,7 @@ func enter(body_id, body, body_shape, area_shape):
 extents = Vector2( 69.89, 67.4558 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 113.549, 30.6906 )
+extents = Vector2( 195.641, 30.6906 )
 
 [sub_resource type="GDScript" id=8]
 script/source = "extends KinematicBody2D
@@ -152,16 +188,22 @@ script = SubResource( 1 )
 
 [node name="clayer" type="CanvasLayer" parent="."]
 
-[node name="score" type="Label" parent="clayer"]
+[node name="MenuButton" parent="clayer" instance=ExtResource( 3 )]
+position = Vector2( 662.098, 4.65881 )
+label = "Menu"
+
+[node name="score" type="Node2D" parent="clayer"]
+script = SubResource( 2 )
+
+[node name="label" type="Label" parent="clayer/score"]
 modulate = Color( 0.101961, 0.152941, 0.878431, 1 )
 margin_left = 27.0927
 margin_top = 6.50859
 margin_right = 239.093
 margin_bottom = 83.5086
 rect_scale = Vector2( 0.438387, 0.53318 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Score"
-script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -169,24 +211,33 @@ __meta__ = {
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
 anims/Score_Update = SubResource( 4 )
 
+[node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
+position = Vector2( 79.3893, 296.938 )
+
+[node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
+position = Vector2( 753.072, 317.318 )
+scale = Vector2( 0.671457, 0.65252 )
+
 [node name="camera" type="Camera2D" parent="."]
+visible = false
 position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -226.544, -0.469744 )
+position = Vector2( -472.023, -3.17723 )
+scale = Vector2( 0.982981, 0.98601 )
 
 [node name="Min_W" type="Node2D" parent="."]
-position = Vector2( -175.283, -7.68173 )
+position = Vector2( -402.504, -13.3542 )
 
 [node name="Min_H" type="Node2D" parent="."]
-position = Vector2( -179.473, -121.511 )
+position = Vector2( -397.247, -173.389 )
 
 [node name="Max_W" type="Node2D" parent="."]
-position = Vector2( -27.3826, -5.97534 )
+position = Vector2( -1.07175, 2.45125 )
 
 [node name="Max_H" type="Node2D" parent="."]
-position = Vector2( -171.791, 67.7385 )
+position = Vector2( -282.885, 95.8507 )
 
 [node name="Destructor" type="Area2D" parent="."]
 position = Vector2( -275.333, 4.58447 )
@@ -197,14 +248,14 @@ __meta__ = {
 }
 
 [node name="shape" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( -89.2414, -31.2726 )
+position = Vector2( -167.445, -28.136 )
 shape = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
-position = Vector2( 81.8979, 68.1297 )
+position = Vector2( 93.9551, 70.4456 )
 shape = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
@@ -214,7 +265,7 @@ __meta__ = {
 script = SubResource( 8 )
 
 [node name="shape" type="CollisionShape2D" parent="CatActivator"]
-position = Vector2( -103.833, -8.73477 )
+position = Vector2( -238.507, -10.725 )
 scale = Vector2( 1.07726, 3.23861 )
 shape = SubResource( 9 )
 
@@ -224,4 +275,14 @@ script = SubResource( 10 )
 [node name="player" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
 script = SubResource( 11 )
+
+[node name="CatRespawnPos" type="Node2D" parent="."]
+position = Vector2( -207.813, -3.08702 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

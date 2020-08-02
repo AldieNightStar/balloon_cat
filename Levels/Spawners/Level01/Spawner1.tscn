@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Goose.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/ParentDestructor.tscn" type="PackedScene" id=2]
+
+[node name="Spawner" type="Node2D"]
+
+[node name="Goose5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 226.235, 21.4701 )
+
+[node name="Goose3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 146.087, 148.292 )
+
+[node name="Goose4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 244.908, 271.993 )
+
+[node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1270.3, 402.046 )
