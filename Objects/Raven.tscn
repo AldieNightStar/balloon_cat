@@ -49,7 +49,7 @@ func destruct():
 	queue_free()
 
 func touch(body):
-	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+	if (body.get(\"is_player\") and body.has_method(\"damage\")) and !dead:
 		body.damage(1)
 
 func damage(n):

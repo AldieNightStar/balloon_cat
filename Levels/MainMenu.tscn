@@ -85,7 +85,7 @@ func save_game():
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 func _ready():
@@ -95,8 +95,7 @@ func _score(n):
 	text = str(n)
 "
 
-[sub_resource type="Animation" id=3]
-resource_name = "Scroll"
+[sub_resource type="Animation" id=4]
 length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
@@ -237,7 +236,7 @@ margin_right = 95.16
 margin_bottom = 32.6758
 custom_fonts/font = SubResource( 2 )
 text = "0"
-script = SubResource( 4 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
@@ -288,4 +287,4 @@ __meta__ = {
 }
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
-anims/Scroll = SubResource( 3 )
+anims/Scroll = SubResource( 4 )
