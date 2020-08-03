@@ -43,6 +43,7 @@ func damage(n):
 		G.spawn(\"BonusCoin\", get_parent(), global_position - Vector2(0, 120))
 		G.spawn(\"Bang\", get_parent(), global_position)
 		$anim.play(\"Hide\")
+		G.play(\"enemy_down.wav\")
 "
 
 [sub_resource type="RectangleShape2D" id=2]

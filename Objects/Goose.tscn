@@ -39,6 +39,7 @@ func damage(n):
 		dead = true
 		G.spawn(\"BonusCoin\", get_parent(), global_position)
 		G.spawn(\"Bang\", get_parent(), global_position)
+		G.play(\"enemy_down.wav\")
 
 func touch(body):
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):
