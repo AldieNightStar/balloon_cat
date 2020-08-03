@@ -215,8 +215,8 @@ anims/Score_Update = SubResource( 4 )
 position = Vector2( 79.3893, 296.938 )
 
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
-position = Vector2( 753.072, 317.318 )
-scale = Vector2( 0.671457, 0.65252 )
+position = Vector2( 746.71, 314.578 )
+scale = Vector2( 1.10957, 1.08071 )
 
 [node name="camera" type="Camera2D" parent="."]
 visible = false
