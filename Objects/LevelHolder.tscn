@@ -56,8 +56,6 @@ func score_get():
 	return $Score.score_get()
 
 func spawn_menu(closeable = false):
-	if !_cat_died:
-		change_sling(load(\"res://Objects/Slingshot/Iron_Sling.tscn\").instance())
 	if _menu: return
 	_menu = true
 	var cat_respawn_pos = $CatRespawnPos.global_position
@@ -140,7 +138,7 @@ extents = Vector2( 195.641, 30.6906 )
 script/source = "extends KinematicBody2D
 
 func touch(cat):
-	if cat.get(\"is_player\"):
+	if cat.get(\"is_player\") and !cat.playable:
 		get_parent().start()
 		cat.playable = true
 		queue_free()
