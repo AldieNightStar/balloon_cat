@@ -56,6 +56,8 @@ func score_get():
 	return $Score.score_get()
 
 func spawn_menu(closeable = false):
+	if !_cat_died:
+		change_sling(load(\"res://Objects/Slingshot/Iron_Sling.tscn\").instance())
 	if _menu: return
 	_menu = true
 	var cat_respawn_pos = $CatRespawnPos.global_position

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/SlingShot/iron_sling.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+onready var Rock = load(\"res://Objects/Rock.tscn\")
+
+func fire(player: Node2D, level: Node2D):
+	# Adding rock to the Screen
+	var p = get_parent().global_position
+	spawn_rock(level, p + Vector2(20, -30))
+	spawn_rock(level, p + Vector2(20,   0))
+	spawn_rock(level, p + Vector2(20,  30))
+	# Play sound
+	G.play(\"fire.ogg\")
+
+func spawn_rock(level, gpos):
+	var rock = Rock.instance()
+	rock.speed = 30
+	rock.damage_val = 1
+	rock.global_position = gpos
+	level.add_child(rock)
+"
+
+[node name="Wood_Sling" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="rogatka" type="Sprite" parent="."]
+position = Vector2( -0.066927, 0.0752525 )
+texture = ExtResource( 1 )
