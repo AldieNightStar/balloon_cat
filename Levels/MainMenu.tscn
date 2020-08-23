@@ -48,7 +48,7 @@ func move_to(node):
 	if !t.is_active():
 		var pos1 = $Camera.global_position
 		var pos2 = node.global_position
-		if node.get_node(\"NoBack\") != null:
+		if node.has_node(\"NoBack\"):
 			$canvas/Back.visible = false
 		else:
 			$canvas/Back.visible = true

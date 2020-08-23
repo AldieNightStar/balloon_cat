@@ -27,6 +27,8 @@ var dead = false
 var is_player = true
 var playable = false
 
+var velocity = Vector2.ZERO
+
 # Joystick variables
 var j_used = false
 var j_move_x = 0
@@ -59,6 +61,7 @@ func _physics_process(delta):
 			kb_process(delta)
 			if j_used:
 				move(j_move_x, j_move_y)
+			process_moving()
 		else:
 			# Go from left screen side
 			var c = move_and_collide(Vector2(2, 0))
@@ -75,13 +78,13 @@ func kb_process(delta):
 	var xMove = 0
 	var yMove = 0
 	if Input.is_action_pressed(\"ui_left\"):
-		xMove = -speed
+		xMove = -1
 	elif Input.is_action_pressed(\"ui_right\"):
-		xMove = speed
+		xMove = 1
 	if Input.is_action_pressed(\"ui_up\"):
-		yMove = -speed
+		yMove = -1
 	elif Input.is_action_pressed(\"ui_down\"):
-		yMove = speed
+		yMove = 1
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		if !down_key:
 			fire()
@@ -90,10 +93,11 @@ func kb_process(delta):
 	move(xMove, yMove)
 	
 func move(xMove, yMove):
-	var c = move_and_collide(Vector2(xMove, yMove))
-	if c:
-		if c.collider.has_method(\"touch\"):
-			c.collider.touch(self)
+	velocity += Vector2(xMove, yMove)
+	if (velocity.x > speed): velocity.x = speed
+	if (velocity.y > speed): velocity.y = speed
+	if (velocity.x <-speed): velocity.x =-speed
+	if (velocity.y <-speed): velocity.y =-speed
 	protect_positions()
 
 func protect_positions():
@@ -116,7 +120,20 @@ func damage(n):
 		make_invincible()
 	_set_balloons(hp)
 	G.play(\"blow.ogg\")
-	
+
+func process_moving():
+	if (velocity.x > 0): velocity.x -= .2
+	if (velocity.y > 0): velocity.y -= .2
+	if (velocity.x < 0): velocity.x += .2
+	if (velocity.y < 0): velocity.y += .2
+	if (velocity.x < 0 and velocity.x > -.2): velocity.x = 0
+	if (velocity.x > 0 and velocity.x <  .2): velocity.x = 0
+	if (velocity.y < 0 and velocity.y > -.2): velocity.y = 0
+	if (velocity.y > 0 and velocity.y <  .2): velocity.y = 0
+	var c = move_and_collide(velocity)
+	if (c and c.collider and c.collider.has_method(\"touch\")):
+		c.collider.touch(self)
+	pass
 
 func dead():
 	dead = true
@@ -138,7 +155,7 @@ func set_max_hp(hp):
 	self.hp = hp
 	_set_balloons(hp)
 
-func ivincible_time_sub():
+func invincible_time_sub():
 	if (invincible_time > 0):
 		invincible_time -= 1
 		if (invincible_time < 1):
@@ -189,7 +206,7 @@ func change_sling(sling: Node2D):
 	hand.add_child(sling)
 
 func _ticker_timeout():
-	ivincible_time_sub()
+	invincible_time_sub()
 
 func level_holder():
 	return get_parent()
@@ -198,8 +215,8 @@ func _on_joystick_change(v):
 	if !j_used:
 		j_used = true
 	if playable and !dead:
-		j_move_x = (v.x * speed) * 1.15
-		j_move_y = (v.y * speed) * 1.15
+		j_move_x = v.x * 1.15
+		j_move_y = v.y * 1.15
 "
 
 [sub_resource type="RectangleShape2D" id=2]
