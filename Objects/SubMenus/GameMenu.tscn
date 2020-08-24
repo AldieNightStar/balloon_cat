@@ -21,6 +21,8 @@ func _ready():
 	$Rebirth.connect(\"pressed\", self, \"_rebirth\")
 	$MainMenu.connect(\"pressed\", self, \"_mmenu\")
 	$Close.connect(\"pressed\", self, \"_closeMenu\")
+	if (!closeable):
+		$Close.modulate.a = 0
 
 func _closeMenu():
 	if closeable:
@@ -79,7 +81,7 @@ __meta__ = {
 }
 
 [node name="Close" parent="." instance=ExtResource( 3 )]
-position = Vector2( 282.231, 10.65 )
+position = Vector2( 282.761, 11.1797 )
 scale = Vector2( 2.48586, 2.14686 )
 
 [node name="Restart" parent="." instance=ExtResource( 2 )]

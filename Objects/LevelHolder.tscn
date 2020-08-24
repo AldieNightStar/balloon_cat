@@ -59,13 +59,15 @@ func spawn_menu(closeable = false):
 	if _menu: return
 	_menu = true
 	var cat_respawn_pos = $CatRespawnPos.global_position
-	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(225, 25))
+	var menu = load(\"res://Objects/SubMenus/GameMenu.tscn\").instance()
+	menu.global_position = Vector2(255, 25)
 	menu.cat_respawn_pos = cat_respawn_pos
 	menu.holder = self
 	menu.closeable = closeable
 	menu.coins_to_global = _cat_died
 	menu.connect(\"closed\", self, \"_menu_closed\")
 	menu.connect(\"rebirth\", self, \"_cat_reborn\")
+	$clayer.add_child(menu)
 
 func _menu_closed():
 	_menu = false
