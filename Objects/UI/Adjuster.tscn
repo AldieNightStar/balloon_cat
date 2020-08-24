@@ -7,30 +7,27 @@
 script/source = "extends Node2D
 
 export var label_text = \"Volume\"
-export var _values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-export var _value = 1
+export var value = 3
 
 signal value_changed(value)
 
-var __values_point = 0
-
 func _ready():
 	set_label(label_text)
-	set_value(_value)
+	set_value(value)
 	$tsb.connect(\"pressed\", self, \"_pressed\")
 
 func set_label(text):
 	$Label.text = text
 
-func set_value(n):
+func set_value(n: int):
 	if n < 0: n = 0
 	emit_signal(\"value_changed\", n)
+	value = n
 	$Balloons/ValueLabel.text = str(n)
 	$Balloons.set_count(n)
 
 func _pressed():
-	__values_point = (__values_point + 1) % _values.size()
-	var v = _values[__values_point]
+	var v = (value + 1) % ($Balloons.MAX_BALLOONS + 1)
 	$player.play(\"wiggle\")
 	set_value(v)
 "

@@ -23,6 +23,8 @@ func _ready():
 	$Close.connect(\"pressed\", self, \"_closeMenu\")
 	if (!closeable):
 		$Close.modulate.a = 0
+	else:
+		$Close.modulate.a = 1
 
 func _closeMenu():
 	if closeable:
