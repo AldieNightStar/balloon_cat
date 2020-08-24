@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/Background/Level01/field3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Level01/mount2.png" type="Texture" id=6]
 [ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Objects/UI/Adjuster.tscn" type="PackedScene" id=8]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -288,3 +289,13 @@ __meta__ = {
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
 anims/Scroll = SubResource( 4 )
+
+[node name="A_SoundVolume" parent="." instance=ExtResource( 8 )]
+position = Vector2( 700, 510.241 )
+scale = Vector2( 2, 2 )
+label_text = "Sound"
+
+[node name="A_MusicVolume" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1000, 510.241 )
+scale = Vector2( 2, 2 )
+label_text = "Music"
