@@ -6,8 +6,9 @@
 [ext_resource path="res://assets/Background/Level01/fon.png" type="Texture" id=4]
 [ext_resource path="res://assets/Background/Level01/field3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Level01/mount2.png" type="Texture" id=6]
-[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Objects/MusicPlayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/UI/Adjuster.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -93,17 +94,6 @@ func _snd_vol(n):
 script/source = "extends AudioStreamPlayer
 
 func _ready():
-	G.gameData.connect(\"music_volume_changed\", self, \"_vol\")
-	_vol(G.gameData.get_music_volume())
-
-func _vol(n):
-	volume_db = -25 + (30 * n)
-"
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends AudioStreamPlayer
-
-func _ready():
 	G.connect(\"sound_play\", self, \"_play\")
 	
 func _play(name):
@@ -114,11 +104,11 @@ func _play(name):
 	play()
 "
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
 var _timer
@@ -135,7 +125,7 @@ func _coins():
 	text = str(G.gameData.get_coins())
 "
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
@@ -150,7 +140,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Timer
 
 func _timeout():
@@ -166,13 +156,12 @@ current = true
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="MainSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+[node name="MainSound" parent="." instance=ExtResource( 7 )]
+stream = ExtResource( 9 )
 autoplay = true
-script = SubResource( 2 )
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="Pos_MMenu" type="Node2D" parent="."]
 
@@ -181,7 +170,7 @@ margin_left = 36.8143
 margin_top = 54.6158
 margin_right = 365.814
 margin_bottom = 83.6158
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Balloon Cat - THe game"
 __meta__ = {
 "_edit_lock_": true,
@@ -205,7 +194,7 @@ margin_left = 193.0
 margin_top = 229.0
 margin_right = 230.0
 margin_bottom = 258.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Up"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -216,7 +205,7 @@ margin_left = 56.0
 margin_top = 198.0
 margin_right = 117.0
 margin_bottom = 227.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "PLAY"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -227,7 +216,7 @@ margin_left = 297.871
 margin_top = 202.513
 margin_right = 358.871
 margin_bottom = 231.513
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "OPT"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -261,7 +250,7 @@ margin_left = 60.609
 margin_top = 247.988
 margin_right = 312.609
 margin_bottom = 276.988
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "choose your level"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -295,9 +284,9 @@ margin_left = 44.16
 margin_top = 3.6758
 margin_right = 95.16
 margin_bottom = 32.6758
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
-script = SubResource( 5 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
@@ -348,10 +337,10 @@ __meta__ = {
 }
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
-anims/Scroll = SubResource( 6 )
+anims/Scroll = SubResource( 5 )
 
 [node name="AutoSaver" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
-script = SubResource( 7 )
+script = SubResource( 6 )
 [connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]
