@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "GameData",
+"language": "GDScript",
+"path": "res://Objects/Logic/GameData.gd"
+}, {
+"base": "Node",
 "class": "SavingGame",
 "language": "GDScript",
 "path": "res://Objects/Logic/Saving.gd"
 } ]
 _global_script_class_icons={
+"GameData": "",
 "SavingGame": ""
 }
 

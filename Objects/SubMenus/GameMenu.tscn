@@ -46,8 +46,9 @@ func _rebirth():
 func _mmenu():
 	if !holder: return
 	if coins_to_global:
-		G.temp_score = holder.score_get()
-		G.score_save()
+		var coins = G.gameData.get_coins()
+		G.gameData.set_coins(holder.score_get() + coins)
+		G.gameData.save_game()
 	get_tree().change_scene(\"res://Levels/MainMenu.tscn\")
 "
 

@@ -38,7 +38,7 @@ signal died()
 signal change_invincible(isInvincible)
 
 func _ready():
-	max_hp = G.cat_hp
+	max_hp = G.gameData.get_max_hp()
 	call_deferred(\"setup\")
 	
 func setup():

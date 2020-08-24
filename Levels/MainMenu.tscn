@@ -23,7 +23,7 @@ func _ready():
 		save_game()
 	
 func setup():
-	t = get_node(\"Tween\")	
+	t = get_node(\"Tween\")
 	# Menus buttons
 	$Pos_MMenu/BPlay.connect(\"pressed\", self, \"move_to\", [$Pos_Play])
 	$Pos_MMenu/BUpgrades.connect(\"pressed\", self, \"move_to\", [$Pos_Upgrades])
@@ -43,7 +43,7 @@ func setup():
 	$canvas/bg/scroller.play(\"Scroll\")
 	
 	# Show score
-	$canvas/Score.text = str(G.score)
+	$canvas/Score.text = str(G.gameData.get_coins())
 
 func move_to(node):
 	if !t.is_active():
@@ -60,26 +60,10 @@ func level(n):
 	get_tree().change_scene(\"res://Levels/Level0\" + str(n) + \".tscn\")
 
 func load_game():
-	if G.saving.exists_obj(G.SAVE_FILE_NAME):
-		var data = G.saving.load_obj(G.SAVE_FILE_NAME)
-		# --- LOAD GAME DATA LOGIC ---
-		
-		G.call_deferred(\"score_set\", data.score)
-
-		G.score_set(data.score)
-		
-		# ------
-		return data
-	else:
-		save_game()
+	G.gameData.load_game()
 
 func save_game():
-	# --- SAVE GAME DATA LOGIC ---
-	var obj = {
-		\"score\": G.score
-	}
-	# ------
-	G.saving.save_obj(obj, G.SAVE_FILE_NAME)
+	G.gameData.save_game()
 "
 
 [sub_resource type="DynamicFont" id=2]
@@ -89,11 +73,18 @@ font_data = ExtResource( 2 )
 [sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
-func _ready():
-	G.connect(\"score_updated\", self, \"_score\")
+var _timer
 
-func _score(n):
-	text = str(n)
+func _ready():
+	_timer = Timer.new()
+	_timer.one_shot = false
+	_timer.wait_time = 1
+	_timer.connect(\"timeout\", self, \"_coins\")
+	add_child(_timer)
+	_timer.start()
+
+func _coins():
+	text = str(G.gameData.get_coins())
 "
 
 [sub_resource type="Animation" id=4]
@@ -187,23 +178,23 @@ __meta__ = {
 position = Vector2( 816.958, 1.80501 )
 
 [node name="Level1" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 30.1514, 54.4294 )
+position = Vector2( 50, 50 )
 label = "1"
 
 [node name="Level2" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 30.151, 140 )
+position = Vector2( 150, 50 )
 label = "2"
 
 [node name="Level3" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 150, 54.43 )
+position = Vector2( 250, 50 )
 label = "3"
 
 [node name="Level4" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 150, 140 )
+position = Vector2( 50, 150 )
 label = "4"
 
 [node name="Level5" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 250, 54.43 )
+position = Vector2( 150, 150 )
 label = "5"
 
 [node name="Label" type="Label" parent="Pos_Play"]

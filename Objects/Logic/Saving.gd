@@ -4,7 +4,7 @@ class_name SavingGame
 
 signal error(reason)
 
-func save_obj(obj, name):
+func save_obj(name, obj):
 	name = "user://" + name + ".sav"
 	var file = File.new()
 	if file.open(name, File.WRITE) != 0:
