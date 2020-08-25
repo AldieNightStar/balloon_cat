@@ -29,6 +29,13 @@ func setup():
 	
 	# Setup joystick movement
 	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
+	
+	# Make joystick big if settings say that
+	if G.gameData.get_joystick_is_big():
+		$clayer/Joystick.global_position += Vector2(50, -50)
+		$clayer/Joystick.scale = Vector2(1.75, 1.75)
+		$clayer/Joystick.update_parent_pos()
+		$clayer/Joystick.modulate.a = .25
 
 func start():
 	_go = true
@@ -59,13 +66,15 @@ func spawn_menu(closeable = false):
 	if _menu: return
 	_menu = true
 	var cat_respawn_pos = $CatRespawnPos.global_position
-	var menu = G.spawn(\"SubMenus/GameMenu\", $clayer, Vector2(225, 25))
+	var menu = load(\"res://Objects/SubMenus/GameMenu.tscn\").instance()
+	menu.global_position = Vector2(255, 25)
 	menu.cat_respawn_pos = cat_respawn_pos
 	menu.holder = self
 	menu.closeable = closeable
 	menu.coins_to_global = _cat_died
 	menu.connect(\"closed\", self, \"_menu_closed\")
 	menu.connect(\"rebirth\", self, \"_cat_reborn\")
+	$clayer.add_child(menu)
 
 func _menu_closed():
 	_menu = false
@@ -78,7 +87,6 @@ func _cat_reborn():
 func _on_Timer_timeout():
 	if speed < max_speed:
 		speed += 0.1
-	speed += 0.1
 
 func _global_joystick_change(v):
 	G.emit_signal(\"_on_joystick_change\", v)
@@ -138,7 +146,7 @@ extents = Vector2( 195.641, 30.6906 )
 script/source = "extends KinematicBody2D
 
 func touch(cat):
-	if cat.get(\"is_player\"):
+	if cat.get(\"is_player\") and !cat.playable:
 		get_parent().start()
 		cat.playable = true
 		queue_free()
@@ -173,6 +181,7 @@ func score_update():
 script/source = "extends AudioStreamPlayer
 
 func _ready():
+	volume_db = -15 + (20 * G.gameData.get_sound_volume())
 	G.connect(\"sound_play\", self, \"_sound\")
 
 func _sound(name):
@@ -212,11 +221,12 @@ __meta__ = {
 anims/Score_Update = SubResource( 4 )
 
 [node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
-position = Vector2( 79.3893, 296.938 )
+position = Vector2( 80.3893, 297.938 )
+scale = Vector2( 1.5, 1.5 )
 
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
-position = Vector2( 753.072, 317.318 )
-scale = Vector2( 0.671457, 0.65252 )
+position = Vector2( 746.71, 314.578 )
+scale = Vector2( 1.10957, 1.08071 )
 
 [node name="camera" type="Camera2D" parent="."]
 visible = false

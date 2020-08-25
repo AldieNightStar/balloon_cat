@@ -36,7 +36,7 @@ func _physics_process(delta):
 				c.collider.damage(1)
 			self.add_collision_exception_with(c.collider)
 	if dead:
-		position.y += 2.5
+		position += Vector2(-2.5, 4)
 		rotation += .25
 	else:
 		_do_velocity()
@@ -53,11 +53,13 @@ func touch(body):
 		body.damage(1)
 
 func damage(n):
-	hp -= n
-	if hp <= 0:
-		dead = true
-		G.spawn(\"BonusCoin\", get_parent(), global_position)
-		G.spawn(\"Bang\", get_parent(), global_position)
+	if !dead:
+		hp -= n
+		if hp <= 0:
+			dead = true
+			G.spawn(\"BonusCoin\", get_parent(), global_position)
+			G.spawn(\"Bang\", get_parent(), global_position)
+			G.play(\"enemy_down.wav\")
 
 
 func _on_notifier_screen_entered():

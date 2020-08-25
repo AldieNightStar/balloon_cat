@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends AudioStreamPlayer
+
+func _ready():
+	var vol = G.gameData.get_music_volume()
+	_vol(vol)
+	G.gameData.connect(\"music_volume_changed\", self, \"_vol\")
+
+func _vol(n):
+	volume_db = -35 + (40 * n)
+"
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+script = SubResource( 1 )

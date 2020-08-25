@@ -2,34 +2,15 @@ extends Node
 
 # Additional Classes
 var saving = SavingGame.new()
+var gameData = GameData.new()
 
-var score = 0
-var cat_hp = 4
-var temp_score = 0
 var levelName = "Level01"
 var game_just_started = true
 
-signal score_updated(n)
 signal sound_play(name)
 signal _on_joystick_change(vector2)
 
-const spawners_level01 = 10
 const SAVE_FILE_NAME = "game"
-
-func score_set(n):
-	score = n
-	if n < 0: n = 0
-	score_update()
-
-func score_get():
-	return score
-
-func score_add(n):
-	score_set(score_get() + n)
-	score_update()
-
-func score_update():
-	emit_signal("score_updated", score)
 
 func play(name):
 	emit_signal("sound_play", name)
@@ -40,8 +21,3 @@ func spawn(name, node, global_pos):
 	node.add_child(n)
 	n.global_position = global_pos
 	return n
-
-func score_save():
-	if temp_score > 0:
-		score += temp_score
-		temp_score = 0

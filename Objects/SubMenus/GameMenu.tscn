@@ -21,6 +21,10 @@ func _ready():
 	$Rebirth.connect(\"pressed\", self, \"_rebirth\")
 	$MainMenu.connect(\"pressed\", self, \"_mmenu\")
 	$Close.connect(\"pressed\", self, \"_closeMenu\")
+	if (!closeable):
+		$Close.modulate.a = 0
+	else:
+		$Close.modulate.a = 1
 
 func _closeMenu():
 	if closeable:
@@ -46,8 +50,9 @@ func _rebirth():
 func _mmenu():
 	if !holder: return
 	if coins_to_global:
-		G.temp_score = holder.score_get()
-		G.score_save()
+		var coins = G.gameData.get_coins()
+		G.gameData.set_coins(holder.score_get() + coins)
+		G.gameData.save_game()
 	get_tree().change_scene(\"res://Levels/MainMenu.tscn\")
 "
 
@@ -78,7 +83,7 @@ __meta__ = {
 }
 
 [node name="Close" parent="." instance=ExtResource( 3 )]
-position = Vector2( 282.231, 10.65 )
+position = Vector2( 282.761, 11.1797 )
 scale = Vector2( 2.48586, 2.14686 )
 
 [node name="Restart" parent="." instance=ExtResource( 2 )]

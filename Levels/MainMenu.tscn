@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -6,7 +6,10 @@
 [ext_resource path="res://assets/Background/Level01/fon.png" type="Texture" id=4]
 [ext_resource path="res://assets/Background/Level01/field3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Background/Level01/mount2.png" type="Texture" id=6]
-[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Objects/MusicPlayer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Objects/UI/Adjuster.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Objects/UI/Switcher.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -16,13 +19,18 @@ var t : Tween
 func _ready():
 	call_deferred(\"setup\")
 	if G.game_just_started:
-		G.game_just_started = false
 		call_deferred(\"load_game\")
 	else:
 		save_game()
 	
 func setup():
-	t = get_node(\"Tween\")	
+	t = get_node(\"Tween\")
+	
+	# Wait for game loading
+	if G.game_just_started:
+		yield(G.gameData, \"game_loaded\")
+		G.game_just_started = false
+	
 	# Menus buttons
 	$Pos_MMenu/BPlay.connect(\"pressed\", self, \"move_to\", [$Pos_Play])
 	$Pos_MMenu/BUpgrades.connect(\"pressed\", self, \"move_to\", [$Pos_Upgrades])
@@ -42,13 +50,27 @@ func setup():
 	$canvas/bg/scroller.play(\"Scroll\")
 	
 	# Show score
-	$canvas/Score.text = str(G.score)
+	$canvas/Score.text = str(G.gameData.get_coins())
+	
+	# Volume Control
+	$Pos_Options/A_MusicVolume.set_value(G.gameData.get_music_volume() * 10)
+	$Pos_Options/A_SoundVolume.set_value(G.gameData.get_sound_volume() * 10)
+	$Pos_Options/A_MusicVolume.connect(\"value_changed\", self, \"_mus_vol\")
+	$Pos_Options/A_SoundVolume.connect(\"value_changed\", self, \"_snd_vol\")
+	
+	G.gameData.emit_signal(\"music_volume_changed\", G.gameData.get_music_volume())
+	G.gameData.emit_signal(\"sound_volume_changed\", G.gameData.get_sound_volume())
+	
+	# Big joystick control
+	$Pos_Options/S_BigJoystick.checked = G.gameData.get_joystick_is_big()
+	$Pos_Options/S_BigJoystick._update_c()
+	$Pos_Options/S_BigJoystick.connect(\"changed\", self, \"_j_big\")
 
 func move_to(node):
 	if !t.is_active():
 		var pos1 = $Camera.global_position
 		var pos2 = node.global_position
-		if node.get_node(\"NoBack\") != null:
+		if node.has_node(\"NoBack\"):
 			$canvas/Back.visible = false
 		else:
 			$canvas/Back.visible = true
@@ -56,46 +78,64 @@ func move_to(node):
 		t.start()
 
 func level(n):
+	G.gameData.save_game()
 	get_tree().change_scene(\"res://Levels/Level0\" + str(n) + \".tscn\")
 
 func load_game():
-	if G.saving.exists_obj(G.SAVE_FILE_NAME):
-		var data = G.saving.load_obj(G.SAVE_FILE_NAME)
-		# --- LOAD GAME DATA LOGIC ---
-		
-		G.call_deferred(\"score_set\", data.score)
-
-		G.score_set(data.score)
-		
-		# ------
-		return data
-	else:
-		save_game()
+	G.gameData.load_game()
 
 func save_game():
-	# --- SAVE GAME DATA LOGIC ---
-	var obj = {
-		\"score\": G.score
-	}
-	# ------
-	G.saving.save_obj(obj, G.SAVE_FILE_NAME)
+	G.gameData.save_game()
+
+func _mus_vol(n):
+	var nn = float(n) / 10
+	G.gameData.set_music_volume(nn)
+
+func _snd_vol(n):
+	var nn = float(n) / 10
+	G.play(\"blow.ogg\")
+	G.gameData.set_sound_volume(nn)
+
+func _j_big(b):
+	G.gameData.set_joystick_is_big(b)
 "
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="GDScript" id=2]
+script/source = "extends AudioStreamPlayer
+
+func _ready():
+	G.connect(\"sound_play\", self, \"_play\")
+	
+func _play(name):
+	if playing:
+		stop()
+	stream = load(\"res://assets/sound/\" + name)
+	volume_db = -15 + (20 * G.gameData.get_sound_volume())
+	play()
+"
+
+[sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
-func _ready():
-	G.connect(\"score_updated\", self, \"_score\")
+var _timer
 
-func _score(n):
-	text = str(n)
+func _ready():
+	_timer = Timer.new()
+	_timer.one_shot = false
+	_timer.wait_time = 1
+	_timer.connect(\"timeout\", self, \"_coins\")
+	add_child(_timer)
+	_timer.start()
+
+func _coins():
+	text = str(G.gameData.get_coins())
 "
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
@@ -110,6 +150,13 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( 0, 0 ) ]
 }
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends Timer
+
+func _timeout():
+	G.gameData.save_game()
+"
+
 [node name="Node2D" type="Node2D"]
 script = SubResource( 1 )
 
@@ -119,9 +166,12 @@ current = true
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="MainSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+[node name="MainSound" parent="." instance=ExtResource( 7 )]
+stream = ExtResource( 9 )
 autoplay = true
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+script = SubResource( 2 )
 
 [node name="Pos_MMenu" type="Node2D" parent="."]
 
@@ -130,7 +180,7 @@ margin_left = 36.8143
 margin_top = 54.6158
 margin_right = 365.814
 margin_bottom = 83.6158
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Balloon Cat - THe game"
 __meta__ = {
 "_edit_lock_": true,
@@ -154,7 +204,7 @@ margin_left = 193.0
 margin_top = 229.0
 margin_right = 230.0
 margin_bottom = 258.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Up"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -165,7 +215,7 @@ margin_left = 56.0
 margin_top = 198.0
 margin_right = 117.0
 margin_bottom = 227.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "PLAY"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -176,7 +226,7 @@ margin_left = 297.871
 margin_top = 202.513
 margin_right = 358.871
 margin_bottom = 231.513
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "OPT"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -186,23 +236,23 @@ __meta__ = {
 position = Vector2( 816.958, 1.80501 )
 
 [node name="Level1" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 30.1514, 54.4294 )
+position = Vector2( 50, 50 )
 label = "1"
 
 [node name="Level2" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 30.151, 140 )
+position = Vector2( 150, 50 )
 label = "2"
 
 [node name="Level3" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 150, 54.43 )
+position = Vector2( 250, 50 )
 label = "3"
 
 [node name="Level4" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 150, 140 )
+position = Vector2( 50, 150 )
 label = "4"
 
 [node name="Level5" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 250, 54.43 )
+position = Vector2( 150, 150 )
 label = "5"
 
 [node name="Label" type="Label" parent="Pos_Play"]
@@ -210,7 +260,7 @@ margin_left = 60.609
 margin_top = 247.988
 margin_right = 312.609
 margin_bottom = 276.988
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "choose your level"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -221,6 +271,20 @@ position = Vector2( 0, 380 )
 
 [node name="Pos_Options" type="Node2D" parent="."]
 position = Vector2( 817.445, 387.351 )
+
+[node name="A_SoundVolume" parent="Pos_Options" instance=ExtResource( 8 )]
+position = Vector2( -100, 200 )
+scale = Vector2( 2, 2 )
+label_text = "Sound"
+
+[node name="A_MusicVolume" parent="Pos_Options" instance=ExtResource( 8 )]
+position = Vector2( 182.555, 200 )
+scale = Vector2( 2, 2 )
+label_text = "Music"
+
+[node name="S_BigJoystick" parent="Pos_Options" instance=ExtResource( 10 )]
+position = Vector2( 353.941, 136.614 )
+label = "Big Joystick"
 
 [node name="canvas" type="CanvasLayer" parent="."]
 
@@ -234,9 +298,9 @@ margin_left = 44.16
 margin_top = 3.6758
 margin_right = 95.16
 margin_bottom = 32.6758
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
-script = SubResource( 3 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
@@ -287,4 +351,10 @@ __meta__ = {
 }
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
-anims/Scroll = SubResource( 4 )
+anims/Scroll = SubResource( 5 )
+
+[node name="AutoSaver" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+script = SubResource( 6 )
+[connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]

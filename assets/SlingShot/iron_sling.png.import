@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/falling_rock.png-6446cdf112e428edcba107e4c3b13e51.stex"
+path="res://.import/iron_sling.png-bd3eb4f44cd351430d1263fbcac4cddd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/SlingShot/falling_rock.png"
-dest_files=[ "res://.import/falling_rock.png-6446cdf112e428edcba107e4c3b13e51.stex" ]
+source_file="res://assets/SlingShot/iron_sling.png"
+dest_files=[ "res://.import/iron_sling.png-bd3eb4f44cd351430d1263fbcac4cddd.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
