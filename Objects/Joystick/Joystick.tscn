@@ -46,7 +46,8 @@ func _input(event):
 				var dist = stick_pos.distance_to(event.position)
 				var vec = (event.position - stick_pos).normalized()
 				var pos = vec * dist
-				get_parent().emit_signal(\"on_change\", vec)
+				if dist > 45:
+					get_parent().emit_signal(\"on_change\", vec)
 		elif evt_index != -1:
 			if evt_index == event.index:
 				var parent = get_parent()

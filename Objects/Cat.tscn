@@ -99,7 +99,7 @@ func kb_process(delta):
 	move(xMove, yMove)
 	
 func move(xMove, yMove):
-	velocity += Vector2(xMove, yMove) * 2
+	velocity += Vector2(xMove, yMove) 
 	if (velocity.x > speed): velocity.x = speed
 	if (velocity.y > speed): velocity.y = speed
 	if (velocity.x <-speed): velocity.x =-speed
