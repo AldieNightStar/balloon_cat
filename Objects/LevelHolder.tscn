@@ -221,7 +221,7 @@ __meta__ = {
 anims/Score_Update = SubResource( 4 )
 
 [node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
-position = Vector2( 79.3893, 296.938 )
+position = Vector2( 80.3893, 297.938 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]

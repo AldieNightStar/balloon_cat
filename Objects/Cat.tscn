@@ -11,7 +11,7 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
-export var speed = 5
+export var speed = 6
 export var max_hp = 4
 
 var min_w
@@ -28,12 +28,15 @@ var is_player = true
 var playable = false
 
 var velocity = Vector2.ZERO
-var velocity_speed = .4
+var velocity_speed = .3
 
 # Joystick variables
 var j_used = false
 var j_move_x = 0
 var j_move_y = 0
+
+# Cheats
+var godmode = false
 
 signal died()
 signal change_invincible(isInvincible)
@@ -88,10 +91,15 @@ func kb_process(delta):
 		yMove = 1
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		fire()
+	var cancel_key = Input.is_action_just_pressed(\"ui_cancel\")
+	# Cheat - Godmode
+	if xMove < 0 and cancel_key:
+		godmode = !godmode
+		print(\"GOD MODE: \", godmode)
 	move(xMove, yMove)
 	
 func move(xMove, yMove):
-	velocity += Vector2(xMove, yMove)
+	velocity += Vector2(xMove, yMove) * 2
 	if (velocity.x > speed): velocity.x = speed
 	if (velocity.y > speed): velocity.y = speed
 	if (velocity.x <-speed): velocity.x =-speed
@@ -109,6 +117,7 @@ func protect_positions():
 		position.y = min_h
 	
 func damage(n):
+	if godmode: return
 	if invincible_time > 0 or dead:
 		return
 	hp -= n

@@ -43,6 +43,10 @@ func _input(event):
 		if event.is_pressed():
 			if stick_pos.distance_to(event.position) < RADIUS:
 				evt_index = event.index
+				var dist = stick_pos.distance_to(event.position)
+				var vec = (event.position - stick_pos).normalized()
+				var pos = vec * dist
+				get_parent().emit_signal(\"on_change\", vec)
 		elif evt_index != -1:
 			if evt_index == event.index:
 				var parent = get_parent()
