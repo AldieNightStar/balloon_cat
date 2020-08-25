@@ -13,6 +13,9 @@ var stick_vector = Vector2()
 signal on_change(vector2)
 
 export var automate_ui_buttons = false
+
+func update_parent_pos():
+	$big.update_parent_pos()
 "
 
 [sub_resource type="GDScript" id=2]
@@ -27,10 +30,13 @@ var evt_index = -1
 var automate_ui_buttons
 
 func _ready():
-	stick_pos = get_parent().global_position
+	update_parent_pos()
 	automate_ui_buttons = get_parent().automate_ui_buttons
 	if automate_ui_buttons:
 		get_parent().connect(\"on_change\", self, \"__process_input\")
+
+func update_parent_pos():
+	stick_pos = get_parent().global_position
 
 func _input(event):
 	if event is InputEventScreenTouch:

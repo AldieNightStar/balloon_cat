@@ -12,7 +12,7 @@ func save_game():
 func load_game():
 	if (G.saving.exists_obj(G.SAVE_FILE_NAME)):
 		_obj = G.saving.load_obj(G.SAVE_FILE_NAME)
-		emit_signal("game_loaded")
+	emit_signal("game_loaded")
 
 func get_value(key, defaultValue=null):
 	if _obj.has(key):
@@ -61,3 +61,12 @@ func get_music_volume():
 
 func get_sound_volume():
 	return get_value("svolume", 1)
+	
+# ======================================
+# Joystick settings
+# ======================================
+func set_joystick_is_big(_bool):
+	set_value("jbig", _bool)
+
+func get_joystick_is_big():
+	return get_value("jbig", false)

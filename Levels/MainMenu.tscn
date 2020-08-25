@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Objects/MusicPlayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/UI/Adjuster.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/Music/Main_menu.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Objects/UI/Switcher.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -56,8 +57,14 @@ func setup():
 	$Pos_Options/A_SoundVolume.set_value(G.gameData.get_sound_volume() * 10)
 	$Pos_Options/A_MusicVolume.connect(\"value_changed\", self, \"_mus_vol\")
 	$Pos_Options/A_SoundVolume.connect(\"value_changed\", self, \"_snd_vol\")
+	
 	G.gameData.emit_signal(\"music_volume_changed\", G.gameData.get_music_volume())
 	G.gameData.emit_signal(\"sound_volume_changed\", G.gameData.get_sound_volume())
+	
+	# Big joystick control
+	$Pos_Options/S_BigJoystick.checked = G.gameData.get_joystick_is_big()
+	$Pos_Options/S_BigJoystick._update_c()
+	$Pos_Options/S_BigJoystick.connect(\"changed\", self, \"_j_big\")
 
 func move_to(node):
 	if !t.is_active():
@@ -88,6 +95,9 @@ func _snd_vol(n):
 	var nn = float(n) / 10
 	G.play(\"blow.ogg\")
 	G.gameData.set_sound_volume(nn)
+
+func _j_big(b):
+	G.gameData.set_joystick_is_big(b)
 "
 
 [sub_resource type="GDScript" id=2]
@@ -271,6 +281,10 @@ label_text = "Sound"
 position = Vector2( 182.555, 200 )
 scale = Vector2( 2, 2 )
 label_text = "Music"
+
+[node name="S_BigJoystick" parent="Pos_Options" instance=ExtResource( 10 )]
+position = Vector2( 353.941, 136.614 )
+label = "Big Joystick"
 
 [node name="canvas" type="CanvasLayer" parent="."]
 

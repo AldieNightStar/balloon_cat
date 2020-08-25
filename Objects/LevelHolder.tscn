@@ -6,7 +6,7 @@
 [ext_resource path="res://Objects/Joystick/Joystick.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 export var speed = 3
@@ -29,6 +29,13 @@ func setup():
 	
 	# Setup joystick movement
 	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
+	
+	# Make joystick big if settings say that
+	if G.gameData.get_joystick_is_big():
+		$clayer/Joystick.global_position += Vector2(50, -50)
+		$clayer/Joystick.scale = Vector2(1.75, 1.75)
+		$clayer/Joystick.update_parent_pos()
+		$clayer/Joystick.modulate.a = .25
 
 func start():
 	_go = true
@@ -80,13 +87,12 @@ func _cat_reborn():
 func _on_Timer_timeout():
 	if speed < max_speed:
 		speed += 0.1
-	speed += 0.1
 
 func _global_joystick_change(v):
 	G.emit_signal(\"_on_joystick_change\", v)
 "
 
-[sub_resource type="GDScript" id=13]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Node2D
 
 func _ready():
@@ -97,11 +103,11 @@ func _on_Score_score_updated(n):
 	get_parent().get_node(\"Anim\").play(\"Score_Update\")
 "
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
@@ -117,7 +123,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="GDScript" id=16]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Area2D
 
 func _ready():
@@ -130,13 +136,13 @@ func enter(body_id, body, body_shape, area_shape):
 		body.queue_free()
 "
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 69.89, 67.4558 )
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 195.641, 30.6906 )
 
-[sub_resource type="GDScript" id=19]
+[sub_resource type="GDScript" id=8]
 script/source = "extends KinematicBody2D
 
 func touch(cat):
@@ -146,9 +152,9 @@ func touch(cat):
 		queue_free()
 "
 
-[sub_resource type="RectangleShape2D" id=20]
+[sub_resource type="RectangleShape2D" id=9]
 
-[sub_resource type="GDScript" id=21]
+[sub_resource type="GDScript" id=10]
 script/source = "extends Node
 
 var score = 0
@@ -187,7 +193,7 @@ func _sound(name):
 
 [node name="LevelHolder" type="Node2D"]
 position = Vector2( 401.582, 198.015 )
-script = SubResource( 12 )
+script = SubResource( 1 )
 
 [node name="clayer" type="CanvasLayer" parent="."]
 
@@ -196,7 +202,7 @@ position = Vector2( 662.098, 4.65881 )
 label = "Menu"
 
 [node name="score" type="Node2D" parent="clayer"]
-script = SubResource( 13 )
+script = SubResource( 2 )
 
 [node name="label" type="Label" parent="clayer/score"]
 modulate = Color( 0.101961, 0.152941, 0.878431, 1 )
@@ -205,17 +211,18 @@ margin_top = 6.50859
 margin_right = 239.093
 margin_bottom = 83.5086
 rect_scale = Vector2( 0.438387, 0.53318 )
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 3 )
 text = "Score"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
-anims/Score_Update = SubResource( 15 )
+anims/Score_Update = SubResource( 4 )
 
 [node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
 position = Vector2( 79.3893, 296.938 )
+scale = Vector2( 1.5, 1.5 )
 
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
 position = Vector2( 746.71, 314.578 )
@@ -245,35 +252,35 @@ position = Vector2( -282.885, 95.8507 )
 [node name="Destructor" type="Area2D" parent="."]
 position = Vector2( -275.333, 4.58447 )
 scale = Vector2( 2.58016, 4.83407 )
-script = SubResource( 16 )
+script = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="shape" type="CollisionShape2D" parent="Destructor"]
 position = Vector2( -167.445, -28.136 )
-shape = SubResource( 17 )
+shape = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="shape2" type="CollisionShape2D" parent="Destructor"]
 position = Vector2( 93.9551, 70.4456 )
-shape = SubResource( 18 )
+shape = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CatActivator" type="KinematicBody2D" parent="."]
-script = SubResource( 19 )
+script = SubResource( 8 )
 
 [node name="shape" type="CollisionShape2D" parent="CatActivator"]
 position = Vector2( -238.507, -10.725 )
 scale = Vector2( 1.07726, 3.23861 )
-shape = SubResource( 20 )
+shape = SubResource( 9 )
 
 [node name="Score" type="Node" parent="."]
-script = SubResource( 21 )
+script = SubResource( 10 )
 
 [node name="player" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0

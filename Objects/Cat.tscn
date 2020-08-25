@@ -28,6 +28,7 @@ var is_player = true
 var playable = false
 
 var velocity = Vector2.ZERO
+var velocity_speed = .4
 
 # Joystick variables
 var j_used = false
@@ -86,10 +87,7 @@ func kb_process(delta):
 	elif Input.is_action_pressed(\"ui_down\"):
 		yMove = 1
 	if Input.is_action_just_pressed(\"ui_accept\"):
-		if !down_key:
-			fire()
-		else:
-			fire_down()
+		fire()
 	move(xMove, yMove)
 	
 func move(xMove, yMove):
@@ -122,14 +120,14 @@ func damage(n):
 	G.play(\"blow.ogg\")
 
 func process_moving():
-	if (velocity.x > 0): velocity.x -= .2
-	if (velocity.y > 0): velocity.y -= .2
-	if (velocity.x < 0): velocity.x += .2
-	if (velocity.y < 0): velocity.y += .2
-	if (velocity.x < 0 and velocity.x > -.2): velocity.x = 0
-	if (velocity.x > 0 and velocity.x <  .2): velocity.x = 0
-	if (velocity.y < 0 and velocity.y > -.2): velocity.y = 0
-	if (velocity.y > 0 and velocity.y <  .2): velocity.y = 0
+	if (velocity.x > 0): velocity.x -= velocity_speed
+	if (velocity.y > 0): velocity.y -= velocity_speed
+	if (velocity.x < 0): velocity.x += velocity_speed
+	if (velocity.y < 0): velocity.y += velocity_speed
+	if (velocity.x < 0 and velocity.x > -velocity_speed): velocity.x = 0
+	if (velocity.x > 0 and velocity.x <  velocity_speed): velocity.x = 0
+	if (velocity.y < 0 and velocity.y > -velocity_speed): velocity.y = 0
+	if (velocity.y > 0 and velocity.y <  velocity_speed): velocity.y = 0
 	var c = move_and_collide(velocity)
 	if (c and c.collider and c.collider.has_method(\"touch\")):
 		c.collider.touch(self)
@@ -180,13 +178,6 @@ func sling_fire():
 func fire():
 	if catAnimation.current_animation != \"Fire\":
 		sling_fire()
-		catAnimation.play(\"Fire\")
-
-func fire_down():
-	if catAnimation.current_animation != \"Fire\":
-		var rock = load(\"res://Objects/Falling_Rock.tscn\").instance()
-		rock.global_position = global_position + Vector2(40, 0)
-		get_parent().get_parent().add_child(rock)
 		catAnimation.play(\"Fire\")
 
 func cat_ani_finish(name):
