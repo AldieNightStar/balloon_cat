@@ -53,12 +53,13 @@ func touch(body):
 		body.damage(1)
 
 func damage(n):
-	hp -= n
-	if hp <= 0:
-		dead = true
-		G.spawn(\"BonusCoin\", get_parent(), global_position)
-		G.spawn(\"Bang\", get_parent(), global_position)
-		G.play(\"enemy_down.wav\")
+	if !dead:
+		hp -= n
+		if hp <= 0:
+			dead = true
+			G.spawn(\"BonusCoin\", get_parent(), global_position)
+			G.spawn(\"Bang\", get_parent(), global_position)
+			G.play(\"enemy_down.wav\")
 
 
 func _on_notifier_screen_entered():
