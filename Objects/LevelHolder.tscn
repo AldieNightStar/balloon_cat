@@ -62,6 +62,9 @@ func score_add(n):
 func score_get():
 	return $Score.score_get()
 
+func score_set(n):
+	$Score.score_set(n)
+
 func spawn_menu(closeable = false):
 	if _menu: return
 	_menu = true

@@ -33,6 +33,11 @@ func _closeMenu():
 
 func _restart():
 	if !holder: return
+	if coins_to_global:
+		var coins = G.gameData.get_coins()
+		G.gameData.set_coins(holder.score_get() + coins)
+		G.gameData.save_game()
+		holder.score_set(0)
 	get_tree().change_scene(\"res://Levels/\" + G.levelName + \".tscn\")
 
 func _rebirth():

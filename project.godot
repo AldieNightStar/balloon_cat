@@ -30,6 +30,10 @@ config/name="BalloonCat"
 run/main_scene="res://Levels/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [autoload]
 
 G="*res://Objects/Global.gd"
@@ -43,10 +47,17 @@ window/size/test_height=750
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[input]
+
+click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-pointing/emulate_mouse_from_touch=false
 
 [rendering]
 
