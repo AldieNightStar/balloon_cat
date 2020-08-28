@@ -96,6 +96,10 @@ func kb_process(delta):
 	if xMove < 0 and cancel_key:
 		godmode = !godmode
 		print(\"GOD MODE: \", godmode)
+	# Cheat - Iron Sling
+	if yMove > 0 and cancel_key:
+		change_sling(load(\"res://Objects/Slingshot/Iron_Sling.tscn\").instance())
+		print(\"IRON SLING\")
 	move(xMove, yMove)
 	
 func move(xMove, yMove):
