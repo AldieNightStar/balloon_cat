@@ -11,5 +11,5 @@ dest_files=[ "res://.import/bonus_balloon.ogg-9452dae1cf307549069a344cd82fc627.o
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

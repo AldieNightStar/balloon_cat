@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BCatForest.ogg-ca21f931eed6336a5d00bd5940e6307c.oggstr"
+
+[deps]
+
+source_file="res://assets/Music/BCatForest.ogg"
+dest_files=[ "res://.import/BCatForest.ogg-ca21f931eed6336a5d00bd5940e6307c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

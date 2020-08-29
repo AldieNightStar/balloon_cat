@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/field3.png-ed1ff56434dcf8aa2210bc49aecb070d.stex"
+path="res://.import/fon_lv2_det3.png-842ef63632d84b02dfd5456ca4854a65.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background/Level01/field3.png"
-dest_files=[ "res://.import/field3.png-ed1ff56434dcf8aa2210bc49aecb070d.stex" ]
+source_file="res://assets/Background/Level02/fon_lv2_det3.png"
+dest_files=[ "res://.import/fon_lv2_det3.png-842ef63632d84b02dfd5456ca4854a65.stex" ]
 
 [params]
 

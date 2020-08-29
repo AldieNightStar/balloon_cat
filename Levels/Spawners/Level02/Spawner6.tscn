@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/ParentDestructor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
+
+[node name="Spawner2" type="Node2D"]
+
+[node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1333.72, 429.12 )
+
+[node name="Raven" parent="." instance=ExtResource( 4 )]
+position = Vector2( 122.549, 191.343 )
+diapazone = 100
+y_velocity = -1
+
+[node name="Raven2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 341.596, 7.99896 )
+diapazone = 100
+y_velocity = -1
+
+[node name="Raven3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 363.157, 165.083 )
+diapazone = 100
+y_velocity = -1
+
+[node name="Raven4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 260.326, 307.172 )
+diapazone = 100
+y_velocity = 0
+
+[node name="Raven5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 398.578, 100.915 )
+diapazone = 100
+
+[node name="Raven6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 37.6684, 75.2474 )
+diapazone = 100
+y_velocity = -1

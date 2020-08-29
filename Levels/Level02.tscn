@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/LevelHolder.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Music/BalloonCat_SecondLevel.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Objects/SpawnGenerator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/MusicPlayer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Paralax/Paralax_Level2.tscn" type="PackedScene" id=5]
+
+[node name="Level" type="Node2D"]
+
+[node name="LevelHolder" parent="." instance=ExtResource( 1 )]
+position = Vector2( 198.227, 148.181 )
+
+[node name="SpawnerGenerator" parent="." instance=ExtResource( 3 )]
+position = Vector2( 674.031, -16.3991 )
+levelName = "Level02"
+count = 7
+
+[node name="Paralax_Level2" parent="." instance=ExtResource( 5 )]
+
+[node name="MusicPlayer" parent="." instance=ExtResource( 4 )]
+stream = ExtResource( 2 )
+volume_db = -24.0
+autoplay = true

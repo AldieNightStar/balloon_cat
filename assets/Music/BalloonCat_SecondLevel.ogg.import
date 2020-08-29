@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BalloonCat_SecondLevel.ogg-44663ca8c834aacfde95b51df41e7148.oggstr"
+
+[deps]
+
+source_file="res://assets/Music/BalloonCat_SecondLevel.ogg"
+dest_files=[ "res://.import/BalloonCat_SecondLevel.ogg-44663ca8c834aacfde95b51df41e7148.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
