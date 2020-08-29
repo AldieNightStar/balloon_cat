@@ -3,7 +3,7 @@
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Joystick/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Joystick/ScreenCat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
@@ -28,7 +28,7 @@ func setup():
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
 	
 	# Setup joystick movement
-	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
+	# $clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
 	
 	# Make joystick big if settings say that
 	if G.gameData.get_joystick_is_big():
@@ -195,7 +195,7 @@ func _sound(name):
 "
 
 [node name="LevelHolder" type="Node2D"]
-position = Vector2( 401.582, 198.015 )
+position = Vector2( 391.905, 173.343 )
 script = SubResource( 1 )
 
 [node name="clayer" type="CanvasLayer" parent="."]
@@ -223,13 +223,12 @@ __meta__ = {
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
 anims/Score_Update = SubResource( 4 )
 
-[node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
-position = Vector2( 80.3893, 297.938 )
-scale = Vector2( 1.5, 1.5 )
-
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
 position = Vector2( 746.71, 314.578 )
 scale = Vector2( 1.10957, 1.08071 )
+
+[node name="ScreenCat" parent="clayer" instance=ExtResource( 4 )]
+position = Vector2( 401.582, 198.015 )
 
 [node name="camera" type="Camera2D" parent="."]
 visible = false
@@ -237,7 +236,7 @@ position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -472.023, -3.17723 )
+position = Vector2( -440.994, 0 )
 scale = Vector2( 0.982981, 0.98601 )
 
 [node name="Min_W" type="Node2D" parent="."]

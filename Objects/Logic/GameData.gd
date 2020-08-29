@@ -57,10 +57,10 @@ func set_sound_volume(n):
 	emit_signal("sound_volume_changed", n)
 
 func get_music_volume():
-	return get_value("mvolume", 1)
+	return get_value("mvolume", .9)
 
 func get_sound_volume():
-	return get_value("svolume", 1)
+	return get_value("svolume", .9)
 	
 # ======================================
 # Joystick settings

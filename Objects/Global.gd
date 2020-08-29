@@ -8,7 +8,7 @@ var levelName = "Level01"
 var game_just_started = true
 
 signal sound_play(name)
-signal _on_joystick_change(vector2)
+signal screen_cat_update(posVector2)
 
 const SAVE_FILE_NAME = "game"
 

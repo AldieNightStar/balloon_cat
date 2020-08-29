@@ -27,14 +27,6 @@ var dead = false
 var is_player = true
 var playable = false
 
-var velocity = Vector2.ZERO
-var velocity_speed = .3
-
-# Joystick variables
-var j_used = false
-var j_move_x = 0
-var j_move_y = 0
-
 # Cheats
 var godmode = false
 
@@ -57,15 +49,12 @@ func setup():
 	catAnimation = $g/ani
 	catAnimation.play(\"Idle\")
 	catAnimation.connect(\"animation_finished\", self, \"cat_ani_finish\")
-	G.connect(\"_on_joystick_change\", self, \"_on_joystick_change\")
+	G.connect(\"screen_cat_update\", self, \"_screen_cat\")
 
 func _physics_process(delta):
 	if _setup and !dead:
 		if playable:
 			kb_process(delta)
-			if j_used:
-				move(j_move_x, j_move_y)
-			process_moving()
 		else:
 			# Go from left screen side
 			var c = move_and_collide(Vector2(2, 0))
@@ -100,14 +89,13 @@ func kb_process(delta):
 	if yMove > 0 and cancel_key:
 		change_sling(load(\"res://Objects/Slingshot/Iron_Sling.tscn\").instance())
 		print(\"IRON SLING\")
-	move(xMove, yMove)
+	# Moving process
+	move(xMove * speed, yMove * speed)
 	
 func move(xMove, yMove):
-	velocity += Vector2(xMove, yMove) 
-	if (velocity.x > speed): velocity.x = speed
-	if (velocity.y > speed): velocity.y = speed
-	if (velocity.x <-speed): velocity.x =-speed
-	if (velocity.y <-speed): velocity.y =-speed
+	var c = move_and_collide(Vector2(xMove, yMove))
+	if (c and c.collider and c.collider.has_method(\"touch\")):
+		c.collider.touch(self)
 	protect_positions()
 
 func protect_positions():
@@ -131,20 +119,6 @@ func damage(n):
 		make_invincible()
 	_set_balloons(hp)
 	G.play(\"blow.ogg\")
-
-func process_moving():
-	if (velocity.x > 0): velocity.x -= velocity_speed
-	if (velocity.y > 0): velocity.y -= velocity_speed
-	if (velocity.x < 0): velocity.x += velocity_speed
-	if (velocity.y < 0): velocity.y += velocity_speed
-	if (velocity.x < 0 and velocity.x > -velocity_speed): velocity.x = 0
-	if (velocity.x > 0 and velocity.x <  velocity_speed): velocity.x = 0
-	if (velocity.y < 0 and velocity.y > -velocity_speed): velocity.y = 0
-	if (velocity.y > 0 and velocity.y <  velocity_speed): velocity.y = 0
-	var c = move_and_collide(velocity)
-	if (c and c.collider and c.collider.has_method(\"touch\")):
-		c.collider.touch(self)
-	pass
 
 func dead():
 	dead = true
@@ -215,12 +189,12 @@ func _ticker_timeout():
 func level_holder():
 	return get_parent()
 
-func _on_joystick_change(v):
-	if !j_used:
-		j_used = true
-	if playable and !dead:
-		j_move_x = v.x * 1.15
-		j_move_y = v.y * 1.15
+func _screen_cat(pos):
+	if dead or !playable:
+		return
+	if position.distance_to(pos) < 100:
+		var relPos = -(position - pos)
+		move(relPos.x, relPos.y)
 "
 
 [sub_resource type="RectangleShape2D" id=2]
