@@ -26,16 +26,6 @@ func setup():
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
-	
-	# Setup joystick movement
-	# $clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
-	
-	# Make joystick big if settings say that
-	if G.gameData.get_joystick_is_big():
-		$clayer/Joystick.global_position += Vector2(50, -50)
-		$clayer/Joystick.scale = Vector2(1.75, 1.75)
-		$clayer/Joystick.update_parent_pos()
-		$clayer/Joystick.modulate.a = .25
 
 func start():
 	_go = true

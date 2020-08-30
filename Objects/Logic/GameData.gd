@@ -29,12 +29,22 @@ func set_value(key, value):
 # ===================================
 # Game coins
 # ===================================
+signal coins_update(n)
+
 func set_coins(n):
 	if n < 0: n = 0
 	set_value("coins", n)
+	emit_signal("coins_update", n)
 
 func get_coins():
 	return get_value("coins", 0)
+
+func sub_coins(n: int):
+	var c = get_coins()
+	if n <= c:
+		set_coins(c - n)
+		return true
+	return false
 
 # ====================================
 # Player Maximum HP
@@ -51,25 +61,35 @@ func set_max_hp(n):
 signal music_volume_changed(n)
 signal sound_volume_changed(n)
 
-func set_music_volume(n):
+func set_music_volume(n: float):
 	set_value("mvolume", n)
 	emit_signal("music_volume_changed", n)
 
-func set_sound_volume(n):
+func set_sound_volume(n: float):
 	set_value("svolume", n)
 	emit_signal("sound_volume_changed", n)
 
-func get_music_volume():
+func get_music_volume() -> float:
 	return get_value("mvolume", .9)
 
-func get_sound_volume():
+func get_sound_volume() -> float:
 	return get_value("svolume", .9)
 	
-# ======================================
-# Joystick settings
-# ======================================
-func set_joystick_is_big(_bool):
-	set_value("jbig", _bool)
+# =====================================
+# Gems
+# =====================================
+signal gems_update(n)
 
-func get_joystick_is_big():
-	return get_value("jbig", false)
+func get_gems() -> int:
+	return get_value("diamonds", 0)
+
+func set_gems(n: int):
+	set_value("diamonds", n)
+	emit_signal("diamonds_update", n)
+
+func sub_gems(n: int):
+	var d = get_gems()
+	if n <= d:
+		set_gems(d - n)
+		return true
+	return false
