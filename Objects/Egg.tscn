@@ -25,6 +25,10 @@ func _physics_process(delta):
 		else:
 			add_collision_exception_with(c.collider)
 
+func touch(o):
+	if o != null and o.has_method(\"damage\"):
+		o.damage(1)
+
 func destruct():
 	queue_free()
 "
