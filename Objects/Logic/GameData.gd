@@ -4,14 +4,17 @@ class_name GameData
 
 signal game_loaded()
 
+var inventory : Inventory = Inventory.new()
 var _obj = {}
 
 func save_game():
+	set_value("_inv", inventory._obj)
 	G.saving.save_obj(G.SAVE_FILE_NAME, _obj)
 
 func load_game():
 	if (G.saving.exists_obj(G.SAVE_FILE_NAME)):
 		_obj = G.saving.load_obj(G.SAVE_FILE_NAME)
+	inventory._obj = get_value("_inv", {})
 	emit_signal("game_loaded")
 
 func get_value(key, defaultValue=null):
