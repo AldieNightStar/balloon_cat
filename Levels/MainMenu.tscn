@@ -127,7 +127,7 @@ func kills(name):
 	return G.gameData.get_kills(name, 0)
 
 func t(name):
-	return \"- \" + name + \": \" + str(kills(name)) + \" -> \" + str(G.gameData.records.get_best_of(name) + 100) + \"\\n\"
+	return \"- \" + name + \": \" + str(kills(name)) + \" -> \" + str(G.gameData.records.get_best_of(name)) + \"\\n\"
 
 func _update_text():
 	text += t(G.gameData.records.RECORD_RAVEN)
@@ -212,48 +212,48 @@ __meta__ = {
 }
 
 [node name="BPlay" parent="Pos_MMenu" instance=ExtResource( 1 )]
-position = Vector2( 30.0867, 131.716 )
+position = Vector2( -12.6151, 128.72 )
 scale = Vector2( 4.05197, 4.4532 )
 
 [node name="BRecords" parent="Pos_MMenu" instance=ExtResource( 1 )]
-position = Vector2( 373.7, 128.5 )
+position = Vector2( 330.998, 125.503 )
 scale = Vector2( 4.05197, 4.4532 )
 
 [node name="BUpgrades" parent="Pos_MMenu" instance=ExtResource( 1 )]
-position = Vector2( 157.959, 173.948 )
+position = Vector2( 107.689, 171.372 )
 scale = Vector2( 4.05197, 4.4532 )
 
 [node name="BOptions" parent="Pos_MMenu" instance=ExtResource( 1 )]
-position = Vector2( 278.8, 172.5 )
+position = Vector2( 228.11, 169.924 )
 scale = Vector2( 4.05197, 4.4532 )
 
 [node name="up" type="Label" parent="Pos_MMenu"]
-margin_left = 182.909
-margin_top = 199.148
-margin_right = 219.909
-margin_bottom = 228.148
+margin_left = 131.798
+margin_top = 196.572
+margin_right = 168.798
+margin_bottom = 225.572
 custom_fonts/font = SubResource( 3 )
 text = "Up"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="up2" type="Label" parent="Pos_MMenu"]
-margin_left = 390.0
-margin_top = 153.0
-margin_right = 438.0
-margin_bottom = 182.0
+[node name="kills" type="Label" parent="Pos_MMenu"]
+margin_left = 340.991
+margin_top = 149.583
+margin_right = 401.991
+margin_bottom = 178.583
 custom_fonts/font = SubResource( 3 )
-text = "REC"
+text = "KILLS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="play" type="Label" parent="Pos_MMenu"]
-margin_left = 43.3866
-margin_top = 157.216
-margin_right = 104.387
-margin_bottom = 186.216
+margin_left = 0.684772
+margin_top = 154.22
+margin_right = 61.6848
+margin_bottom = 183.22
 custom_fonts/font = SubResource( 3 )
 text = "PLAY"
 __meta__ = {
@@ -261,10 +261,10 @@ __meta__ = {
 }
 
 [node name="opt" type="Label" parent="Pos_MMenu"]
-margin_left = 297.871
-margin_top = 202.513
-margin_right = 358.871
-margin_bottom = 231.513
+margin_left = 246.34
+margin_top = 196.994
+margin_right = 307.34
+margin_bottom = 225.994
 custom_fonts/font = SubResource( 3 )
 text = "OPT"
 __meta__ = {
@@ -325,19 +325,19 @@ label_text = "Music"
 position = Vector2( 0, 1000 )
 
 [node name="board" type="Sprite" parent="Pos_Records"]
-position = Vector2( 277.478, 162.31 )
+position = Vector2( 200, 162.31 )
 texture = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Label" type="Label" parent="Pos_Records"]
-margin_left = 89.9759
+margin_left = 5.32158
 margin_top = 62.2263
-margin_right = 246.976
+margin_right = 162.322
 margin_bottom = 143.226
 custom_fonts/font = SubResource( 8 )
-text = "Records:
+text = "Kills:
 "
 script = SubResource( 9 )
 __meta__ = {

@@ -34,7 +34,7 @@ func rec_allowed(rec):
 func get_best_of(rec):
 	if !rec_allowed(rec):
 		return 0
-	return get_value(rec, 0)
+	return get_value(rec, 100)
 
 # rec - record type
 # n   - score int
@@ -42,10 +42,9 @@ func get_best_of(rec):
 func set_best_of(rec, n):
 	if !rec_allowed(rec):
 		return false
-	n = floor(float(n) / 100) * 100
 	var best = get_best_of(rec)
 	if (n > best):
-		set_value(rec, n)
+		set_value(rec, get_best_of(rec) * 2)
 		emit_signal("new_record", rec, n)
 		return true
 	return false
