@@ -41,6 +41,7 @@ func damage(n):
 			G.spawn(\"BonusCoin\", get_parent(), global_position)
 			G.spawn(\"Bang\", get_parent(), global_position)
 			G.play(\"enemy_down.wav\")
+			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_GOOSE)
 
 func touch(body):
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):

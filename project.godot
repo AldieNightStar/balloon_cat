@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Objects/Logic/Inventory.gd"
 }, {
 "base": "Node",
+"class": "RecordsData",
+"language": "GDScript",
+"path": "res://Objects/Logic/RecordsData.gd"
+}, {
+"base": "Node",
 "class": "SavingGame",
 "language": "GDScript",
 "path": "res://Objects/Logic/Saving.gd"
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "GameData": "",
 "Inventory": "",
+"RecordsData": "",
 "SavingGame": ""
 }
 

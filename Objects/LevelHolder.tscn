@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -184,6 +184,22 @@ func _sound(name):
 	play()
 "
 
+[sub_resource type="GDScript" id=12]
+script/source = "extends Node2D
+
+func _ready():
+	G.connect(\"kill_enemy\", self, \"_kill\")
+	G.gameData.records.connect(\"new_record\", self, \"_record\")
+
+func _kill(name):
+	G.gameData.set_kills(name, G.gameData.get_kills(name, 0) + 1)
+
+func _record(name, n):
+	# TODO: Play some sound of beaten record
+	# TODO: Adds some effects
+	G.gameData.set_gems(G.gameData.get_gems() + 1)
+"
+
 [node name="LevelHolder" type="Node2D"]
 position = Vector2( 391.905, 173.343 )
 script = SubResource( 1 )
@@ -286,5 +302,8 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="KillerCounter" type="Node2D" parent="."]
+script = SubResource( 12 )
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

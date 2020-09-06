@@ -5,16 +5,19 @@ class_name GameData
 signal game_loaded()
 
 var inventory : Inventory = Inventory.new()
+var records : RecordsData = RecordsData.new()
 var _obj = {}
 
 func save_game():
 	set_value("_inv", inventory._obj)
+	set_value("_recs", records._obj)
 	G.saving.save_obj(G.SAVE_FILE_NAME, _obj)
 
 func load_game():
 	if (G.saving.exists_obj(G.SAVE_FILE_NAME)):
 		_obj = G.saving.load_obj(G.SAVE_FILE_NAME)
 	inventory._obj = get_value("_inv", {})
+	records._obj = get_value("_recs", {})
 	emit_signal("game_loaded")
 
 func get_value(key, defaultValue=null):
@@ -81,11 +84,11 @@ func get_sound_volume() -> float:
 signal gems_update(n)
 
 func get_gems() -> int:
-	return get_value("diamonds", 0)
+	return get_value("gems", 0)
 
 func set_gems(n: int):
-	set_value("diamonds", n)
-	emit_signal("diamonds_update", n)
+	set_value("gems", n)
+	emit_signal("gems_update", n)
 
 func sub_gems(n: int):
 	var d = get_gems()
@@ -93,3 +96,17 @@ func sub_gems(n: int):
 		set_gems(d - n)
 		return true
 	return false
+
+
+# ============================================
+# Kills
+# ============================================
+
+func set_kills(name, n):
+	records.set_best_of(name, n)
+	set_value("kills_" + name, n)
+
+func get_kills(name, def):
+	return get_value("kills_" + name, def)
+
+
