@@ -116,11 +116,11 @@ func _play(name):
 size = 24
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=4]
 size = 32
 font_data = ExtResource( 2 )
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Label
 
 func kills(name):
@@ -136,7 +136,7 @@ func _update_text():
 	text += t(G.gameData.records.RECORD_OWL)
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Label
 
 func _ready():
@@ -147,7 +147,7 @@ func _coins_update():
 	text = str(G.gameData.get_coins())
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=7]
 script/source = "extends Label
 
 func _ready():
@@ -159,7 +159,7 @@ func _update_gems():
 	text = str(G.gameData.get_gems())
 "
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 30.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("mountains:position")
@@ -174,7 +174,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=9]
 script/source = "extends Timer
 
 func _timeout():
@@ -336,10 +336,10 @@ margin_left = 5.32158
 margin_top = 62.2263
 margin_right = 162.322
 margin_bottom = 143.226
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 4 )
 text = "Kills:
 "
-script = SubResource( 9 )
+script = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -366,7 +366,7 @@ margin_right = 167.009
 margin_bottom = 31.4783
 custom_fonts/font = SubResource( 3 )
 text = "0"
-script = SubResource( 4 )
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -378,7 +378,7 @@ margin_right = 277.351
 margin_bottom = 30.7972
 custom_fonts/font = SubResource( 3 )
 text = "0"
-script = SubResource( 5 )
+script = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -428,10 +428,10 @@ __meta__ = {
 }
 
 [node name="scroller" type="AnimationPlayer" parent="canvas/bg"]
-anims/Scroll = SubResource( 6 )
+anims/Scroll = SubResource( 8 )
 
 [node name="AutoSaver" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
-script = SubResource( 7 )
+script = SubResource( 9 )
 [connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]

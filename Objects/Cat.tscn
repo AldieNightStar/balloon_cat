@@ -28,6 +28,8 @@ var dead = false
 var is_player = true
 var playable = false
 
+var shield
+
 # Cheats
 var godmode = false
 
@@ -83,6 +85,7 @@ func kb_process(delta):
 		fire()
 	var cancel_key = Input.is_action_just_pressed(\"ui_cancel\")
 	# Cheat - Godmode
+	# ==============
 	if xMove < 0 and cancel_key:
 		godmode = !godmode
 		print(\"GOD MODE: \", godmode)
@@ -90,6 +93,12 @@ func kb_process(delta):
 	if yMove > 0 and cancel_key:
 		change_sling(load(\"res://Objects/Slingshot/Iron_Sling.tscn\").instance())
 		print(\"IRON SLING\")
+	# Cheat - add shields and use one of them
+	if yMove < 0 and cancel_key:
+		G.gameData.set_shields(G.gameData.get_shields() + 2)
+		print(\"+ 2 Shields. Now shields: \" + str(G.gameData.get_shields()))
+		use_shield()
+	# =============
 	# Moving process
 	move(xMove * speed, yMove * speed)
 	
@@ -197,6 +206,20 @@ func _screen_cat(pos):
 	if position.distance_to(pos) < 100:
 		var relPos = -(position - pos)
 		move(relPos.x, relPos.y)
+
+func use_shield():
+	if shield == null:
+		var shields = G.gameData.get_shields()
+		if shields > 0:
+			shield = load(\"res://Objects/Shield.tscn\").instance()
+			shield.name = \"Shield\"
+			add_child(shield)
+			shield.connect(\"protection_ended\", self, \"_shield_stopped\")
+			shield.start_protection(G.gameData.get_shield_seconds())
+			G.gameData.set_shields(shields - 1)
+
+func _shield_stopped():
+	shield = null
 "
 
 [sub_resource type="RectangleShape2D" id=2]

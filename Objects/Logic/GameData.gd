@@ -110,3 +110,18 @@ func get_kills(name, def):
 	return get_value("kills_" + name, def)
 
 
+# ============================================
+# Shield
+# ============================================
+
+func set_shields(n):
+	set_value("shields", n)
+
+func get_shields():
+	return get_value("shields", 0)
+	
+func set_shield_seconds(n):
+	set_value("shield_secs", n)
+
+func get_shield_seconds():
+	return get_value("shield_secs", 5)

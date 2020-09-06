@@ -44,6 +44,8 @@ func damage(n):
 			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_GOOSE)
 
 func touch(body):
+	if dead:
+		return
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):
 		body.damage(1)
 
