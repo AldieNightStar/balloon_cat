@@ -125,3 +125,23 @@ func set_shield_seconds(n):
 
 func get_shield_seconds():
 	return get_value("shield_secs", 5)
+
+# ===============================================
+# Level Unlocks
+# ===============================================
+
+signal level_unlocked(level_number)
+
+func is_level_unlocked(n: int):
+	if n < 1:
+		return false
+	if n == 1:
+		return true
+	return get_value("lvl_unlocked" + str(n), false)
+
+func unlock_level(n: int):
+	if n <= 1:
+		return
+	if !is_level_unlocked(n):
+		emit_signal("level_unlocked", n)
+	set_value("lvl_unlocked" + str(n), true)

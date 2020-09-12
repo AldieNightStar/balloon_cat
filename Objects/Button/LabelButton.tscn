@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -7,34 +7,29 @@
 script/source = "extends Node2D
 
 export var label : String
+export var available : bool = true
 
 signal pressed
 
 func _ready():
 	$Button.connect(\"pressed\", self, \"_pressed\")
-	$Label.text = label
+	call_deferred(\"set_available\", available)
+	set_text(label)
 
 func _pressed():
-	emit_signal(\"pressed\")
+	if available:
+		emit_signal(\"pressed\")
+
+func set_available(b: bool):
+	available = b
+	$Button.set_available(b)
 
 func set_text(t):
 	label = t
 	$Label.text = label
 "
 
-[sub_resource type="RectangleShape2D" id=2]
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends TouchScreenButton
-
-func _ready():
-	$motion.play(\"Motion\")
-
-func _on_Button_pressed():
-	$ani.play(\"Hover\")
-"
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 2 )
 
@@ -42,16 +37,14 @@ font_data = ExtResource( 2 )
 script = SubResource( 1 )
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
-scale = Vector2( 2.88259, 2.62726 )
-shape = SubResource( 2 )
-script = SubResource( 3 )
+scale = Vector2( 3, 3 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 64.8018
 margin_top = 13.2048
 margin_right = 96.8019
 margin_bottom = 42.205
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "#"
 __meta__ = {
 "_edit_use_anchors_": false

@@ -66,6 +66,21 @@ func setup():
 	
 	G.gameData.emit_signal(\"music_volume_changed\", G.gameData.get_music_volume())
 	G.gameData.emit_signal(\"sound_volume_changed\", G.gameData.get_sound_volume())
+	
+	# Made available only these buttons which Level is unlocked
+	update_level_availableness()
+	
+	# Listen to level unlocks
+	G.gameData.connect(\"level_unlocked\", self, \"_on_level_unlocked\")
+	
+func update_level_availableness():
+	var playNode = get_node(\"Pos_Play\")
+	# From 1 to 5
+	for i in range(1, 6):
+		var button = playNode.get_node(\"Level\"+str(i))
+		var level_unlocked = G.gameData.is_level_unlocked(i)
+		if button != null:
+			button.set_available(level_unlocked)
 
 func move_to(node):
 	if !t.is_active():
@@ -96,6 +111,9 @@ func _snd_vol(n):
 	var nn = float(n) / 10
 	G.play(\"blow.ogg\")
 	G.gameData.set_sound_volume(nn)
+
+func _on_level_unlocked(lvl_number):
+	update_level_availableness()
 "
 
 [sub_resource type="GDScript" id=2]
@@ -275,7 +293,7 @@ __meta__ = {
 position = Vector2( 816.958, 1.80501 )
 
 [node name="Level1" parent="Pos_Play" instance=ExtResource( 3 )]
-position = Vector2( 50, 50 )
+position = Vector2( 51.4984, 50 )
 label = "1"
 
 [node name="Level2" parent="Pos_Play" instance=ExtResource( 3 )]
