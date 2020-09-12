@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Objects/Rabbit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Pine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/ParentDestructor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Bonus_balloon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Raven.tscn" type="PackedScene" id=4]
@@ -9,12 +9,6 @@
 
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1333.72, 429.12 )
-
-[node name="Rabbit" parent="." instance=ExtResource( 1 )]
-position = Vector2( 121.21, 299.58 )
-
-[node name="Rabbit2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 337.094, 294.163 )
 
 [node name="Bonus_balloon" parent="." instance=ExtResource( 3 )]
 position = Vector2( 197.742, 153.936 )
@@ -27,3 +21,12 @@ diapazone = 100
 position = Vector2( 284.615, 141.469 )
 diapazone = 100
 y_velocity = -1
+
+[node name="Pine" parent="." instance=ExtResource( 1 )]
+position = Vector2( 73.8875, 294.832 )
+
+[node name="Pine2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 207.237, 296.33 )
+
+[node name="Pine3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 390.03, 289.588 )
