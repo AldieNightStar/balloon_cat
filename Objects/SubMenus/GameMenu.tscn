@@ -63,6 +63,31 @@ func _mmenu():
 
 [sub_resource type="Animation" id=2]
 length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathMenuBg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 202.124, 121.218 ), Vector2( 202.624, 121.718 ), Vector2( 202.624, 121.718 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DeathMenuBg:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.737779, 1.00084 ), Vector2( 0.9, 1.1 ), Vector2( 0.845601, 1.07811 ) ]
+}
 
 [node name="GameMenu" type="Node2D"]
 script = SubResource( 1 )
@@ -71,9 +96,6 @@ script = SubResource( 1 )
 position = Vector2( 202.624, 121.718 )
 scale = Vector2( 0.845601, 1.07811 )
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Close" parent="." instance=ExtResource( 3 )]
 position = Vector2( 282.761, 11.1797 )
