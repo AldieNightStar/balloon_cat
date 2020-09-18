@@ -11,7 +11,7 @@
 position = Vector2( 1333.72, 429.12 )
 
 [node name="Bonus_balloon" parent="." instance=ExtResource( 3 )]
-position = Vector2( 197.742, 153.936 )
+position = Vector2( 224.612, 168.785 )
 
 [node name="Raven" parent="." instance=ExtResource( 4 )]
 position = Vector2( 107.419, 143.791 )
@@ -23,10 +23,13 @@ diapazone = 100
 y_velocity = -1
 
 [node name="Pine" parent="." instance=ExtResource( 1 )]
-position = Vector2( 73.8875, 294.832 )
+position = Vector2( 71.7662, 275.033 )
+scale = Vector2( 1.23058, 1.40223 )
 
 [node name="Pine2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 207.237, 296.33 )
+position = Vector2( 230.571, 304.108 )
+rotation = -0.0343825
 
 [node name="Pine3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 390.03, 289.588 )
+position = Vector2( 390.824, 266.571 )
+scale = Vector2( 1.02061, 1.40839 )
