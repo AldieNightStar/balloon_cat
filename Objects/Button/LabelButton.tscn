@@ -8,6 +8,7 @@ script/source = "extends Node2D
 
 export var label : String
 export var available : bool = true
+export var ignore_global_lock : bool = false
 
 signal pressed
 
@@ -17,6 +18,8 @@ func _ready():
 	set_text(label)
 
 func _pressed():
+	if !ignore_global_lock and G.buttons_locked:
+		return
 	if available:
 		emit_signal(\"pressed\")
 

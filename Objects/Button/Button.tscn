@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/Player/balloon1.png" type="Texture" id=1]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends TouchScreenButton
@@ -24,7 +24,7 @@ func set_available(b: bool):
 		$Sprite.modulate = Color.black
 "
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
@@ -39,7 +39,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0.813553, 0.674728 ), Vector2( 0.813553, 0.674728 ), Vector2( 0.7, 0.5 ), Vector2( 0.813553, 0.674728 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -56,7 +56,7 @@ tracks/0/keys = {
 
 [node name="Button" type="TouchScreenButton"]
 scale = Vector2( 0.813553, 0.674728 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 script = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -65,8 +65,8 @@ scale = Vector2( 0.813553, 0.674728 )
 texture = ExtResource( 1 )
 
 [node name="ani" type="AnimationPlayer" parent="."]
-anims/Hover = SubResource( 4 )
+anims/Hover = SubResource( 3 )
 
 [node name="motion" type="AnimationPlayer" parent="."]
-anims/Motion = SubResource( 5 )
+anims/Motion = SubResource( 4 )
 [connection signal="pressed" from="." to="." method="_on_Button_pressed"]
