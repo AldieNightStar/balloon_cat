@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Joystick/ScreenCat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/Joystick/circle_small.png" type="Texture" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -37,6 +38,8 @@ func stop():
 func _physics_process(delta):
 	if _go:
 		position.x += speed
+	if !_cat_died:
+		_update_cat_holder()
 
 func _cat_died():
 	emit_signal(\"died\")
@@ -77,16 +80,17 @@ func _cat_reborn():
 	_cat_died = false
 	_menu = false
 
-
 func _on_Timer_timeout():
 	if speed < max_speed:
 		speed += 0.1
 
-func _global_joystick_change(v):
-	G.emit_signal(\"_on_joystick_change\", v)
-
 func _on_new_record(name, num):
 	G.play(\"gem.ogg\")
+
+func _update_cat_holder():
+	if !_cat_died:
+		var pos = $cat.global_position + Vector2(-100, -40)
+		$CatHolder.global_position = pos
 "
 
 [sub_resource type="GDScript" id=2]
@@ -309,5 +313,11 @@ autostart = true
 
 [node name="KillerCounter" type="Node2D" parent="."]
 script = SubResource( 12 )
+
+[node name="CatHolder" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.180392 )
+position = Vector2( -501.829, 4.5397 )
+scale = Vector2( 0.308945, 0.30095 )
+texture = ExtResource( 6 )
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

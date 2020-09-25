@@ -6,7 +6,7 @@ script/source = "extends Node2D
 var holder
 var pressed = false
 
-export var cat_zero_position = Vector2(-400, -150)
+export var cat_zero_position = Vector2(-300, -150) # was: Vector2(-400, -150)
 
 func _ready():
 	holder = get_parent().get_parent()

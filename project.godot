@@ -46,7 +46,6 @@ _global_script_class_icons={
 
 config/name="BalloonCat"
 run/main_scene="res://Levels/MainMenu.tscn"
-config/icon="res://icon.png"
 
 [audio]
 
