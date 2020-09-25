@@ -26,6 +26,7 @@ func setup():
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
+	G.gameData.records.connect(\"new_record\", self, \"_on_new_record\")
 
 func start():
 	_go = true
@@ -83,6 +84,9 @@ func _on_Timer_timeout():
 
 func _global_joystick_change(v):
 	G.emit_signal(\"_on_joystick_change\", v)
+
+func _on_new_record(name, num):
+	G.play(\"gem.ogg\")
 "
 
 [sub_resource type="GDScript" id=2]

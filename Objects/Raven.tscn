@@ -61,6 +61,7 @@ func damage(n):
 			G.spawn(\"Bang\", get_parent(), global_position)
 			G.play(\"enemy_down.wav\")
 			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_RAVEN)
+			G.gameData.records.emit_signal(\"new_record\")
 
 
 func _on_notifier_screen_entered():
