@@ -17,6 +17,7 @@
 script/source = "extends Node2D
 
 var t : Tween
+var _last_level_locked = null
 
 func _ready():
 	call_deferred(\"setup\")
@@ -75,12 +76,27 @@ func setup():
 	
 func update_level_availableness():
 	var playNode = get_node(\"Pos_Play\")
+	_last_level_locked = null
 	# From 1 to 5
 	for i in range(1, 6):
 		var button = playNode.get_node(\"Level\"+str(i))
 		var level_unlocked = G.gameData.is_level_unlocked(i)
+		if _last_level_locked == null and !level_unlocked:
+			_last_level_locked = i
 		if button != null:
 			button.set_available(level_unlocked)
+	var unlocker = playNode.get_node(\"UnlockLevel\")
+	if unlocker == null:
+		return
+	if _last_level_locked != null:
+		unlocker.connect(\"pressed\", self, \"_unlockLevel\")
+		unlocker.set_text(
+			\"Unlock <<\" + str(_last_level_locked) + \">> Level: \" +
+			str(_unlock_cost(_last_level_locked)) + \"$\"
+		)
+	else:
+		unlocker.queue_free()
+	
 
 func move_to(node):
 	if !t.is_active():
@@ -114,6 +130,18 @@ func _snd_vol(n):
 
 func _on_level_unlocked(lvl_number):
 	update_level_availableness()
+
+func _unlock_cost(lvl_number):
+	return 350 * lvl_number
+
+func _unlockLevel():
+	if _last_level_locked == null:
+		return
+	var cost = _unlock_cost(_last_level_locked)
+	if G.gameData.sub_coins(cost):
+		G.play(\"gem.ogg\")
+		G.gameData.unlock_level(_last_level_locked)
+	
 "
 
 [sub_resource type="GDScript" id=2]
@@ -161,7 +189,7 @@ func _ready():
 	call_deferred(\"_coins_update\")
 	G.gameData.connect(\"coins_update\", self, \"_coins_update\")
 
-func _coins_update():
+func _coins_update(n):
 	text = str(G.gameData.get_coins())
 "
 
@@ -311,6 +339,10 @@ label = "4"
 [node name="Level5" parent="Pos_Play" instance=ExtResource( 3 )]
 position = Vector2( 150, 150 )
 label = "5"
+
+[node name="UnlockLevel" parent="Pos_Play" instance=ExtResource( 3 )]
+position = Vector2( 104.643, -17.5696 )
+label = "Unlock next Level"
 
 [node name="Label" type="Label" parent="Pos_Play"]
 margin_left = 60.609

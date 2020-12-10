@@ -142,6 +142,7 @@ func is_level_unlocked(n: int):
 func unlock_level(n: int):
 	if n <= 1:
 		return
-	if !is_level_unlocked(n):
-		emit_signal("level_unlocked", n)
+	var was_unlocked = is_level_unlocked(n)
 	set_value("lvl_unlocked" + str(n), true)
+	if !was_unlocked:
+		emit_signal("level_unlocked", n)
