@@ -19,6 +19,6 @@ func fire(player: Node2D, level: Node2D):
 [node name="Wood_Sling" type="Node2D"]
 script = SubResource( 1 )
 
-[node name="rogatka" type="Sprite" parent="."]
+[node name="spr" type="Sprite" parent="."]
 position = Vector2( -0.066927, 0.0752525 )
 texture = ExtResource( 1 )

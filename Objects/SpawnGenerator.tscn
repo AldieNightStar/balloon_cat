@@ -7,6 +7,9 @@ export var levelName = \"Level01\"
 export var count = 5
 export var step = 400
 
+func _ready():
+	G.levelName = levelName
+
 func spawn():
 	randomize()
 	var r    = (randi() % count) + 1

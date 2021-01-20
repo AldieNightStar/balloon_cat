@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bonus_balloon.ogg-9452dae1cf307549069a344cd82fc627.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/bonus_balloon.ogg"
+dest_files=[ "res://.import/bonus_balloon.ogg-9452dae1cf307549069a344cd82fc627.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

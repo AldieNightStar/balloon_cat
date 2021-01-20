@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+
+export var damage_player = false
+export var active = false
+export var damage_val = 1
+
+func _ready():
+	connect(\"body_shape_entered\", self, \"_touch\")
+	connect(\"body_entered\", self, \"_touch\")
+	$timer.connect(\"timeout\", self, \"_timeout\")
+
+func activate():
+	$shape.disabled = false
+	$timer.start()
+
+func _touch(body):
+	if body:
+		if body.get(\"is_player\") and !damage_player:
+			return
+		if body.has_method(\"damage\"):
+			body.damage(damage_val)
+
+func _timeout():
+	$shape.disabled = true
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="damager" type="Area2D"]
+script = SubResource( 1 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+disabled = true
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

@@ -1,14 +1,17 @@
 extends Node
 
 # Additional Classes
-var saving = SavingGame.new()
-var gameData = GameData.new()
+var saving   : SavingGame = SavingGame.new()
+var gameData : GameData   = GameData.new()
+var dialogs  : Dialogs    = Dialogs.new()
 
-var levelName = "Level01"
-var game_just_started = true
+var levelName : String = "Level01"
+var game_just_started : bool = true
+var buttons_locked : bool = false
 
 signal sound_play(name)
-signal _on_joystick_change(vector2)
+signal screen_cat_update(posVector2)
+signal kill_enemy(enemy_name)
 
 const SAVE_FILE_NAME = "game"
 

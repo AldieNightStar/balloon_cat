@@ -1,0 +1,295 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/Background/Level02/fon_lv2_det1.png" type="Texture" id=1]
+[ext_resource path="res://assets/Background/Level02/fon_lv2_det2.png" type="Texture" id=2]
+[ext_resource path="res://assets/Background/Level02/fon_lv2_det3.png" type="Texture" id=3]
+[ext_resource path="res://assets/Background/firefly.png" type="Texture" id=4]
+[ext_resource path="res://assets/Background/Level02/fin_lv2_det4.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "flying"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("firefly:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2, 2.5, 2.7, 3, 3.2, 3.7, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 197.741, 322.393 ), Vector2( 179.241, 304.893 ), Vector2( 145.741, 320.393 ), Vector2( 97, 325.393 ), Vector2( 125, 371.393 ), Vector2( 171, 342.893 ), Vector2( 156.5, 338.893 ), Vector2( 205, 336.893 ), Vector2( 185, 345.893 ), Vector2( 176.5, 326.393 ), Vector2( 197.741, 322.393 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("firefly4:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.6, 2, 3.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 365.599, 338.023 ), Vector2( 307.099, 304.523 ), Vector2( 357.299, 327.723 ), Vector2( 338.683, 335.94 ), Vector2( 385.679, 318.294 ), Vector2( 365.599, 338.023 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("firefly2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 504.188, 334.659 ), Vector2( 495.188, 320.659 ), Vector2( 522.87, 335.053 ), Vector2( 460.65, 353.38 ), Vector2( 504.188, 334.659 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("firefly3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.1, 1.6, 2.1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 672.527, 339.705 ), Vector2( 691.431, 272.514 ), Vector2( 711.979, 284.86 ), Vector2( 752.527, 279.205 ), Vector2( 723.132, 307.363 ), Vector2( 672.527, 339.705 ) ]
+}
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends AnimationPlayer
+
+func _ready():
+	play(\"flying\")
+"
+
+[sub_resource type="Animation" id=3]
+resource_name = "flying"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("firefly:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2, 2.5, 2.7, 3, 3.2, 3.7, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 197.741, 322.393 ), Vector2( 179.241, 304.893 ), Vector2( 145.741, 320.393 ), Vector2( 97, 325.393 ), Vector2( 125, 371.393 ), Vector2( 171, 342.893 ), Vector2( 156.5, 338.893 ), Vector2( 205, 336.893 ), Vector2( 185, 345.893 ), Vector2( 176.5, 326.393 ), Vector2( 197.741, 322.393 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("firefly4:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.6, 2, 3.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 365.599, 338.023 ), Vector2( 307.099, 304.523 ), Vector2( 357.299, 327.723 ), Vector2( 338.683, 335.94 ), Vector2( 385.679, 318.294 ), Vector2( 365.599, 338.023 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("firefly2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 504.188, 334.659 ), Vector2( 495.188, 320.659 ), Vector2( 522.87, 335.053 ), Vector2( 460.65, 353.38 ), Vector2( 504.188, 334.659 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("firefly3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.1, 1.6, 2.1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 672.527, 339.705 ), Vector2( 691.431, 272.514 ), Vector2( 711.979, 284.86 ), Vector2( 752.527, 279.205 ), Vector2( 723.132, 307.363 ), Vector2( 672.527, 339.705 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "flying"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("firefly:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1.5, 2, 2.5, 2.7, 3, 3.2, 3.7, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 197.741, 322.393 ), Vector2( 179.241, 304.893 ), Vector2( 145.741, 320.393 ), Vector2( 97, 325.393 ), Vector2( 125, 371.393 ), Vector2( 171, 342.893 ), Vector2( 156.5, 338.893 ), Vector2( 205, 336.893 ), Vector2( 185, 345.893 ), Vector2( 176.5, 326.393 ), Vector2( 197.741, 322.393 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("firefly4:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.6, 2, 3.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 365.599, 338.023 ), Vector2( 307.099, 304.523 ), Vector2( 357.299, 327.723 ), Vector2( 338.683, 335.94 ), Vector2( 385.679, 318.294 ), Vector2( 365.599, 338.023 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("firefly2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5, 2.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 504.188, 334.659 ), Vector2( 495.188, 320.659 ), Vector2( 522.87, 335.053 ), Vector2( 460.65, 353.38 ), Vector2( 504.188, 334.659 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("firefly3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.1, 1.6, 2.1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 672.527, 339.705 ), Vector2( 691.431, 272.514 ), Vector2( 711.979, 284.86 ), Vector2( 752.527, 279.205 ), Vector2( 723.132, 307.363 ), Vector2( 672.527, 339.705 ) ]
+}
+
+[node name="Paralax_Level2" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 0, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.14902, 0.176471, 0.290196, 1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 459.611, 199.935 )
+scale = Vector2( 1.10422, 1.03881 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 0.1, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+modulate = Color( 0.403922, 0.403922, 0.403922, 1 )
+motion_mirroring = Vector2( 815, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 413.404, 236.759 )
+scale = Vector2( 1.00474, 1.67967 )
+texture = ExtResource( 3 )
+
+[node name="g1" type="Node2D" parent="ParallaxBackground2/ParallaxLayer"]
+
+[node name="firefly" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g1"]
+position = Vector2( 197.054, 322.522 )
+texture = ExtResource( 4 )
+
+[node name="firefly2" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g1"]
+position = Vector2( 503.887, 334.789 )
+texture = ExtResource( 4 )
+
+[node name="firefly3" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g1"]
+position = Vector2( 673.017, 339.391 )
+texture = ExtResource( 4 )
+
+[node name="firefly4" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g1"]
+position = Vector2( 365.877, 337.75 )
+texture = ExtResource( 4 )
+
+[node name="fireflies" type="AnimationPlayer" parent="ParallaxBackground2/ParallaxLayer/g1"]
+anims/flying = SubResource( 1 )
+script = SubResource( 2 )
+
+[node name="g2" type="Node2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 872.015, 28.4678 )
+scale = Vector2( -1, 1 )
+
+[node name="firefly" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g2"]
+position = Vector2( 179.493, 333.26 )
+texture = ExtResource( 4 )
+
+[node name="firefly2" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g2"]
+position = Vector2( 489.383, 341.026 )
+texture = ExtResource( 4 )
+
+[node name="firefly3" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g2"]
+position = Vector2( 696.619, 324.307 )
+texture = ExtResource( 4 )
+
+[node name="firefly4" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g2"]
+position = Vector2( 379.256, 324.605 )
+texture = ExtResource( 4 )
+
+[node name="fireflies" type="AnimationPlayer" parent="ParallaxBackground2/ParallaxLayer/g2"]
+anims/flying = SubResource( 3 )
+script = SubResource( 2 )
+
+[node name="g3" type="Node2D" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 686.225, -76.4137 )
+scale = Vector2( -1, 1 )
+
+[node name="firefly" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g3"]
+position = Vector2( 179.493, 333.26 )
+texture = ExtResource( 4 )
+
+[node name="firefly2" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g3"]
+position = Vector2( 489.383, 341.026 )
+texture = ExtResource( 4 )
+
+[node name="firefly3" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g3"]
+position = Vector2( 696.619, 324.307 )
+texture = ExtResource( 4 )
+
+[node name="firefly4" type="Sprite" parent="ParallaxBackground2/ParallaxLayer/g3"]
+position = Vector2( 379.256, 324.605 )
+texture = ExtResource( 4 )
+
+[node name="fireflies" type="AnimationPlayer" parent="ParallaxBackground2/ParallaxLayer/g3"]
+anims/flying = SubResource( 4 )
+script = SubResource( 2 )
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 0.2, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground3"]
+modulate = Color( 0.203922, 0.160784, 0.160784, 1 )
+motion_mirroring = Vector2( 815, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground3/ParallaxLayer"]
+position = Vector2( 401.517, 228.075 )
+scale = Vector2( 0.963881, 1.17019 )
+texture = ExtResource( 2 )
+
+[node name="ParallaxBackground4" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 1, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground4"]
+modulate = Color( 0.203922, 0.160784, 0.160784, 1 )
+motion_mirroring = Vector2( 815, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground4/ParallaxLayer"]
+position = Vector2( 393.108, 170.894 )
+scale = Vector2( 0.963881, 1.17019 )
+texture = ExtResource( 5 )

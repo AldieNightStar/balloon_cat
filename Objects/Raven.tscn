@@ -60,6 +60,8 @@ func damage(n):
 			G.spawn(\"BonusCoin\", get_parent(), global_position)
 			G.spawn(\"Bang\", get_parent(), global_position)
 			G.play(\"enemy_down.wav\")
+			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_RAVEN)
+			G.gameData.records.emit_signal(\"new_record\")
 
 
 func _on_notifier_screen_entered():
@@ -81,8 +83,8 @@ animations = [ {
 script = SubResource( 1 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
-position = Vector2( 1.4851, 2.05888 )
-scale = Vector2( 0.924356, 0.871277 )
+position = Vector2( 2.58388, 0.349665 )
+scale = Vector2( 0.723967, 0.508266 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

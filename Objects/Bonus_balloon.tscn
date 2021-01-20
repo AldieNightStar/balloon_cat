@@ -11,6 +11,7 @@ func _ready():
 func touch(body):
 	if (body.get(\"is_player\") and body.has_method(\"add_health\") and body.has_method(\"make_invincible\")):
 		body.add_health(1)
+		G.play(\"bonus_balloon.ogg\")
 		queue_free()
 "
 

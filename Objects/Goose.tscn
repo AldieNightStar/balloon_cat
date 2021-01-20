@@ -41,8 +41,11 @@ func damage(n):
 			G.spawn(\"BonusCoin\", get_parent(), global_position)
 			G.spawn(\"Bang\", get_parent(), global_position)
 			G.play(\"enemy_down.wav\")
+			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_GOOSE)
 
 func touch(body):
+	if dead:
+		return
 	if (body.get(\"is_player\") and body.has_method(\"damage\")):
 		body.damage(1)
 
@@ -63,11 +66,12 @@ animations = [ {
 } ]
 
 [node name="Goose" type="KinematicBody2D"]
+position = Vector2( -10.7951, 3.72687 )
 script = SubResource( 1 )
 
 [node name="Collision_goose" type="CollisionShape2D" parent="."]
-position = Vector2( 17.3594, -0.65216 )
-scale = Vector2( 0.577624, 1.22674 )
+position = Vector2( 12.7661, -1.6746 )
+scale = Vector2( 0.586829, 0.886229 )
 shape = SubResource( 2 )
 
 [node name="Animated_goose" type="AnimatedSprite" parent="."]

@@ -44,6 +44,7 @@ func damage(n):
 		G.spawn(\"Bang\", get_parent(), global_position)
 		$anim.play(\"Hide\")
 		G.play(\"enemy_down.wav\")
+		G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_RABBIT)
 "
 
 [sub_resource type="RectangleShape2D" id=2]

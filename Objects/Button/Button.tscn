@@ -7,11 +7,21 @@
 [sub_resource type="GDScript" id=2]
 script/source = "extends TouchScreenButton
 
+var available = true
+
 func _ready():
 	$motion.play(\"Motion\")
 
 func _on_Button_pressed():
-	$ani.play(\"Hover\")
+	if available:
+		$ani.play(\"Hover\")
+
+func set_available(b: bool):
+	available = b
+	if available:
+		$Sprite.modulate = Color.white
+	else:
+		$Sprite.modulate = Color.black
 "
 
 [sub_resource type="Animation" id=3]

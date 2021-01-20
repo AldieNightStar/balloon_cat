@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/shield/shield1.png" type="Texture" id=1]
+[ext_resource path="res://assets/shield/shield2.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Area2D
+
+var protecting = false
+var _tween : Tween
+var _speed : float = 1
+
+signal protection_ended()
+
+func start_protection(seconds):
+	_tween = Tween.new()
+	add_child(_tween)
+	_tween.connect(\"tween_completed\", self, \"_end\")
+	_tween.interpolate_property(self, \"_speed\", 1, 100, seconds)
+	_tween.start()
+	protecting = true
+
+func _end(o, k):
+	# TODO: We can add some animation here
+	emit_signal(\"protection_ended\")
+	queue_free()
+
+func _on_Timer_timeout():
+	if protecting:
+		$spr.frames.set_animation_speed(\"default\", _speed)
+
+
+func _on_Shield_body_shape_entered(body_id, body, body_shape, area_shape):
+	if !protecting:
+		return
+	if body.get(\"is_player\"):
+		return
+	if !body.has_method(\"damage\"):
+		return
+	body.damage(5)
+"
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="Shield" type="Area2D"]
+script = SubResource( 3 )
+
+[node name="shape" type="CollisionShape2D" parent="."]
+scale = Vector2( 18, 18 )
+shape = SubResource( 1 )
+
+[node name="spr" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = SubResource( 2 )
+playing = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+[connection signal="body_shape_entered" from="." to="." method="_on_Shield_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

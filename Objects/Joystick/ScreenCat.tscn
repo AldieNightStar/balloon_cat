@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var holder
+var pressed = false
+
+export var cat_zero_position = Vector2(-300, -150) # was: Vector2(-400, -150)
+
+func _ready():
+	holder = get_parent().get_parent()
+
+func _process(delta):
+	if holder == null:
+		pass
+	if !pressed:
+		return
+	var pos = get_global_mouse_position()
+	if pos.x < 0:
+		pos.x = 0
+	if pos.y < 0:
+		pos.y = 0
+	G.emit_signal(\"screen_cat_update\", pos + cat_zero_position)
+	
+
+func _input(event):
+	if event is InputEventMouseButton or event is TouchScreenButton:
+		pressed = event.is_pressed()
+"
+
+[node name="ScreenCat" type="Node2D"]
+script = SubResource( 1 )

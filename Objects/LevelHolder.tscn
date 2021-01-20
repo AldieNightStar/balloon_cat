@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Button/LabelButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Joystick/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Joystick/ScreenCat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/Joystick/circle_small.png" type="Texture" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -26,16 +27,7 @@ func setup():
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
-	
-	# Setup joystick movement
-	$clayer/Joystick.connect(\"on_change\", self, \"_global_joystick_change\")
-	
-	# Make joystick big if settings say that
-	if G.gameData.get_joystick_is_big():
-		$clayer/Joystick.global_position += Vector2(50, -50)
-		$clayer/Joystick.scale = Vector2(1.75, 1.75)
-		$clayer/Joystick.update_parent_pos()
-		$clayer/Joystick.modulate.a = .25
+	G.gameData.records.connect(\"new_record\", self, \"_on_new_record\")
 
 func start():
 	_go = true
@@ -46,6 +38,8 @@ func stop():
 func _physics_process(delta):
 	if _go:
 		position.x += speed
+	if !_cat_died:
+		_update_cat_holder()
 
 func _cat_died():
 	emit_signal(\"died\")
@@ -61,6 +55,9 @@ func score_add(n):
 
 func score_get():
 	return $Score.score_get()
+
+func score_set(n):
+	$Score.score_set(n)
 
 func spawn_menu(closeable = false):
 	if _menu: return
@@ -83,13 +80,17 @@ func _cat_reborn():
 	_cat_died = false
 	_menu = false
 
-
 func _on_Timer_timeout():
 	if speed < max_speed:
 		speed += 0.1
 
-func _global_joystick_change(v):
-	G.emit_signal(\"_on_joystick_change\", v)
+func _on_new_record(name, num):
+	G.play(\"gem.ogg\")
+
+func _update_cat_holder():
+	if !_cat_died:
+		var pos = $cat.global_position + Vector2(-100, -40)
+		$CatHolder.global_position = pos
 "
 
 [sub_resource type="GDScript" id=2]
@@ -191,8 +192,24 @@ func _sound(name):
 	play()
 "
 
+[sub_resource type="GDScript" id=12]
+script/source = "extends Node2D
+
+func _ready():
+	G.connect(\"kill_enemy\", self, \"_kill\")
+	G.gameData.records.connect(\"new_record\", self, \"_record\")
+
+func _kill(name):
+	G.gameData.set_kills(name, G.gameData.get_kills(name, 0) + 1)
+
+func _record(name, n):
+	# TODO: Play some sound of beaten record
+	# TODO: Adds some effects
+	G.gameData.set_gems(G.gameData.get_gems() + 1)
+"
+
 [node name="LevelHolder" type="Node2D"]
-position = Vector2( 401.582, 198.015 )
+position = Vector2( 391.905, 173.343 )
 script = SubResource( 1 )
 
 [node name="clayer" type="CanvasLayer" parent="."]
@@ -220,13 +237,12 @@ __meta__ = {
 [node name="Anim" type="AnimationPlayer" parent="clayer"]
 anims/Score_Update = SubResource( 4 )
 
-[node name="Joystick" parent="clayer" instance=ExtResource( 4 )]
-position = Vector2( 80.3893, 297.938 )
-scale = Vector2( 1.5, 1.5 )
-
 [node name="Button-Fire" parent="clayer" instance=ExtResource( 5 )]
 position = Vector2( 746.71, 314.578 )
 scale = Vector2( 1.10957, 1.08071 )
+
+[node name="ScreenCat" parent="clayer" instance=ExtResource( 4 )]
+position = Vector2( 401.582, 198.015 )
 
 [node name="camera" type="Camera2D" parent="."]
 visible = false
@@ -234,7 +250,7 @@ position = Vector2( -3, 0 )
 scale = Vector2( 4.3337, 3.38059 )
 
 [node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -472.023, -3.17723 )
+position = Vector2( -440.994, 0 )
 scale = Vector2( 0.982981, 0.98601 )
 
 [node name="Min_W" type="Node2D" parent="."]
@@ -294,5 +310,14 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="KillerCounter" type="Node2D" parent="."]
+script = SubResource( 12 )
+
+[node name="CatHolder" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.180392 )
+position = Vector2( -501.829, 4.5397 )
+scale = Vector2( 0.308945, 0.30095 )
+texture = ExtResource( 6 )
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
