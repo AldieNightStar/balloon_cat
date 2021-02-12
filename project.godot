@@ -10,6 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "AdMob",
+"language": "GDScript",
+"path": "res://admob-lib/admob.gd"
+}, {
+"base": "Node",
+"class": "Advertisings",
+"language": "GDScript",
+"path": "res://Advertising/Advertising.gd"
+}, {
+"base": "Node",
 "class": "Dialogs",
 "language": "GDScript",
 "path": "res://Objects/Logic/Dialogs.gd"
@@ -35,12 +45,18 @@ _global_script_classes=[ {
 "path": "res://Objects/Logic/Saving.gd"
 } ]
 _global_script_class_icons={
+"AdMob": "res://admob-lib/icon.png",
+"Advertisings": "",
 "Dialogs": "",
 "GameData": "",
 "Inventory": "",
 "RecordsData": "",
 "SavingGame": ""
 }
+
+[android]
+
+modules="org/godotengine/godot/GodotAdMob"
 
 [application]
 
