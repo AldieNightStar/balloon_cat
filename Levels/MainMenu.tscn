@@ -20,7 +20,6 @@ var t : Tween
 var _last_level_locked = null
 
 func _ready():
-	Advertisings.get_ads()
 	call_deferred(\"setup\")
 	if G.game_just_started:
 		call_deferred(\"load_game\")
