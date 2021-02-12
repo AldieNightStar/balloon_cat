@@ -17,6 +17,7 @@ export var _score = 0
 var _go = false
 var _menu = false
 var _cat_died = false
+var ad = null
 
 signal died()
 
@@ -24,10 +25,17 @@ func _ready():
 	call_deferred(\"setup\")
 	
 func setup():
+	ad = G.ads.get_ads()
+	if ad != null:
+		ad.connect(\"banner_loaded\", self, \"_on_banner_loaded\")
+		ad.load_banner()
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
 	G.gameData.records.connect(\"new_record\", self, \"_on_new_record\")
+
+func _on_banner_loaded():
+	ad.show_banner()
 
 func start():
 	_go = true
