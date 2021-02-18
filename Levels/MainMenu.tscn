@@ -496,7 +496,9 @@ script = SubResource( 9 )
 
 [node name="ad" type="Node" parent="."]
 script = ExtResource( 13 )
+is_real = true
 banner_on_top = false
+banner_size = "SMART_BANNER"
 banner_id = "ca-app-pub-7967787233229977/9369058091"
 rewarded_id = "ca-app-pub-7967787233229977/6234901941"
 [connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]
