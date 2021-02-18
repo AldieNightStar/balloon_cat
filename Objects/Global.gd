@@ -4,7 +4,6 @@ extends Node
 var saving   : SavingGame   = SavingGame.new()
 var gameData : GameData     = GameData.new()
 var dialogs  : Dialogs      = Dialogs.new()
-var ads      : Advertisings = Advertisings.new()
 
 var levelName : String = "Level01"
 var game_just_started : bool = true

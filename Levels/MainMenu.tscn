@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Objects/Button/Button.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/BonusCoin/coins1.png" type="Texture" id=10]
 [ext_resource path="res://assets/Gems/red_gem.png" type="Texture" id=11]
 [ext_resource path="res://assets/Background/board.png" type="Texture" id=12]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=13]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -28,6 +29,10 @@ func _ready():
 
 func setup():
 	t = get_node(\"Tween\")
+	
+	# Admob
+	$ad.connect(\"banner_loaded\", self, \"__on_ad_banner_load\")
+	$ad.load_banner()
 	
 	# Wait for game loading
 	if G.game_just_started:
@@ -141,7 +146,11 @@ func _unlockLevel():
 	if G.gameData.sub_coins(cost):
 		G.play(\"gem.ogg\")
 		G.gameData.unlock_level(_last_level_locked)
-	
+
+
+## Ads
+func __on_ad_banner_load():
+	$ad.show_banner()
 "
 
 [sub_resource type="GDScript" id=2]
@@ -484,4 +493,10 @@ anims/Scroll = SubResource( 8 )
 wait_time = 5.0
 autostart = true
 script = SubResource( 9 )
+
+[node name="ad" type="Node" parent="."]
+script = ExtResource( 13 )
+banner_on_top = false
+banner_id = "ca-app-pub-7967787233229977/9369058091"
+rewarded_id = "ca-app-pub-7967787233229977/6234901941"
 [connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]

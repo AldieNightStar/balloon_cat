@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Objects/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Fonts/zorque.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Objects/Joystick/ScreenCat.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Button/Button-Fire.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/Joystick/circle_small.png" type="Texture" id=6]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -25,17 +26,17 @@ func _ready():
 	call_deferred(\"setup\")
 	
 func setup():
-	ad = G.ads.get_ads()
-	if ad != null:
-		ad.connect(\"banner_loaded\", self, \"_on_banner_loaded\")
-		ad.load_banner()
+	# Setup Admob
+	$ad.load_banner()
+	$ad.connect(\"banner_loaded\", self, \"__banner_loaded\")
+	# Setup Game
 	$camera.current = true
 	$cat.connect(\"died\", self, \"_cat_died\")
 	$clayer/MenuButton.connect(\"pressed\", self, \"spawn_menu\", [true])
 	G.gameData.records.connect(\"new_record\", self, \"_on_new_record\")
 
-func _on_banner_loaded():
-	ad.show_banner()
+func __banner_loaded():
+	$ad.show_banner()
 
 func start():
 	_go = true
@@ -327,5 +328,12 @@ self_modulate = Color( 1, 1, 1, 0.180392 )
 position = Vector2( -501.829, 4.5397 )
 scale = Vector2( 0.308945, 0.30095 )
 texture = ExtResource( 6 )
+
+[node name="ad" type="Node" parent="."]
+script = ExtResource( 7 )
+banner_on_top = false
+banner_size = "SMART_BANNER"
+banner_id = "ca-app-pub-7967787233229977/9369058091"
+rewarded_id = "ca-app-pub-7967787233229977/6234901941"
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
