@@ -343,13 +343,12 @@ texture = ExtResource( 6 )
 [node name="ad" type="Node" parent="."]
 script = ExtResource( 7 )
 is_real = true
-banner_on_top = false
-banner_size = "SMART_BANNER"
+banner_size = "BANNER"
 banner_id = "ca-app-pub-7967787233229977/9369058091"
 rewarded_id = "ca-app-pub-7967787233229977/6234901941"
 
 [node name="banner_loader" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 autostart = true
 [connection signal="score_updated" from="Score" to="clayer/score" method="_on_Score_score_updated"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
