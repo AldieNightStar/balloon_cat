@@ -24,8 +24,9 @@ const RECORD_RAVEN  = "raven"
 const RECORD_GOOSE  = "goose"
 const RECORD_RABBIT = "rabbit"
 const RECORD_OWL    = "owl"
+const RECORD_BAT    = "bat"
 
-const allowed_recs = [RECORD_RAVEN, RECORD_GOOSE, RECORD_RABBIT, RECORD_OWL]
+const allowed_recs = [RECORD_RAVEN, RECORD_GOOSE, RECORD_RABBIT, RECORD_OWL, RECORD_BAT]
 
 func rec_allowed(rec):
 	return rec in allowed_recs

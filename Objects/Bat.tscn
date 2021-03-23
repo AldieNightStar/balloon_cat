@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Bat/bat3.png" type="Texture" id=1]
+[ext_resource path="res://assets/Bat/bat1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Bat/bat2.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+export var speed = 1
+export var damage = 2
+
+var hp = 2
+var dead = false
+var active = false
+
+func destruct():
+	queue_free()
+
+func damage(n):
+	if !dead:
+		hp -= n
+		G.play(\"enemy_down.wav\")
+		G.spawn(\"Bang\", get_parent(), global_position)
+		if hp <= 0:
+			dead = true
+			G.spawn(\"BonusCoin\", get_parent(), global_position)
+			G.emit_signal(\"kill_enemy\", G.gameData.records.RECORD_BAT)
+
+func _physics_process(delta):
+	if !active: return
+	if dead:
+		var c : KinematicCollision2D = move_and_collide(Vector2(0, 5))
+		$spr.rotation_degrees += 5
+		if c and c.collider:
+			add_collision_exception_with(c.collider)
+		return
+	var c = move_and_collide(Vector2(-speed, 0))
+
+func touch(body):
+	if dead: return
+	if (body.get(\"is_player\") and body.has_method(\"damage\")):
+		body.damage(damage)
+
+
+func _on_notifier_screen_entered():
+	active = true
+"
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[node name="bat" type="KinematicBody2D"]
+script = SubResource( 1 )
+
+[node name="spr" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 1
+playing = true
+
+[node name="shape" type="CollisionShape2D" parent="."]
+scale = Vector2( 2.0162, 0.715166 )
+shape = SubResource( 3 )
+
+[node name="notifier" type="VisibilityNotifier2D" parent="."]
+[connection signal="screen_entered" from="notifier" to="." method="_on_notifier_screen_entered"]

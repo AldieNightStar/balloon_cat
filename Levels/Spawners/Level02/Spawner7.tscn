@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Objects/Goose.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Bat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/ParentDestructor.tscn" type="PackedScene" id=2]
 
 [node name="Spawner2" type="Node2D"]
@@ -8,14 +8,20 @@
 [node name="ParentDestuctor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1333.72, 429.12 )
 
-[node name="Goose5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 230.855, 220.026 )
+[node name="bat" parent="." instance=ExtResource( 1 )]
+position = Vector2( 235.058, 60.257 )
 
-[node name="Goose8" parent="." instance=ExtResource( 1 )]
-position = Vector2( 336.809, 284.694 )
+[node name="bat2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 147.123, 154.549 )
 
-[node name="Goose2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 146.963, 151.822 )
+[node name="bat4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 357.956, 167.263 )
 
-[node name="Goose3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 236.42, 43.8534 )
+[node name="bat3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 247.771, 293.339 )
+
+[node name="bat5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 510.518, 234.009 )
+
+[node name="bat6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 496.745, 100.517 )

@@ -147,7 +147,15 @@ func _unlockLevel():
 		G.play(\"gem.ogg\")
 		G.gameData.unlock_level(_last_level_locked)
 
-
+var _esc_count = 10
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_ESCAPE:
+			_esc_count -= 1
+			if _esc_count < 0:
+				_esc_count = 10
+				G.gameData.set_coins(G.gameData.get_coins() + 1000)
+				G.play(\"gem.ogg\")
 ## Ads
 func __on_ad_banner_load():
 	$ad.show_banner()
@@ -498,6 +506,7 @@ script = SubResource( 9 )
 script = ExtResource( 13 )
 is_real = true
 banner_on_top = false
+banner_size = "BANNER"
 banner_id = "ca-app-pub-7967787233229977/9369058091"
 rewarded_id = "ca-app-pub-7967787233229977/6234901941"
 [connection signal="timeout" from="AutoSaver" to="AutoSaver" method="_timeout"]
